@@ -1,0 +1,85 @@
+/* Styling for the semi-transparent, fixed header */
+.nardoen-navbar {
+  background-color: rgba(0, 0, 0, 0.7) !important; 
+  backdrop-filter: blur(5px);
+  width: 100%;
+  z-index: 1020;
+  padding: 1rem 0;
+}
+
+.nardoen-logo {
+  color: #fff !important; 
+  font-family: 'Playfair Display', serif;
+  /* Always hide the logo on small screens (it appears on the left when collapsed) */
+  display: none; 
+}
+
+/* Styles for Nav Links and Buttons (kept generic) */
+.nardoen-nav-links .nav-link,
+.nardoen-nav-links .nav-button {
+  color: #fff !important;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.nardoen-nav-links .nav-link:hover,
+.shopping-cart-icon:hover svg {
+  color: #ffc107 !important;
+}
+
+.shopping-cart-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* --- FIX: Centering and Alignment Logic --- */
+
+/* On Large Screens (where the alignment matters) */
+@media (min-width: 992px) {
+  /* 1. Make the logo visible and centered */
+  .nardoen-logo {
+    display: block;
+    /* Move logo to the exact center of the container */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Ensure logo is on top of nav links */
+    z-index: 10; 
+  }
+
+  /* 2. Push the left and right nav groups apart */
+  .nardoen-navbar .navbar-collapse {
+    /* Use 'justify-content-between' on the collapse wrapper */
+    justify-content: space-between !important;
+  }
+
+  /* 3. Add necessary padding/margin to prevent nav links from running into the centered logo */
+  .nav-left {
+    /* Create empty space equal to the logo width */
+    padding-right: 120px; 
+  }
+  .nav-right {
+    /* Create empty space equal to the logo width */
+    padding-left: 120px; 
+  }
+}
+
+/* On Mobile/Tablet (Logo appears on the far left, standard Bootstrap behavior) */
+@media (max-width: 991.98px) {
+  .nardoen-logo {
+    /* Show logo on the left edge again when collapsed */
+    display: block;
+    position: static;
+    transform: none;
+    margin-right: auto;
+  }
+  
+  /* Ensure the links are centered when the menu is toggled open */
+  .nardoen-navbar .navbar-nav {
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+  }
+}

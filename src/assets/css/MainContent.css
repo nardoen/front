@@ -1,0 +1,81 @@
+.main-content-wrapper {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh; /* Full viewport height */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Add padding-top to account for the fixed header */
+  padding-top: 56px; /* Adjust this value if your header is taller */
+}
+
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  z-index: 1; 
+}
+
+.content-container {
+  position: relative; 
+  z-index: 2;
+  padding: 80px 15px; /* Add some vertical padding for mobile */
+}
+
+/* Beautiful Fonts */
+.welcome-text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #f8f9fa;
+}
+
+.company-name {
+  font-family: 'Playfair Display', serif; /* The main elegant font */
+  font-size: 4.5rem; 
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+  line-height: 1.1;
+}
+
+.description-text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #e9ecef;
+}
+
+.contact-us-button {
+  /* Yellow Button style from your image */
+  background-color: #ffc107; 
+  border-color: #ffc107;
+  color: #333; 
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  padding: 12px 35px;
+  border-radius: 50px; /* More rounded for a softer look */
+  text-transform: uppercase;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .company-name {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .company-name {
+    font-size: 2.2rem;
+  }
+  .description-text {
+    font-size: 1rem;
+  }
+}

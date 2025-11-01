@@ -1,0 +1,166 @@
+/* ------------------------------------------------------------- */
+/* 1. OUTER CONTAINER (100% width, light background) */
+/* ------------------------------------------------------------- */
+.services-section {
+  padding-bottom: 40px;
+  background: linear-gradient(135deg, #fffbe9 0%, #f7f3ed 100%);
+  width: 100%;
+  margin: 0;
+}
+
+/* ------------------------------------------------------------- */
+/* 2. INNER BLOCK WRAPPER (60% width of viewport, centered) */
+/* ------------------------------------------------------------- */
+.service-block-wrapper {
+  width: 60vw; /* Slightly increased main block width for better centering appearance */
+  max-width: 1100px; /* Safety cap */
+  margin: 0 auto 60px auto; /* Centered and reduced vertical spacing */
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.service-block-wrapper.align-right {
+  flex-direction: row-reverse;
+}
+.service-block-wrapper.align-left {
+  flex-direction: row;
+}
+
+/* ------------------------------------------------------------- */
+/* 3. IMAGE CONTAINER (Reduced Height, Positioning Anchor) */
+/* ------------------------------------------------------------- */
+.service-image-container {
+  width: 80%; 
+  height: 400px; /* ⬇️ REDUCED IMAGE HEIGHT */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Reduced shadow strength */
+  position: relative; 
+}
+
+/* Image Right (default, align-right) */
+.service-block-wrapper.align-right .service-image-container {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+.service-block-wrapper.align-left .service-image-container {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* ------------------------------------------------------------- */
+/* 4. INFO BOX (Absolute Positioning, 80% Height, NEW POSITIONING) */
+/* ------------------------------------------------------------- */
+.service-text-card {
+    /* Dimensions based on Image Container */
+    height: 80%; /* ⬇️ REDUCED CARD HEIGHT (approx 80% of 450px) */
+    width: 50%;  /* ⬇️ REDUCED CARD WIDTH (approx 40% of the block) */
+    
+    /* Look and Feel */
+  background: linear-gradient(135deg, #fffbe9 0%, #f7f3ed 100%);
+  border: 1.5px solid #e7cba0;
+  box-shadow: 0 8px 32px rgba(201, 159, 107, 0.18), 0 1.5px 8px rgba(0,0,0,0.07);
+  padding: 36px 28px;
+  text-align: center;
+  z-index: 5;
+  border-radius: 24px;
+  backdrop-filter: blur(1.5px);
+  transition: box-shadow 0.3s, background 0.3s, border 0.3s;
+    
+    /* Vertical Centering */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    
+    /* Centering Content */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-text {
+  font-family: 'Open Sans', sans-serif;
+  color: #6c757d;
+  font-size: 0.8rem; /* ⬇️ EVEN SMALLER CARD TEXT */
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* --- Positioning Logic (Implementing -20% offset) --- */
+
+/* Image Left, Card Right (align-right) */
+.service-block-wrapper.align-right .service-text-card {
+    /* 🛑 NEW POSITIONING: Position the card's right edge 20% past the image's right edge. 
+       This makes the card stick out more to the right, reducing overlap. */
+  right: 0%;
+}
+
+/* Image Right, Card Left (align-left) */
+.service-block-wrapper.align-left .service-text-card {
+    /* 🛑 NEW POSITIONING: Position the card's left edge 20% past the image's left edge.
+       This makes the card stick out more to the left, reducing overlap. */
+  left: 0%;
+}
+
+/* ------------------------------------------------------------- */
+/* Card Content Styles (Remaining) */
+/* ------------------------------------------------------------- */
+.icon-wrapper { color: #c99f6b; margin-bottom: 10px; font-size: 2.5rem; }
+.card-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #363636; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.card-title::after { content: ""; display: block; width: 30px; height: 2px; background-color: #c99f6b; margin: 10px auto 20px auto; }
+
+.service-button {
+  background: linear-gradient(90deg, #c99f6b 0%, #e7cba0 100%);
+  border: none;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 24px;
+  white-space: nowrap;
+  min-width: 110px;
+  max-width: 180px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  box-shadow: 0 2px 8px rgba(201, 159, 107, 0.15);
+  letter-spacing: 1px;
+  transition: background 0.3s, box-shadow 0.3s, color 0.3s, transform 0.2s;
+}
+
+.service-button:hover {
+  background: linear-gradient(90deg, #e7cba0 0%, #c99f6b 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(201, 159, 107, 0.25);
+  transform: translateY(-2px) scale(1.04);
+}
+
+/* ------------------------------------------------------------- */
+/* Mobile Responsiveness (No Change) */
+/* ------------------------------------------------------------- */
+@media (max-width: 991.98px) {
+    .service-block-wrapper {
+        width: 90vw;
+        margin-bottom: 40px;
+    }
+    .service-image-container {
+        height: 300px; 
+    }
+    .service-text-card {
+        position: relative; 
+        width: 90%; 
+        height: auto; 
+        top: auto;
+        left: auto;
+        right: auto;
+        transform: none;
+        margin: 0 auto;
+        margin-top: -50px;
+        padding: 30px 20px;
+        z-index: 3; 
+        border: 1px solid #e0e0e0; /* Added back border for mobile */
+    }
+}

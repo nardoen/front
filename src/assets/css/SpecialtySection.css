@@ -1,0 +1,40 @@
+/* Styling for the light background and vertical padding */
+.specialty-section-wrapper {
+  /* Use a light, off-white color as seen in the image */
+  background: linear-gradient(135deg, #fffbe9 0%, #f7f3ed 100%); /* Match HowItWorks gradient */
+  padding: 40px 0; /* Generous vertical padding */
+  width: 100%;
+}
+
+/* Styling for the main heading text */
+.specialty-heading {
+  /* Dark charcoal color for contrast */
+  color: #363636; 
+  /* Use the elegant font we established for headings */
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem; 
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px; /* Space above the divider */
+}
+
+/* Styling for the small divider/graphic */
+.specialty-divider {
+  width: 50px; /* Short width */
+  height: 2px;
+  margin: 0 auto; /* Center the divider */
+  /* Use a subtle color (light purple/pink, like the small element in the image) */
+  background-color: #9c89a0; 
+  position: relative;
+  /* Optional: Add a subtle graphic effect (like the small curves) */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .specialty-section-wrapper {
+    padding: 60px 0;
+  }
+  .specialty-heading {
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,112 @@
+/* --- Chef Section Styling --- */
+.chef-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #fffbe9 0%, #f7f3ed 100%);
+    border-top: 2px solid #e7cba0;
+    border-bottom: 2px solid #e7cba0;
+}
+
+/* --- Section Title and Underline --- */
+.chef-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.7rem;
+    font-weight: 700;
+    color: #c99f6b;
+    margin-bottom: 18px;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 12px rgba(201,159,107,0.10);
+}
+
+.chef-section-title + .title-underline { /* Selects underline directly after title */
+    width: 70px;
+    height: 4px;
+    background: linear-gradient(90deg, #c99f6b 0%, #e7cba0 100%);
+    border-radius: 2px;
+    margin: 0 auto 32px auto;
+}
+
+/* --- Chef Image Styling --- */
+.chef-image-wrapper {
+    margin-bottom: 10px; /* Reduce gap below image */
+    text-align: center; /* Center image on mobile */
+}
+
+.chef-image-wrapper img {
+    max-width: 440px;
+    height: 440px;
+    object-fit: cover;
+    border: 6px solid #fffbe9;
+    box-shadow: 0 18px 48px rgba(201,159,107,0.18), 0 2px 12px rgba(0,0,0,0.10);
+    transition: box-shadow 0.3s, border 0.3s;
+}
+.chef-image-wrapper img:hover {
+    box-shadow: 0 28px 64px rgba(201,159,107,0.28), 0 4px 24px rgba(0,0,0,0.14);
+    border-color: #c99f6b;
+}
+
+/* --- Chef Introduction Text --- */
+.chef-intro-text {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.12rem;
+    color: #6c757d;
+    line-height: 1.8;
+    margin-bottom: 32px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(255,251,233,0.85);
+    border-radius: 14px;
+    padding: 18px 22px;
+    box-shadow: 0 2px 8px rgba(201,159,107,0.07);
+}
+
+/* --- Button Styling --- */
+.chef-story-button {
+    background: linear-gradient(90deg, #c99f6b 0%, #e7cba0 100%);
+    border: none;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    border-radius: 50px;
+    box-shadow: 0 2px 12px rgba(201,159,107,0.12);
+    letter-spacing: 1px;
+    font-size: 1.08rem;
+    transition: background 0.3s, box-shadow 0.3s, color 0.3s, transform 0.2s;
+}
+
+.chef-story-button:hover {
+    background: linear-gradient(90deg, #e7cba0 0%, #c99f6b 100%);
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(201,159,107,0.22);
+    transform: translateY(-4px) scale(1.04);
+}
+
+/* --- Desktop Specific Adjustments --- */
+@media (min-width: 768px) {
+    .chef-section-title + .title-underline {
+        margin-left: 0; /* Align underline to text */
+        margin-right: auto;
+    }
+
+    .chef-intro-text {
+        margin-left: 0; /* Align text to left */
+        margin-right: auto;
+    }
+
+    .chef-image-wrapper {
+        margin-bottom: 0; /* Remove bottom margin on desktop */
+    }
+}
+
+/* --- Responsive Adjustments for smaller screens --- */
+@media (max-width: 576px) {
+    .chef-section-title {
+        font-size: 2rem;
+    }
+    .chef-image-wrapper img {
+        max-width: 280px;
+        height: 280px;
+    }
+}
