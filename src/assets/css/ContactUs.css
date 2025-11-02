@@ -1,0 +1,104 @@
+.contact-us-section {
+  padding: 80px 0;
+  background: linear-gradient(120deg, #fdfaf6 0%, #f7f3ed 100%);
+}
+
+.contact-us-subtitle {
+  font-family: 'Open Sans', sans-serif;
+  color: #c99f6b;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.contact-us-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.contact-us-underline {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #c99f6b, #e7cba0);
+  border-radius: 2px;
+  margin: 0 auto 2rem auto;
+}
+
+.contact-form-wrapper, .contact-info-wrapper {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  height: 100%;
+}
+
+.form-title, .info-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.contact-form-input {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.contact-form-input:focus {
+  border-color: #c99f6b;
+  box-shadow: 0 0 0 0.25rem rgba(201, 159, 107, 0.25);
+}
+
+.submit-button {
+  background: linear-gradient(90deg, #c99f6b, #e7cba0);
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.submit-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(201, 159, 107, 0.4);
+}
+
+.info-text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.contact-details-list {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-details-list li {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.contact-icon {
+  color: #c99f6b;
+  font-size: 1.5rem;
+  margin-right: 1.5rem;
+  min-width: 25px;
+}
+
+@media (max-width: 991px) {
+  .contact-info-wrapper {
+    margin-top: 2rem;
+  }
+}

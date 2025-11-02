@@ -1,42 +1,46 @@
-import React from 'react';
-import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Navbar, Nav, Container, Button, Badge } from 'react-bootstrap';
 import { FaShoppingCart } from 'react-icons/fa';
+import { useCart } from '../context/CartContext';
 import '../assets/css/Header.css'; 
 
 function Header() {
+  const { toggleCart, cartCount } = useCart();
+
   return (
     <Navbar expand="lg" className="nardoen-navbar" variant="dark" fixed="top">
-      {/* Container limits the width of the navigation */}
+      {/* ... existing code ... */}
       <Container className="header-container">
         
-        {/* Toggle Button for Mobile */}
+        {/* ... existing code ... */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-        {/* Logo (Centered) - Visible on all sizes, but only truly centered on large screens */}
-        <Navbar.Brand href="#home" className="nardoen-logo">
+        {/* ... existing code ... */}
+        <Navbar.Brand as={Link} to="/" className="nardoen-logo">
           <span style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.8rem', fontWeight: 'bold' }}>
             Nardoen
           </span>
         </Navbar.Brand>
 
-        {/* The main collapse content handles the left and right nav groups */}
+        {/* ... existing code ... */}
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
           
-          {/* LEFT Navigation Items (Home, Menu, About Us) */}
+          {/* ... existing code ... */}
           <Nav className="nardoen-nav-links nav-left">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#menu">Menu</Nav.Link>
-            <Nav.Link href="#about">About Us</Nav.Link>
+            <Nav.Link as={Link} to="/">Home</Nav.Link>
+            <Nav.Link as={Link} to="/menu">Menu</Nav.Link>
+            <Nav.Link as={Link} to="/about">About Us</Nav.Link>
           </Nav>
           
-          {/* RIGHT Navigation Items (Contact, Login, Cart) */}
+          {/* ... existing code ... */}
           <Nav className="nardoen-nav-links nav-right">
-            <Nav.Link href="#contact">Contact Us</Nav.Link>
+            <Nav.Link as={Link} to="/contact">Contact Us</Nav.Link>
             
-            <Nav.Link href="#cart" className="shopping-cart-icon">
+            <Nav.Link onClick={toggleCart} className="shopping-cart-icon">
               <FaShoppingCart size={20} />
+              {cartCount > 0 && <Badge pill bg="danger" className="cart-badge">{cartCount}</Badge>}
             </Nav.Link>
-                        <Button variant="outline-light" className="ms-lg-3 me-2 nav-button">
+            <Button as={Link} to="/login" variant="outline-light" className="ms-lg-3 me-2 nav-button">
               Login / Register
             </Button>
           </Nav>

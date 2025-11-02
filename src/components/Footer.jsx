@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaInstagram, FaFacebook } from 'react-icons/fa';
 import '../assets/css/Footer.css'; 
@@ -16,11 +17,11 @@ function Footer() {
                     <Col xs={12} md={4} className="footer-col footer-nav">
                         <h5 className="footer-heading">Nardoen</h5>
                         <ul className="footer-links">
-                            <li><a href="#home">Home</a></li>
-                            <li><a href="#menu">Full Menu</a></li>
-                            <li><a href="#howitworks">How It Works</a></li>
-                            <li><a href="#about">About Us (Chef Story)</a></li>
-                            <li><a href="#contact">Contact</a></li>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/menu">Full Menu</Link></li>
+                            <li><Link to="/#howitworks">How It Works</Link></li>
+                            <li><Link to="/about">About Us</Link></li>
+                            <li><Link to="/contact">Contact</Link></li>
                         </ul>
                         <div className="social-icons mt-3">
                             <a href="https://instagram.com" aria-label="Instagram"><FaInstagram size={22} /></a>

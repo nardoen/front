@@ -1,0 +1,117 @@
+/* --- Menu Page Styling --- */
+.menu-page-section {
+    /* Remove background and padding to avoid conflict with MenuPage.css */
+    background: none;
+    padding: 0;
+}
+
+.menu-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #363636;
+}
+
+.menu-subtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.1rem;
+    color: #6c757d;
+}
+
+.menu-page-section .title-underline {
+    width: 80px;
+    height: 3px;
+    background-color: #c99f6b;
+    margin: 15px auto 0 auto;
+}
+
+/* --- Menu Item Card Styling --- */
+.menu-item-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+    height: 100%; /* Ensures all cards stretch vertically */
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item-card:hover {
+    transform: translateY(-5px);
+}
+
+.menu-card-img {
+    height: 250px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.dish-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #363636;
+    margin-bottom: 5px;
+}
+
+.dish-price-tag {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #c99f6b; /* Accent color for price */
+    margin-bottom: 15px;
+}
+
+.dish-ingredients-text {
+    font-size: 0.9rem;
+    color: #6c757d;
+    line-height: 1.5;
+    flex-grow: 1; /* Pushes controls to the bottom */
+}
+
+/* --- Add to Basket Controls --- */
+.add-to-basket-controls {
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.quantity-control {
+    max-width: 150px;
+    margin: 0 auto 10px auto !important; /* Center the quantity input */
+}
+
+.qty-btn {
+    border-color: #c99f6b !important;
+    color: #c99f6b !important;
+}
+
+.qty-btn:hover {
+    background-color: #c99f6b !important;
+    color: #fff !important;
+}
+
+.quantity-input {
+    border-color: #c99f6b !important;
+    font-weight: 600;
+}
+
+.add-to-basket-btn {
+    background-color: #c99f6b;
+    border-color: #c99f6b;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.add-to-basket-btn:hover {
+    background-color: #ac8152;
+    border-color: #ac8152;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 576px) {
+    .menu-main-title {
+        font-size: 2.2rem;
+    }
+}

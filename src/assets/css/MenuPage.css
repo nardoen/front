@@ -1,0 +1,55 @@
+.menu-page-bg {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #fff7e6 0%, #ffe0b2 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-page-hero {
+  text-align: center;
+  padding: 4rem 1rem 2rem 1rem;
+  background: linear-gradient(90deg, #ffecd2 0%, #fcb69f 100%);
+  box-shadow: 0 4px 24px rgba(255, 140, 0, 0.08);
+}
+
+.menu-page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #d35400;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.menu-page-subtitle {
+  font-size: 1.25rem;
+  color: #6d4c41;
+  margin-bottom: 1.5rem;
+}
+
+.menu-page-underline {
+  width: 80px;
+  height: 5px;
+  background: linear-gradient(90deg, #ff8c00, #ff5722);
+  border-radius: 3px;
+  margin: 0 auto 2rem auto;
+}
+
+.menu-page-content {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .menu-page-title {
+    font-size: 2.1rem;
+  }
+  .menu-page-hero {
+    padding: 2.5rem 0.5rem 1.5rem 0.5rem;
+  }
+  .menu-page-content {
+    padding: 1rem 0.5rem 2rem 0.5rem;
+  }
+}

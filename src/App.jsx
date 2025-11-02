@@ -1,28 +1,25 @@
-import './App.css'
-import Header from './components/Header.jsx';
-import MainContent from './components/MainContent.jsx';
-import SpecialtySection from './components/SpecialtySection.jsx';
-import ServicesSection from './components/ServicesSection.jsx';
-import HowItWorks from './components/HowItWorks.jsx';
-import ChefSection from './components/ChefSection.jsx';
-import FeaturedMenu from './components/FeaturedMenu.jsx';
-import Footer from './components/Footer.jsx';
+import { Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
+import MenuPage from './pages/MenuPage';
+import AboutUsPage from './pages/AboutUsPage';
+import ContactUsPage from './pages/ContactUsPage';
+import LoginPage from './pages/LoginPage';
+import CartModal from './components/CartModal';
+import './App.css';
 
 function App() {
- 
-
   return (
-   <div className="App">
-      <Header />
-      <MainContent />
-      <SpecialtySection />
-      <ServicesSection />
-      <HowItWorks />
-      <ChefSection />
-      <FeaturedMenu />
-      <Footer />
-    </div>
-  )
+    <>
+      <CartModal />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/menu" element={<MenuPage />} />
+        <Route path="/about" element={<AboutUsPage />} />
+        <Route path="/contact" element={<ContactUsPage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </>
+  );
 }
 
-export default App
+export default App;
