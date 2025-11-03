@@ -1,11 +1,33 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
+import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL;
 import '../assets/css/LoginRegistration.css';
 
 function LoginRegistration() {
+  const navigate = useNavigate();
   const [isLoginView, setIsLoginView] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  // Registration form state
+  const [regForm, setRegForm] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    address: '',
+    zipcode: '',
+    phone: '',
+  });
+
+  // Login form state
+  const [loginForm, setLoginForm] = useState({
+    email: '',
+    password: '',
+  });
 
   const handleSwitchView = () => {
     setIsLoginView(!isLoginView);
@@ -13,16 +35,63 @@ function LoginRegistration() {
     setSuccess('');
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Placeholder for login logic
-    setError('Login functionality is not yet implemented.');
+    setError('');
+    setSuccess('');
+    setLoading(true);
+    try {
+      // JWT login endpoint (only returns access token)
+  const res = await axios.post(`${API_URL}/api/login/`, loginForm);
+      if (res.data.access) {
+        setSuccess('Login successful.');
+        // Store JWT access token in localStorage
+        localStorage.setItem('accessToken', res.data.access);
+        // Redirect to landing page after login
+        setTimeout(() => {
+          navigate('/');
+        }, 800);
+      } else {
+        setError(res.data.detail || res.data.error || 'Login failed.');
+      }
+    } catch (err) {
+      setError(err.response?.data?.detail || err.response?.data?.error || 'Login failed.');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // Placeholder for registration logic
-    setError('Registration functionality is not yet implemented.');
+    setError('');
+    setSuccess('');
+    setLoading(true);
+    try {
+  const res = await axios.post(`${API_URL}/api/register/`, regForm);
+      if (res.data.success) {
+        setSuccess(res.data.success);
+        setRegForm({
+          firstname: '',
+          lastname: '',
+          email: '',
+          password: '',
+          address: '',
+          zipcode: '',
+          phone: '',
+        });
+        // Switch to login view after successful registration
+        setTimeout(() => {
+          setIsLoginView(true);
+          setSuccess('');
+        }, 1200);
+      } else {
+        setError(res.data.error || 'Registration failed.');
+      }
+    } catch (err) {
+      setError(err.response?.data?.error || 'Registration failed.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -43,16 +112,16 @@ function LoginRegistration() {
                   <Form onSubmit={handleLogin}>
                     <Form.Group className="mb-3" controlId="loginEmail">
                       <Form.Label>Email address</Form.Label>
-                      <Form.Control type="email" placeholder="Enter email" required />
+                      <Form.Control type="email" placeholder="Enter email" required value={loginForm.email} onChange={e => setLoginForm(f => ({ ...f, email: e.target.value }))} />
                     </Form.Group>
 
                     <Form.Group className="mb-4" controlId="loginPassword">
                       <Form.Label>Password</Form.Label>
-                      <Form.Control type="password" placeholder="Password" required />
+                      <Form.Control type="password" placeholder="Password" required value={loginForm.password} onChange={e => setLoginForm(f => ({ ...f, password: e.target.value }))} />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" className="w-100 auth-button">
-                      Login
+                    <Button variant="primary" type="submit" className="w-100 auth-button" disabled={loading}>
+                      {loading ? 'Logging in...' : 'Login'}
                     </Button>
                   </Form>
                 ) : (
@@ -61,44 +130,44 @@ function LoginRegistration() {
                       <Col md={6}>
                         <Form.Group className="mb-3" controlId="regFirstname">
                           <Form.Label>First Name</Form.Label>
-                          <Form.Control type="text" placeholder="John" />
+                          <Form.Control type="text" placeholder="John" required value={regForm.firstname} onChange={e => setRegForm(f => ({ ...f, firstname: e.target.value }))} />
                         </Form.Group>
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-3" controlId="regLastname">
                           <Form.Label>Last Name</Form.Label>
-                          <Form.Control type="text" placeholder="Doe" required />
+                          <Form.Control type="text" placeholder="Doe" required value={regForm.lastname} onChange={e => setRegForm(f => ({ ...f, lastname: e.target.value }))} />
                         </Form.Group>
                       </Col>
                     </Row>
                     <Form.Group className="mb-3" controlId="regEmail">
                       <Form.Label>Email address</Form.Label>
-                      <Form.Control type="email" placeholder="Enter email" required />
+                      <Form.Control type="email" placeholder="Enter email" required value={regForm.email} onChange={e => setRegForm(f => ({ ...f, email: e.target.value }))} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="regPassword">
                       <Form.Label>Password</Form.Label>
-                      <Form.Control type="password" placeholder="Create a password" required />
+                      <Form.Control type="password" placeholder="Create a password" required value={regForm.password} onChange={e => setRegForm(f => ({ ...f, password: e.target.value }))} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="regAddress">
                       <Form.Label>Address</Form.Label>
-                      <Form.Control type="text" placeholder="123 Main St" />
+                      <Form.Control type="text" placeholder="123 Main St" value={regForm.address} onChange={e => setRegForm(f => ({ ...f, address: e.target.value }))} />
                     </Form.Group>
                     <Row>
                       <Col md={6}>
                         <Form.Group className="mb-3" controlId="regZipcode">
                           <Form.Label>Zip Code</Form.Label>
-                          <Form.Control type="text" placeholder="90210" />
+                          <Form.Control type="text" placeholder="90210" value={regForm.zipcode} onChange={e => setRegForm(f => ({ ...f, zipcode: e.target.value }))} />
                         </Form.Group>
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-4" controlId="regPhone">
                           <Form.Label>Phone</Form.Label>
-                          <Form.Control type="tel" placeholder="(123) 456-7890" />
+                          <Form.Control type="tel" placeholder="(123) 456-7890" value={regForm.phone} onChange={e => setRegForm(f => ({ ...f, phone: e.target.value }))} />
                         </Form.Group>
                       </Col>
                     </Row>
-                    <Button variant="primary" type="submit" className="w-100 auth-button">
-                      Register
+                    <Button variant="primary" type="submit" className="w-100 auth-button" disabled={loading}>
+                      {loading ? 'Registering...' : 'Register'}
                     </Button>
                   </Form>
                 )}
