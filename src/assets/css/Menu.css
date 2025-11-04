@@ -1,3 +1,12 @@
+/* Uniform size for menu card images */
+.menu-item-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background: #f8f9fa;
+}
 /* --- Menu Page Styling --- */
 .menu-page-section {
     /* Remove background and padding to avoid conflict with MenuPage.css */

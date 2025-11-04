@@ -6,6 +6,8 @@ import '../assets/css/Menu.css';
 function MenuItemCard({ dish }) {
     const { addToCart } = useCart();
 
+    // Ensure price is a number for formatting
+    const priceNum = Number(dish.price);
     return (
         <Card className="menu-item-card h-100">
             <Card.Img variant="top" src={dish.imageUrl} alt={dish.title} className="menu-item-image" />
@@ -16,7 +18,7 @@ function MenuItemCard({ dish }) {
                 </Card.Text>
                 <div className="mt-auto">
                     <div className="d-flex justify-content-between align-items-center">
-                        <span className="menu-item-price">${dish.price.toFixed(2)}</span>
+                        <span className="menu-item-price">${!isNaN(priceNum) ? priceNum.toFixed(2) : dish.price}</span>
                         <Button variant="primary" className="order-button" onClick={() => addToCart(dish)}>
                             Add to Cart
                         </Button>

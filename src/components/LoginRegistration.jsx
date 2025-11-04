@@ -5,7 +5,7 @@ import axios from 'axios';
 const API_URL = import.meta.env.VITE_API_URL;
 import '../assets/css/LoginRegistration.css';
 
-function LoginRegistration() {
+function LoginRegistration({ onAuthSuccess }) {
   const navigate = useNavigate();
   const [isLoginView, setIsLoginView] = useState(true);
   const [error, setError] = useState('');
@@ -47,10 +47,17 @@ function LoginRegistration() {
         setSuccess('Login successful.');
         // Store JWT access token in localStorage
         localStorage.setItem('accessToken', res.data.access);
-        // Redirect to landing page after login
-        setTimeout(() => {
-          navigate('/');
-        }, 800);
+        // If used as modal, call onAuthSuccess
+        if (onAuthSuccess) {
+          setTimeout(() => {
+            onAuthSuccess();
+          }, 800);
+        } else {
+          // Redirect to landing page after login
+          setTimeout(() => {
+            navigate('/');
+          }, 800);
+        }
       } else {
         setError(res.data.detail || res.data.error || 'Login failed.');
       }
@@ -83,6 +90,10 @@ function LoginRegistration() {
         setTimeout(() => {
           setIsLoginView(true);
           setSuccess('');
+          // If used as modal, auto-login after registration
+          if (onAuthSuccess) {
+            onAuthSuccess();
+          }
         }, 1200);
       } else {
         setError(res.data.error || 'Registration failed.');

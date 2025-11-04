@@ -2,54 +2,33 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import MenuItemCard from './MenuItemCard';
 import '../assets/css/Menu.css';
-import menuImage from '../assets/images/zereshk-polo.png'; 
+import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL;
 
-const dailyMenu = [
-    {
-        id: 1,
-        title: "Ghormeh Sabzi",
-        ingredients: "Fresh herbs (parsley, fenugreek, cilantro), diced lamb, kidney beans, dried limes, turmeric, and saffron.",
-        price: 16.99,
-        imageUrl: menuImage
-    },
-    {
-        id: 2,
-        title: "Fesenjān",
-        ingredients: "Chicken breast, ground walnuts, sweet and sour pomegranate molasses, and spices.",
-        price: 18.50,
-        imageUrl: menuImage
-    },
-    {
-        id: 3,
-        title: "Tachin Morgh",
-        ingredients: "Saffron rice, yogurt, egg yolk, chicken, and a secret blend of Persian spices, baked to a crispy crust.",
-        price: 15.99,
-        imageUrl: menuImage
-    },
-    {
-        id: 4,
-        title: "Kūbideh Kabob",
-        ingredients: "Ground beef and lamb mixed with onions, turmeric, and pepper, served with saffron rice.",
-        price: 17.99,
-        imageUrl: menuImage
-    },
-    {
-        id: 5,
-        title: "Joojeh Kabob",
-        ingredients: "Chicken marinated in yogurt, saffron, lemon, and onions, grilled and served with buttery rice.",
-        price: 16.99,
-        imageUrl: menuImage
-    },
-    {
-        id: 6,
-        title: "Ash-e Reshteh (Soup)",
-        ingredients: "Thick noodle soup with kashk (whey), various beans, chickpeas, and fresh herbs (mint, parsley, spinach).",
-        price: 11.99,
-        imageUrl: menuImage
-    }
-];
+
+const dailyMenu = []; // Placeholder for dynamic menu data
+
+
 
 function MenuPage() {
+    const [menuItems, setMenuItems] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState('');
+
+    React.useEffect(() => {
+        async function fetchMenu() {
+            try {
+                const res = await axios.get(`${API_URL}/api/items/`);
+                setMenuItems(res.data);
+            } catch (err) {
+                setError('Failed to load menu.');
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchMenu();
+    }, []);
+
     return (
         <section className="menu-page-section">
             <Container>
@@ -61,10 +40,20 @@ function MenuPage() {
                     </Col>
                 </Row>
 
+                {loading && <div>Loading menu...</div>}
+                {error && <div>{error}</div>}
+
                 <Row className="g-4">
-                    {dailyMenu.map(dish => (
-                        <Col key={dish.id} xs={12} sm={6} lg={4}>
-                            <MenuItemCard dish={dish} />
+                    {menuItems.map((dish, idx) => (
+                        <Col key={dish.code || idx} xs={12} sm={6} lg={4}>
+                            <MenuItemCard
+                                dish={{
+                                    title: dish.name,
+                                    ingredients: dish.description,
+                                    price: dish.price,
+                                    imageUrl: dish.details && dish.details[0] ? `${API_URL}/${dish.details[0].path_img}` : ''
+                                }}
+                            />
                         </Col>
                     ))}
                 </Row>
