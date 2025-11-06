@@ -1,3 +1,7 @@
+/* Make date picker input show pointer cursor on hover */
+.form-control.beautiful-datepicker:hover {
+  cursor: pointer;
+}
 /* Consistent card style for modal auth (matches login page) */
 .login-card {
   border: none;

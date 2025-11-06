@@ -98,7 +98,8 @@ const CartModal = () => {
       }, 300);
     } catch (err) {
       console.log('Guest checkout failed:', err);
-      setGuestError('Failed to continue as guest.');
+      const errorMessage = err.response?.data?.error || err.response?.data?.detail || 'Failed to continue as guest.';
+      setGuestError(errorMessage);
     } finally {
       setGuestLoading(false);
     }
