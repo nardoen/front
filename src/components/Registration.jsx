@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Row, Col } from 'react-bootstrap';
-import axios from 'axios';
+import authAxios from '../api/authAxios';
 import '../assets/css/Loginregistration.css';
-
-const API_URL = import.meta.env.VITE_API_URL;
 
 function Registration({ onAuthSuccess, onSwitchToLogin }) {
   const [error, setError] = useState('');
@@ -26,52 +24,23 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
     e.preventDefault();
     setError('');
     setSuccess('');
-    // Collect all validation errors
-    const errors = [];
-    if (!regForm.lastname) {
-      errors.push('Last Name is required.');
-    }
-    if (!regForm.email) {
-      errors.push('Email is required.');
-    } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(regForm.email)) {
-        errors.push('Please enter a valid email address.');
-      }
-    }
-    if (!regForm.password) {
-      errors.push('Password is required.');
-    }
+    // Simple validation
     if (regForm.password !== regForm.repeatPassword) {
-      errors.push('Passwords do not match.');
-    }
-    if (errors.length > 0) {
-      setError(errors.join('\n'));
+      setError('Passwords do not match.');
       return;
     }
     setLoading(true);
     try {
-      // Exclude repeatPassword from API payload
       const { repeatPassword, ...payload } = regForm;
-      const res = await axios.post(`${API_URL}/api/register/`, payload);
+      const res = await authAxios.post(`/api/register/`, payload);
       if (res.data.success) {
         setSuccess(res.data.success);
-        setRegForm({
-          firstname: '',
-          lastname: '',
-          email: '',
-          password: '',
-          repeatPassword: '',
-          address: '',
-          zipcode: '',
-          phone: '',
-        });
-        setTimeout(() => {
-          setSuccess('');
-          if (onSwitchToLogin) {
-            onSwitchToLogin();
-          }
-        }, 1200);
+        // Automatically log the user in
+        if (onAuthSuccess) {
+          // Assuming the backend logs the user in and returns the user data
+          // upon successful registration.
+          onAuthSuccess(res.data.user);
+        }
       } else {
         setError(res.data.error || 'Registration failed.');
       }

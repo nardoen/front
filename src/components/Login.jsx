@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Form, Button, Alert } from 'react-bootstrap';
-import axios from 'axios';
+import authAxios from '../api/authAxios';
 import '../assets/css/Loginregistration.css';
 
-const API_URL = import.meta.env.VITE_API_URL;
-
 function Login({ onAuthSuccess, onSwitchToRegister }) {
-  const navigate = useNavigate();
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
@@ -23,14 +19,12 @@ function Login({ onAuthSuccess, onSwitchToRegister }) {
     setSuccess('');
     setLoading(true);
     try {
-      const res = await axios.post(`${API_URL}/api/login/`, loginForm);
-      if (res.data.access) {
+      const res = await authAxios.post(`/api/login/`, loginForm);
+      if (res.data.success) {
         setSuccess('Login successful.');
-        localStorage.setItem('accessToken', res.data.access);
+        // Call the callback from LoginPage to update global state and redirect
         if (onAuthSuccess) {
-          setTimeout(() => onAuthSuccess(), 800);
-        } else {
-          setTimeout(() => navigate('/'), 800);
+          setTimeout(() => onAuthSuccess(res.data.user), 800);
         }
       } else {
         setError(res.data.detail || res.data.error || 'Login failed.');
@@ -58,7 +52,7 @@ function Login({ onAuthSuccess, onSwitchToRegister }) {
             onChange={(e) => setLoginForm((f) => ({ ...f, email: e.target.value }))}
           />
         </Form.Group>
-        <Form.Group className="mb-4" controlId="loginPassword">
+        <Form.Group className="mb-3" controlId="loginPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"

@@ -3,6 +3,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import '../assets/css/MainContent.css'; 
 import backgroundImage from '../assets/images/background-image.jpg';
 import { Typewriter } from 'react-simple-typewriter';
+import { Link } from 'react-router-dom';
 
 function MainContent() {
   return (
@@ -34,9 +35,9 @@ function MainContent() {
               excellent food, total service, and compact, we promise.
             </p>
             
-            <Button variant="warning" size="lg" className="contact-us-button">
+            <Link to="/contact"><Button variant="warning" size="lg" className="contact-us-button">
               Contact Us
-            </Button>
+            </Button></Link>
           </Col>
         </Row>
       </Container>

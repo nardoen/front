@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { FaHeart, FaAppleAlt } from 'react-icons/fa';
 import '../assets/css/ServicesSection.css'; 
+import { Link } from 'react-router-dom';
 
 function ServiceBlock({ title, text, buttonText, buttonLink, imageUrl, alignRight, iconName }) {
     
@@ -18,9 +19,9 @@ function ServiceBlock({ title, text, buttonText, buttonLink, imageUrl, alignRigh
                         </div>
                         <h3 className="card-title">{title}</h3>
                         <p className="card-text">{text}</p>
-                        <Button variant="outline-primary" className="service-button">
+                        <Link to="/menu"><Button variant="outline-primary" className="service-button">
                             {buttonText}
-                        </Button>
+                        </Button></Link>
                     </div>
                     <div 
                         className="service-image-container" 
@@ -39,9 +40,9 @@ function ServiceBlock({ title, text, buttonText, buttonLink, imageUrl, alignRigh
                         </div>
                         <h3 className="card-title">{title}</h3>
                         <p className="card-text">{text}</p>
-                        <Button variant="outline-primary" className="service-button">
+                        <Link to="/menu"><Button variant="outline-primary" className="service-button">
                             {buttonText}
-                        </Button>
+                        </Button></Link>
                     </div>
                 </>
             )}

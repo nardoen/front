@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import chefImage from '../assets/images/chef.jpg'; // 🛑 Make sure you have a chef.jpg image in src/assets/images
 import '../assets/css/ChefSection.css'; 
+import { Link } from 'react-router-dom';
 
 function ChefSection() {
     return (
@@ -30,10 +31,10 @@ function ChefSection() {
                             Welcome to Nardoen! I'm <b>Marjan</b>, and it's my passion to bring you the authentic and comforting flavors of Persian cuisine. Every dish is crafted with love, using traditional recipes and the freshest ingredients, just like my grandmother taught me. I believe food is a celebration, and I'm thrilled to share a piece of my heritage with you through our kitchen.
                             <span className="chef-quote">”</span>
                         </p>
-                        <Button className="chef-story-button">
+                        <Link to="/about"><Button className="chef-story-button">
                             <span className="chef-story-btn-text">Read My Story</span>
                             <span className="chef-story-btn-arrow">→</span>
-                        </Button>
+                        </Button></Link>
                     </Col>
                 </Row>
             </Container>
