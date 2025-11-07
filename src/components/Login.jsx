@@ -3,21 +3,29 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import authAxios from '../api/authAxios';
 import '../assets/css/Loginregistration.css';
 
-function Login({ onAuthSuccess, onSwitchToRegister }) {
+// Removed duplicate function definition
+function Login({ onAuthSuccess, onSwitchToRegister, loginLoading, onLoginStart, onLoginEnd }) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [internalLoading, setInternalLoading] = useState(false);
 
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: '',
   });
 
+  // Use parent loading state if provided, otherwise use internal
+  const effectiveLoading = typeof loginLoading === 'boolean' ? loginLoading : internalLoading;
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
-    setLoading(true);
+    if (onLoginStart) {
+      onLoginStart();
+    } else {
+      setInternalLoading(true);
+    }
     try {
       const res = await authAxios.post(`/api/login/`, loginForm);
       if (res.data.success) {
@@ -32,7 +40,11 @@ function Login({ onAuthSuccess, onSwitchToRegister }) {
     } catch (err) {
       setError(err.response?.data?.detail || err.response?.data?.error || 'Login failed.');
     } finally {
-      setLoading(false);
+      if (onLoginEnd) {
+        onLoginEnd();
+      } else {
+        setInternalLoading(false);
+      }
     }
   };
 
@@ -62,8 +74,13 @@ function Login({ onAuthSuccess, onSwitchToRegister }) {
             onChange={(e) => setLoginForm((f) => ({ ...f, password: e.target.value }))}
           />
         </Form.Group>
-        <Button variant="primary" type="submit" className="w-100 auth-button" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
+        <Button variant="primary" type="submit" className="w-100 auth-button" disabled={effectiveLoading}>
+          {effectiveLoading ? (
+          <>
+            <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Logging in...
+          </>
+          ) : 'Login'}
         </Button>
       </Form>
       {onSwitchToRegister && (

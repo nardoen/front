@@ -87,6 +87,8 @@ export const CartProvider = ({ children }) => {
     setIsCartOpen(!isCartOpen);
   };
 
+  const cartTotal = cartItems.reduce((acc, item) => acc + Number(item.price) * item.quantity, 0).toFixed(2);
+
   const value = {
     cartItems,
     deliveryDate,
@@ -97,7 +99,8 @@ export const CartProvider = ({ children }) => {
     getMinDate,
     isCartOpen,
     toggleCart,
-    cartCount: cartItems.reduce((acc, item) => acc + item.quantity, 0)
+    cartCount: cartItems.reduce((acc, item) => acc + item.quantity, 0),
+    cartTotal
   };
 
   return (

@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
-import axios from '../api/authAxios';
 import { useRef } from 'react';
 import DatePicker from 'react-datepicker';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import '../assets/css/CartModal.css';
-
 import '../assets/css/DatePicker.css'; 
 import { FaTrashAlt } from 'react-icons/fa';
 import Login from './Login';
+import authAxios from '../api/authAxios';
 
 const CartModal = () => {
 
-  const { isCartOpen, toggleCart, cartItems, updateQuantity, removeFromCart, deliveryDate, updateOrderDeliveryDate, getMinDate } = useCart();
+  const { isCartOpen, toggleCart, cartItems, updateQuantity, removeFromCart, deliveryDate, updateOrderDeliveryDate, getMinDate, cartTotal } = useCart();
+  const { isLoggedIn } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authSuccess, setAuthSuccess] = useState(false);
   const [showGuestForm, setShowGuestForm] = useState(false);
   const [guestLoading, setGuestLoading] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
   const [guestError, setGuestError] = useState('');
   const [checkoutError, setCheckoutError] = useState('');
   const guestNameRef = useRef();
@@ -26,47 +28,60 @@ const CartModal = () => {
     return null;
   }
 
-  // Check login status
-  const isLoggedIn = !!localStorage.getItem('accessToken');
-
-  const total = cartItems.reduce((acc, item) => acc + Number(item.price) * item.quantity, 0).toFixed(2);
-
   // Validate token with backend before proceeding
   const handleCheckout = async () => {
-    console.log('Checkout clicked');
     setCheckoutError('');
-    const token = localStorage.getItem('accessToken');
-    console.log('Token:', token, 'AuthSuccess:', authSuccess);
-    if (!token && !authSuccess) {
-      console.log('No token and not authenticated, showing auth modal');
-      setShowAuthModal(true);
-      setShowGuestForm(false);
+    if (isLoggedIn) {
+      // Logged in: proceed directly to payment
+      setLoginLoading(true);
+      try {
+        const response = await authAxios.post('/api/payment/start/', {
+          cart: cartItems,
+          deliveryDate,
+          total: cartTotal,
+        });
+        if (response.data && response.data.checkout_url) {
+          window.location.href = response.data.checkout_url;
+        } else {
+          setCheckoutError('Could not start payment. Please try again.');
+        }
+      } catch (err) {
+        setCheckoutError('Could not start payment. Please try again.');
+        console.error('Payment start error:', err);
+      } finally {
+        setLoginLoading(false);
+      }
       return;
     }
-    try {
-      console.log('Validating token with backend...');
-      await axios.get('/api/user/');
-      alert('Payment coming soon!');
-    } catch (err) {
-      console.log('Token validation failed:', err);
-      localStorage.removeItem('accessToken');
-      setShowAuthModal(true);
-      setShowGuestForm(false);
-      setCheckoutError(
-        err?.response?.status === 401
-          ? 'Session expired. Please log in again or continue as a guest.'
-          : 'Could not validate user. Please log in or continue as guest.'
-      );
-    }
-  };
+    // Not logged in: show auth modal/guest form
+    setShowAuthModal(true);
+    setShowGuestForm(false);
+  }
 
-  const handleAuthSuccess = () => {
+  const handleAuthSuccess = async () => {
     console.log('Auth success!');
     setAuthSuccess(true);
     setShowAuthModal(false);
-    setTimeout(() => {
-      alert('Payment coming soon!');
-    }, 300);
+    setLoginLoading(true);
+    // Keep overlay until payment completes or fails
+    try {
+      const response = await authAxios.post('/api/payment/start/', {
+        cart: cartItems,
+        deliveryDate,
+        total: cartTotal,
+      });
+      if (response.data && response.data.checkout_url) {
+        window.location.href = response.data.checkout_url;
+        // Do not setLoginLoading(false) here, let redirect happen with overlay
+      } else {
+        setCheckoutError('Could not start payment. Please try again.');
+        setLoginLoading(false);
+      }
+    } catch (err) {
+      setCheckoutError('Could not start payment. Please try again.');
+      console.error('Payment start error:', err);
+      setLoginLoading(false);
+    }
   };
 
   const handleGuestContinue = () => {
@@ -81,7 +96,6 @@ const CartModal = () => {
     setGuestError('');
     const name = guestNameRef.current.value.trim();
     const email = guestEmailRef.current.value.trim();
-    console.log('Guest submit:', { name, email });
     if (!name || !email) {
       setGuestError('Please enter your name and email.');
       setGuestLoading(false);
@@ -90,14 +104,27 @@ const CartModal = () => {
     try {
       // Send guest info to backend (adjust endpoint as needed)
       console.log('Sending guest info to backend...');
-      await axios.post('/api/guest-checkout/', { name, email, is_guest: true });
+      await authAxios.post('/api/guest-checkout/', { name, email, is_guest: true });
       setShowAuthModal(false);
       setShowGuestForm(false);
-      setTimeout(() => {
-        alert('Payment coming soon!');
-      }, 300);
+      // Now start Mollie payment for guest
+      try {
+        const response = await authAxios.post('/api/payment/start/', {
+          cart: cartItems,
+          deliveryDate,
+          total: cartTotal,
+        });
+        if (response.data && response.data.checkout_url) {
+          // Show loading while redirecting
+          setGuestLoading(true);
+          window.location.href = response.data.checkout_url;
+        } else {
+          setGuestError('Could not start payment. Please try again.');
+        }
+      } catch (err) {
+        setGuestError('Could not start payment. Please try again.');
+      }
     } catch (err) {
-      console.log('Guest checkout failed:', err);
       const errorMessage = err.response?.data?.error || err.response?.data?.detail || 'Failed to continue as guest.';
       setGuestError(errorMessage);
     } finally {
@@ -107,6 +134,14 @@ const CartModal = () => {
 
   return (
     <>
+      {(loginLoading || guestLoading) && (
+        <div className="cart-modal-loading-overlay">
+          <div className="cart-modal-loading-spinner">
+            <span className="spinner-border spinner-border-lg" role="status" aria-hidden="true"></span>
+            <span style={{ marginLeft: '1rem' }}>Processing, please wait...</span>
+          </div>
+        </div>
+      )}
       <div className="cart-modal-overlay" onClick={toggleCart}>
         <div className="cart-modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="cart-modal-header">
@@ -145,7 +180,7 @@ const CartModal = () => {
               })}
             </ul>
             <div className="cart-modal-footer">
-              <div className="cart-total">Total: ${total}</div>
+              <div className="cart-total">Total: ${cartTotal}</div>
               <div className="date-picker-container" style={{ marginBottom: '1rem', textAlign: 'left' }}>
                 <label style={{ fontWeight: 'bold', marginBottom: '0.5rem', display: 'block' }}>Delivery Date:</label>
                 <DatePicker
@@ -178,11 +213,17 @@ const CartModal = () => {
             )}
             {!showGuestForm ? (
               <div className="login-card mx-auto p-4">
-                <Login onAuthSuccess={handleAuthSuccess} />
+                {/* Pass loading props so Login disables button and shows spinner in modal */}
+                <Login
+                  onAuthSuccess={handleAuthSuccess}
+                  loginLoading={loginLoading}
+                  onLoginStart={() => setLoginLoading(true)}
+                  onLoginEnd={() => setLoginLoading(false)}
+                />
                 <div style={{ textAlign: 'center', marginTop: '1rem' }}>
                   <span style={{ color: '#888' }}>or</span>
                   <br />
-                  <button className="guest-link-btn" onClick={handleGuestContinue}>
+                  <button className="guest-link-btn" onClick={handleGuestContinue} disabled={loginLoading}>
                     Continue as a guest
                   </button>
                 </div>
@@ -202,7 +243,9 @@ const CartModal = () => {
                   <input type="hidden" name="is_guest" value="true" />
                   {guestError && <div className="text-danger mb-2">{guestError}</div>}
                   <button type="submit" className="btn btn-primary w-100 auth-button" disabled={guestLoading}>
-                    {guestLoading ? 'Continuing...' : 'Continue to Payment'}
+                    {guestLoading ? (
+                      <span><span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Redirecting to Mollie...</span>
+                    ) : 'Continue to Payment'}
                   </button>
                 </form>
               </div>

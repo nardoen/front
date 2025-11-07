@@ -6,6 +6,7 @@ import ContactUsPage from './pages/ContactUsPage';
 import LoginPage from './pages/LoginPage';
 import CartModal from './components/CartModal';
 import './App.css';
+import PaymentReturn from './pages/PaymentReturn';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/payment/return/" element={<PaymentReturn />} />
       </Routes>
     </>
   );
