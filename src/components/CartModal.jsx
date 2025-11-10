@@ -112,6 +112,7 @@ const CartModal = () => {
       // Now start Mollie payment for guest
       try {
         const response = await authAxios.post('/api/payment/start/', {
+          email: email,
           cart: cartItems,
           deliveryDate,
           total: cartTotal,
