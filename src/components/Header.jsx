@@ -4,7 +4,6 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import '../assets/css/Header.css';
-import logo from '../assets/images/logo.jpg';
 
 function Header() {
   const { toggleCart, cartCount } = useCart();
@@ -19,11 +18,6 @@ function Header() {
 
         {/* ... existing code ... */}
         <Navbar.Brand as={Link} to="/" className="nardoen-logo">
-          <img
-            src={logo}
-            alt="Nardoen Logo"
-            style={{ height: '36px', marginRight: '10px', verticalAlign: 'middle' }}
-          />
           <span
             style={{
               fontFamily: 'Playfair Display, serif',
