@@ -48,7 +48,7 @@ function MenuPage() {
                         <Col key={dish.code || idx} xs={12} sm={6} lg={4}>
                             <MenuItemCard
                                 dish={{
-                                    id: dish.code, // Ensure unique id is passed
+                                    id: dish.id, // Ensure unique id is passed
                                     title: dish.name,
                                     ingredients: dish.description,
                                     price: dish.price,
