@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import DatePicker from 'react-datepicker';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { useOffDay } from '../context/OffDayContext';
 import '../assets/css/CartModal.css';
 import '../assets/css/DatePicker.css'; 
 import { FaTrashAlt } from 'react-icons/fa';
@@ -13,6 +14,7 @@ const CartModal = () => {
 
   const { isCartOpen, toggleCart, cartItems, updateQuantity, removeFromCart, deliveryDate, updateOrderDeliveryDate, getMinDate, cartTotal } = useCart();
   const { isLoggedIn } = useAuth();
+  const { isOffDay, getOffDayDates } = useOffDay();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authSuccess, setAuthSuccess] = useState(false);
   const [showGuestForm, setShowGuestForm] = useState(false);
@@ -188,10 +190,12 @@ const CartModal = () => {
                   selected={deliveryDate || undefined}
                   onChange={updateOrderDeliveryDate}
                   minDate={getMinDate()}
+                  excludeDates={getOffDayDates()}
                   dateFormat="MMMM d, yyyy"
                   className="form-control beautiful-datepicker"
                   placeholderText="Choose your delivery date"
                   openToDate={getMinDate()}
+                  filterDate={(date) => !isOffDay(date)}
                 />
               </div>
               <button className="checkout-button" onClick={handleCheckout}>Proceed to Checkout</button>

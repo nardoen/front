@@ -1,16 +1,61 @@
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, Container, Button, Badge } from 'react-bootstrap';
-import { FaShoppingCart } from 'react-icons/fa';
+import { Navbar, Nav, Container, Button, Badge, Alert } from 'react-bootstrap';
+import { FaShoppingCart, FaTimes } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { useOffDay } from '../context/OffDayContext';
 import '../assets/css/Header.css';
 
 function Header() {
   const { toggleCart, cartCount } = useCart();
   const { isLoggedIn, logout, user } = useAuth();
+  const { offDayInfo, showOffDayNotification, handleCloseOffDayNotification, formatDate } = useOffDay();
 
   return (
-    <Navbar expand="lg" className="nardoen-navbar" variant="dark" fixed="top">
+    <>
+      {/* Off-day notification dropdown */}
+      {showOffDayNotification && offDayInfo && (
+        <div style={{
+          position: 'fixed',
+          top: '76px', // Just below the navbar
+          left: '0',
+          right: '0',
+          zIndex: '1040',
+          backgroundColor: '#f8d7da',
+          border: '1px solid #f5c6cb',
+          borderRadius: '0',
+          animation: 'slideDown 0.3s ease-out'
+        }}>
+          <Alert 
+            variant="danger" 
+            className="mb-0 d-flex justify-content-between align-items-start"
+            style={{ borderRadius: '0', border: 'none' }}
+          >
+            <div className="flex-grow-1">
+              <strong>We are temporarily closed</strong>
+              {offDayInfo.offDays.map((offDay, index) => (
+                <div key={index} className="mt-2">
+                  <div>{offDay.description}</div>
+                  <small>
+                    From: {formatDate(offDay.start_date)} to {formatDate(offDay.end_date)}
+                  </small>
+                  {index < offDayInfo.offDays.length - 1 && <hr className="my-2" />}
+                </div>
+              ))}
+            </div>
+            <Button
+              variant="link"
+              className="p-0 text-danger"
+              onClick={handleCloseOffDayNotification}
+              style={{ fontSize: '1.2rem', textDecoration: 'none' }}
+            >
+              <FaTimes />
+            </Button>
+          </Alert>
+        </div>
+      )}
+      
+      <Navbar expand="lg" className="nardoen-navbar" variant="dark" fixed="top">
       {/* ... existing code ... */}
       <Container className="header-container">
         {/* ... existing code ... */}
@@ -69,6 +114,7 @@ function Header() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    </>
   );
 }
 
