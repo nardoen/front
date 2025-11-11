@@ -5,8 +5,8 @@ import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaInstagram, FaFacebook } from 're
 import '../assets/css/Footer.css'; 
 
 function Footer() {
-    // Dummy Map Embed (Replace with a real Google Maps iframe embed later)
-    const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.774438318728!2d-73.9877145845946!3d40.74189477933099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2591605dd15e7%3A0x6b30f81d89e83696!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus";
+    // Google Maps embed for Maneschijn 17, 6846 DW Arnhem, Netherlands
+    const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2439.8!2d5.9!3d52.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDAyJzAwLjAiTiA1wrA1NCcwMC4wIkU!5e0!3m2!1sen!2snl!4v1700000000000!5m2!1sen!2snl&q=Maneschijn+17,+6846+DW+Arnhem,+Netherlands";
     
     return (
         <footer className="main-footer">
@@ -56,9 +56,9 @@ function Footer() {
                     <Col xs={12} md={4} className="footer-col footer-map mt-4 mt-md-0">
                         <h5 className="footer-heading">Find Us</h5>
                         <p className="address-text">
-                            <FaMapMarkerAlt className="contact-icon me-2" />
-                            123 Persian Way, Suite 400<br/>
-                            Food District, CA 90210
+                            <FaMapMarkerAlt className="contact-icon map-icon me-2" />
+                            Maneschijn 17<br/>
+                            6846 DW Arnhem, Netherlands
                         </p>
                         <div className="map-wrapper">
                             <iframe 

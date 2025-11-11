@@ -105,6 +105,11 @@
     filter: drop-shadow(0 2px 6px #c99f6b88);
 }
 
+.map-icon {
+    vertical-align: top;
+    margin-top: -2px; /* Move the icon up slightly to align with first line of text */
+}
+
 /* --- Map and Address --- */
 
 .address-text {
