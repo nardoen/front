@@ -138,12 +138,12 @@
         font-size: 2rem;
     }
     .chef-image-wrapper img {
-        max-width: 220px;
-        height: 220px;
+        max-width: 320px; /* Increased from 220px to 320px */
+        height: 320px; /* Increased from 220px to 320px */
     }
     .chef-section::before {
-        width: 220px;
-        height: 220px;
+        width: 340px; /* Adjusted background glow to match larger image */
+        height: 340px;
         top: 20px;
     }
     .chef-intro-text {

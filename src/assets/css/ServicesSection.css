@@ -55,7 +55,8 @@
 /* ------------------------------------------------------------- */
 .service-text-card {
     /* Dimensions based on Image Container */
-    height: 80%; /* ⬇️ REDUCED CARD HEIGHT (approx 80% of 450px) */
+    min-height: 320px; /* ⬇️ FIXED MINIMUM HEIGHT instead of percentage */
+    height: auto; /* Allow height to expand if needed */
     width: 50%;  /* ⬇️ REDUCED CARD WIDTH (approx 40% of the block) */
     
     /* Look and Feel */
