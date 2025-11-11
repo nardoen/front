@@ -1,7 +1,6 @@
 .login-page-bg {
   background: linear-gradient(120deg, #e7cba0 0%, #c99f6b 50%, #f5f7fa 100%);
   min-height: calc(100vh - 76px); /* Account for fixed header height */
-  margin-top: 70px; /* Push content below fixed header */
   padding: 2rem 1rem;
   display: flex;
   align-items: center;
@@ -186,6 +185,20 @@
 .switch-view-button:hover {
   text-decoration: underline;
   color: #b8956b;
+}
+
+/* Forgot Password Link */
+.forgot-password-link {
+  color: #c99f6b;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgot-password-link:hover {
+  color: #b8956b;
+  text-decoration: underline;
 }
 
 /* Responsive Adjustments */

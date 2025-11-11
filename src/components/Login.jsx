@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import authAxios from '../api/authAxios';
 import '../assets/css/Loginregistration.css';
 
 // Removed duplicate function definition
 function Login({ onAuthSuccess, onSwitchToRegister, loginLoading, onLoginStart, onLoginEnd }) {
+  const navigate = useNavigate();
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [internalLoading, setInternalLoading] = useState(false);
@@ -74,6 +76,17 @@ function Login({ onAuthSuccess, onSwitchToRegister, loginLoading, onLoginStart, 
             onChange={(e) => setLoginForm((f) => ({ ...f, password: e.target.value }))}
           />
         </Form.Group>
+        
+        <div className="d-flex justify-content-end mb-3">
+          <Button 
+            variant="link" 
+            className="p-0 forgot-password-link" 
+            onClick={() => navigate('/forgot-password')}
+          >
+            Forgot Password?
+          </Button>
+        </div>
+
         <Button variant="primary" type="submit" className="w-100 auth-button" disabled={effectiveLoading}>
           {effectiveLoading ? (
           <>
