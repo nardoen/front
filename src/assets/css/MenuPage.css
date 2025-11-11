@@ -7,9 +7,10 @@
 
 .menu-page-hero {
   text-align: center;
-  padding: 4rem 1rem 2rem 1rem;
+  padding: 6rem 1rem 2rem 1rem; /* Increased top padding to account for fixed header */
   background: linear-gradient(90deg, #ffecd2 0%, #fcb69f 100%);
   box-shadow: 0 4px 24px rgba(255, 140, 0, 0.08);
+  margin-top: 76px; /* Add margin-top to push content below fixed header */
 }
 
 .menu-page-title {
@@ -47,7 +48,8 @@
     font-size: 2.1rem;
   }
   .menu-page-hero {
-    padding: 2.5rem 0.5rem 1.5rem 0.5rem;
+    padding: 4rem 0.5rem 1.5rem 0.5rem; /* Adjusted top padding for mobile */
+    margin-top: 70px; /* Slightly less margin for mobile header */
   }
   .menu-page-content {
     padding: 1rem 0.5rem 2rem 0.5rem;

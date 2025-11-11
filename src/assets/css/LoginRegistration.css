@@ -1,6 +1,7 @@
 .login-page-bg {
   background: linear-gradient(120deg, #e7cba0 0%, #c99f6b 50%, #f5f7fa 100%);
-  min-height: 100vh;
+  min-height: calc(100vh - 76px); /* Account for fixed header height */
+  margin-top: 70px; /* Push content below fixed header */
   padding: 2rem 1rem;
   display: flex;
   align-items: center;
@@ -189,6 +190,12 @@
 
 /* Responsive Adjustments */
 @media (max-width: 576px) {
+  .login-page-bg {
+    margin-top: 60px; /* Slightly less margin for mobile header */
+    min-height: calc(100vh - 60px);
+    padding: 1.5rem 1rem;
+  }
+
   .login-card {
     max-width: 100%;
     margin: 0 1rem;

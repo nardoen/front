@@ -14,7 +14,7 @@ function HowItWorks() {
                     </Col>
                 </Row>
                 
-                <Row className="g-5">
+                <Row className="g-2 g-md-5">
                     {/* Step 1: Choose Dish */}
                     <Col xs={12} md={4} className="text-center how-it-works-step">
                         <div className="step-icon-wrapper">
