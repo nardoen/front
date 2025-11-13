@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // Icons for navigation
 import '../assets/css/FeaturedMenu.css'; 
 import axios from 'axios';
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || '';
 
 // Fetch menu data from API
 

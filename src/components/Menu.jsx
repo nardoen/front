@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import MenuItemCard from './MenuItemCard';
 import '../assets/css/Menu.css';
 import axios from 'axios';
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || '';
 
 
 const dailyMenu = []; // Placeholder for dynamic menu data
