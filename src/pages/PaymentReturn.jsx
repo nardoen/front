@@ -1,18 +1,16 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import PaymentReturn from '../components/PaymentReturn';
 
-const PaymentReturn = () => {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const paymentId = params.get('id');
-
+function PaymentReturnPage() {
   return (
-    <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-      <h2>Thank you for your payment!</h2>
-      {paymentId && <p>Your payment ID: <b>{paymentId}</b></p>}
-      <p>Your payment has been processed. You will receive a confirmation email shortly.</p>
+    <div>
+      <Header />
+      <PaymentReturn />
+      <Footer />
     </div>
   );
-};
+}
 
-export default PaymentReturn;
+export default PaymentReturnPage;
