@@ -19,7 +19,7 @@ function PaymentReturn() {
       setPaymentDetails({
         id: paymentId,
         status: paymentStatus,
-        amount: params.get('amount'),..
+        amount: params.get('amount'),
         orderNumber: params.get('order') || `ORD-${Date.now()}`,
         date: new Date().toLocaleDateString('en-US', {
           year: 'numeric',
