@@ -1,16 +1,53 @@
-# React + Vite
+# Nardoen Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### 1. Environment Setup
 
-Currently, two official plugins are available:
+Create a `.env` file in the root directory:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```env
+VITE_API_URL=http://localhost:8000
+```
 
-## React Compiler
+For production, create a `.env.production` file:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```env
+VITE_API_URL=https://your-production-domain.com
+```
 
-## Expanding the ESLint configuration
+### 2. Start Development Server
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173`
+
+
+## 🚀 Deployment
+
+### 3-Development
+
+1. Ensure Django backend is running on `http://localhost:8000`
+2. Run `npm run dev`
+3. Access the app at `http://localhost:5173`
+
+### 4-Production
+
+1. Build the application:
+   ```bash
+   npm run build
+   ```
+
+2. The `dist/` folder contains the production build
+
+3. Serve the `dist/` folder through your Django backend or web server
+
+### Django Integration
+
+For Django integration, the build can be served as static files:
+
+1. Copy the `dist/` contents to your Django static folder
+2. Configure Django to serve the React app for non-API routes
+3. Set `VITE_API_URL` to your production domain or leave empty for relative URLs
+
+
