@@ -15,6 +15,13 @@ const CartModal = () => {
   const { isCartOpen, toggleCart, cartItems, updateQuantity, removeFromCart, deliveryDate, updateOrderDeliveryDate, getMinDate, cartTotal } = useCart();
   const { isLoggedIn } = useAuth();
   const { isOffDay, getOffDayDates } = useOffDay();
+  
+  // Set default delivery date to tomorrow if not already set when cart opens
+  React.useEffect(() => {
+    if (isCartOpen && !deliveryDate) {
+      updateOrderDeliveryDate(getMinDate());
+    }
+  }, [isCartOpen, deliveryDate, updateOrderDeliveryDate, getMinDate]);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authSuccess, setAuthSuccess] = useState(false);
   const [showGuestForm, setShowGuestForm] = useState(false);
@@ -33,6 +40,13 @@ const CartModal = () => {
   // Validate token with backend before proceeding
   const handleCheckout = async () => {
     setCheckoutError('');
+    
+    // Check if delivery date is selected
+    if (!deliveryDate) {
+      setCheckoutError('Please select a delivery date before proceeding to checkout.');
+      return;
+    }
+    
     if (isLoggedIn) {
       // Logged in: proceed directly to payment
       setLoginLoading(true);
@@ -188,15 +202,16 @@ const CartModal = () => {
                 <label style={{ fontWeight: 'bold', marginBottom: '0.5rem', display: 'block' }}>Delivery Date:</label>
                 <DatePicker
                   key={isCartOpen}
-                  selected={deliveryDate || undefined}
+                  selected={deliveryDate}
                   onChange={updateOrderDeliveryDate}
                   minDate={getMinDate()}
                   excludeDates={getOffDayDates()}
                   dateFormat="MMMM d, yyyy"
                   className="form-control beautiful-datepicker"
-                  placeholderText="Choose your delivery date"
+                  placeholderText="Select delivery date (required)"
                   openToDate={getMinDate()}
                   filterDate={(date) => !isOffDay(date)}
+                  required
                 />
               </div>
               <button className="checkout-button" onClick={handleCheckout}>Proceed to Checkout</button>
