@@ -1,12 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaInstagram, FaFacebook } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaInstagram, FaFacebook, FaWhatsapp } from 'react-icons/fa';
+import authAxios from '../api/authAxios';
 import '../assets/css/Footer.css'; 
 
 function Footer() {
-    // Google Maps embed for Maneschijn 17, 6846 DW Arnhem, Netherlands
-    const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2439.8!2d5.9!3d52.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDAyJzAwLjAiTiA1wrA1NCcwMC4wIkU!5e0!3m2!1sen!2snl!4v1700000000000!5m2!1sen!2snl&q=Maneschijn+17,+6846+DW+Arnhem,+Netherlands";
+    const [footerInfo, setFooterInfo] = useState({
+        email: 'info@nardoen.nl',
+        order_deadline: '24 hours before delivery',
+        address: 'Kastanjelaan 275, 3316GZ Dordrecht',
+        phone_number: '0639222222',
+        pickup_hours: '2-6',
+        facebook_url: 'https://www.facebook.com',
+        instagram_url: 'https://www.instagram.com',
+        whatsapp_number: '0639252180'
+    });
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchFooterInfo = async () => {
+            try {
+                const response = await authAxios.get('/api/footer-info/');
+                if (response.data) {
+                    setFooterInfo(response.data);
+                }
+            } catch (error) {
+                console.error('Error fetching footer info:', error);
+                // Keep default values if API fails
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchFooterInfo();
+    }, []);
+
+    // Google Maps embed for the dynamic address
+    const mapEmbedUrl = `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(footerInfo.address)}`;
+    // Fallback map URL if no API key
+    const fallbackMapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2439.8!2d5.9!3d52.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDAyJzAwLjAiTiA1wrA1NCcwMC4wIkU!5e0!3m2!1sen!2snl!4v1700000000000!5m2!1sen!2snl&q=" + encodeURIComponent(footerInfo.address);
     
     return (
         <footer className="main-footer">
@@ -24,8 +57,9 @@ function Footer() {
                             <li><Link to="/contact">Contact</Link></li>
                         </ul>
                         <div className="social-icons mt-3">
-                            <a href="https://instagram.com" aria-label="Instagram"><FaInstagram size={22} /></a>
-                            <a href="https://facebook.com" aria-label="Facebook"><FaFacebook size={22} /></a>
+                            <a href={footerInfo.instagram_url} aria-label="Instagram" target="_blank" rel="noopener noreferrer"><FaInstagram size={22} /></a>
+                            <a href={footerInfo.facebook_url} aria-label="Facebook" target="_blank" rel="noopener noreferrer"><FaFacebook size={22} /></a>
+                            <a href={`https://wa.me/${footerInfo.whatsapp_number.replace(/[^0-9]/g, '')}`} aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><FaWhatsapp size={22} /></a>
                         </div>
                     </Col>
                     
@@ -35,19 +69,19 @@ function Footer() {
                         <ul className="footer-contact-info">
                             <li>
                                 <FaEnvelope className="contact-icon" />
-                                <a href="mailto:info@nardoen.com">info@nardoen.com</a>
+                                <a href={`mailto:${footerInfo.email}`}>{footerInfo.email}</a>
                             </li>
                             <li>
                                 <FaPhone className="contact-icon" />
-                                <a href="tel:+15551234567">(555) 123-4567</a>
+                                <a href={`tel:${footerInfo.phone_number.replace(/[^0-9]/g, '')}`}>{footerInfo.phone_number}</a>
                             </li>
-                            <li className="mt-3">
+                            <li className="mt-3 info-section">
                                 <h6>Order Deadline:</h6>
-                                <p>Place orders by 12:00 PM (noon) the day before pick-up.</p>
+                                <p>{footerInfo.order_deadline}</p>
                             </li>
-                            <li>
+                            <li className="info-section">
                                 <h6>Pick-Up Hours:</h6>
-                                <p>Monday - Friday: 4:00 PM - 7:00 PM</p>
+                                <p>{footerInfo.pickup_hours}</p>
                             </li>
                         </ul>
                     </Col>
@@ -57,12 +91,11 @@ function Footer() {
                         <h5 className="footer-heading">Find Us</h5>
                         <p className="address-text">
                             <FaMapMarkerAlt className="contact-icon map-icon me-2" />
-                            Maneschijn 17<br/>
-                            6846 DW Arnhem, Netherlands
+                            {footerInfo.address}
                         </p>
                         <div className="map-wrapper">
                             <iframe 
-                                src={mapEmbedUrl} 
+                                src={fallbackMapUrl} 
                                 width="100%" 
                                 height="200" 
                                 allowFullScreen="" 

@@ -78,6 +78,29 @@
     padding: 6px 12px;
 }
 
+/* Special styling for info sections (Order Deadline, Pick-Up Hours) */
+.footer-contact-info li.info-section {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+}
+
+.footer-contact-info li.info-section h6 {
+    color: #c99f6b;
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-right: 8px;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.footer-contact-info li.info-section p {
+    color: #ccc;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
 .footer-contact-info li h6 {
     color: #c99f6b;
     font-weight: 600;
@@ -89,6 +112,7 @@
     color: #ccc;
     font-size: 0.9rem;
     margin-bottom: 0;
+    line-height: 1.5;
 }
 
 .footer-contact-info a {
