@@ -14,11 +14,11 @@ function MenuItemCard({ dish }) {
             <Card.Body className="d-flex flex-column">
                 <Card.Title className="menu-item-title">{dish.title}</Card.Title>
                 <Card.Text className="menu-item-ingredients">
-                    {dish.ingredients}
+                    <div dangerouslySetInnerHTML={{ __html: dish.ingredients }} />
                 </Card.Text>
                 <div className="mt-auto">
                     <div className="d-flex justify-content-between align-items-center">
-                        <span className="menu-item-price">${!isNaN(priceNum) ? priceNum.toFixed(2) : dish.price}</span>
+                        <span className="menu-item-price">€{!isNaN(priceNum) ? priceNum.toFixed(2) : dish.price}</span>
                         <Button className="add-to-basket-btn" onClick={() => addToCart(dish)}>
                             Add to Cart
                         </Button>

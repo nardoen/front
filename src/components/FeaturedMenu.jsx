@@ -15,7 +15,15 @@ function FeaturedMenu() {
     const [isFading, setIsFading] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [expandedCards, setExpandedCards] = useState({});
     const maxVisible = 4;
+
+
+    // Function to get clean text from HTML
+    const getCleanText = (description) => {
+        if (!description) return '';
+        return description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    };
 
     React.useEffect(() => {
         async function fetchMenu() {
@@ -93,11 +101,25 @@ function FeaturedMenu() {
                                         className="menu-card-img"
                                         alt={dish.name}
                                     />
-                                    <Card.Body>
+                                    <Card.Body className="menu-card-body">
                                         <Card.Title className="card-dish-title">{dish.name}</Card.Title>
-                                        <Card.Text className="card-dish-text">{dish.description}</Card.Text>
-                                        <strong>${dish.price}</strong>
-                                        {/* You can add a link or button for details if needed */}
+                                        <div className="card-text-container">
+                                            <Card.Text className="card-dish-text">
+                                                {getCleanText(dish.description)}
+                                            </Card.Text>
+                                        </div>
+                                        <div className="card-price-section">
+                                            <strong className="dish-price">€{dish.price}</strong>
+                                        </div>
+                                        <Button 
+                                            variant="outline-primary" 
+                                            size="sm" 
+                                            className="view-menu-btn"
+                                            as={Link}
+                                            to="/menu"
+                                        >
+                                            View Menu
+                                        </Button>
                                     </Card.Body>
                                 </Card>
                             ))}

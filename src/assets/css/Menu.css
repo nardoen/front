@@ -152,3 +152,39 @@
         font-size: 2.2rem;
     }
 }
+
+/* --- HTML Content Styling for Menu Items --- */
+.menu-item-ingredients ul {
+    padding-left: 1rem;
+    margin-bottom: 0.8rem;
+    list-style-type: disc;
+}
+
+.menu-item-ingredients li {
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.menu-item-ingredients ul li:last-child {
+    margin-bottom: 0;
+}
+
+.menu-item-ingredients p {
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.menu-item-ingredients strong {
+    color: #c99f6b;
+    font-weight: 600;
+}
+
+/* Ensure HTML content doesn't break card layout */
+.menu-item-ingredients div {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
