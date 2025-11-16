@@ -198,7 +198,7 @@ const CartModal = () => {
                 <label style={{ fontWeight: 'bold', marginBottom: '0.5rem', display: 'block' }}>Delivery Date:</label>
                 <DatePicker
                   key={isCartOpen}
-                  selected={deliveryDate}
+                  selected={deliveryDate || getMinDate()}
                   onChange={updateOrderDeliveryDate}
                   minDate={getMinDate()}
                   excludeDates={getOffDayDates()}

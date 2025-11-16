@@ -26,14 +26,13 @@ export const CartProvider = ({ children }) => {
   const [deliveryDate, setDeliveryDate] = useState(() => {
     try {
       const localData = localStorage.getItem('deliveryDate');
-      if (localData) {
-        const date = new Date(JSON.parse(localData));
-        // Check if the parsed date is valid
+      if (localData && localData !== 'null') {
+        const parsed = JSON.parse(localData);
+        const date = new Date(parsed);
         if (!isNaN(date.getTime())) {
           return date;
         }
       }
-      // Default to null if not set
       return null;
     } catch (error) {
       console.error("Could not parse delivery date from localStorage", error);
