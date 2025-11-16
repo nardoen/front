@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { addDays } from 'date-fns';
 
 const CartContext = createContext();
@@ -83,6 +83,13 @@ export const CartProvider = ({ children }) => {
     setDeliveryDate(date);
   };
 
+  const clearCart = useCallback(() => {
+    setCartItems([]);
+    setDeliveryDate(null);
+    localStorage.removeItem('cartItems');
+    localStorage.removeItem('deliveryDate');
+  }, []);
+
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
   };
@@ -96,6 +103,7 @@ export const CartProvider = ({ children }) => {
     removeFromCart,
     updateQuantity,
     updateOrderDeliveryDate,
+    clearCart,
     getMinDate,
     isCartOpen,
     toggleCart,

@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaCheckCircle, FaTimesCircle, FaSpinner, FaReceipt, FaHome, FaPhone } from 'react-icons/fa';
+import { useCart } from '../context/CartContext';
 import '../assets/css/PaymentReturn.css';
 
 function PaymentReturn() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { clearCart } = useCart();
   const [status, setStatus] = useState('loading'); // loading, success, failed
   const [paymentDetails, setPaymentDetails] = useState({});
+  const [countdown, setCountdown] = useState(5);
+  const didClearCart = useRef(false); // Use ref to track if cart was cleared
   
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -31,7 +36,40 @@ function PaymentReturn() {
       });
       setStatus(paymentStatus === 'failed' ? 'failed' : 'success');
     }, 1500);
-  }, [location]);
+  }, [location.search]);
+
+  // Effect to clear cart on successful payment
+  useEffect(() => {
+    if (status === 'success' && !didClearCart.current) {
+      clearCart();
+      didClearCart.current = true; // Mark that the cart has been cleared
+    }
+  }, [status, clearCart]);
+
+  // Effect for countdown on successful payment
+  useEffect(() => {
+    if (status === 'success') {
+      const timer = setInterval(() => {
+        setCountdown(prevCountdown => {
+          if (prevCountdown <= 1) {
+            clearInterval(timer);
+            return 0;
+          }
+          return prevCountdown - 1;
+        });
+      }, 1000);
+
+      // Cleanup function to clear the interval if the component unmounts
+      return () => clearInterval(timer);
+    }
+  }, [status]);
+
+  // Separate effect to handle navigation when countdown reaches 0
+  useEffect(() => {
+    if (countdown === 0) {
+      navigate('/');
+    }
+  }, [countdown, navigate]);
 
   if (status === 'loading') {
     return (
@@ -104,13 +142,21 @@ function PaymentReturn() {
                     </div>
                   </div>
 
+                  <div className="countdown-info mb-4">
+                    <Alert variant="info" className="text-center">
+                      <FaHome className="me-2" />
+                      Redirecting to home page in <strong>{countdown}</strong> seconds...
+                    </Alert>
+                  </div>
+
                   <div className="action-buttons">
-                    <Link to="/">
-                      <Button className="payment-btn primary me-3">
-                        <FaHome className="me-2" />
-                        Back to Home
-                      </Button>
-                    </Link>
+                    <Button 
+                      className="payment-btn primary me-3"
+                      onClick={() => navigate('/')}
+                    >
+                      <FaHome className="me-2" />
+                      Go to Home Now
+                    </Button>
                     <Link to="/menu">
                       <Button variant="outline-primary" className="payment-btn secondary">
                         Order Again
