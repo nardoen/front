@@ -67,6 +67,8 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
     }
     if (!fields.password) {
       errors.password = 'Password is required.';
+    } else if (fields.password.length < 6) {
+      errors.password = 'Password must be at least 6 characters long.';
     }
     if (fields.password !== fields.repeatPassword) {
       errors.repeatPassword = 'Passwords do not match.';
