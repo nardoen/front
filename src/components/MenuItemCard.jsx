@@ -13,9 +13,7 @@ function MenuItemCard({ dish }) {
             <Card.Img variant="top" src={dish.imageUrl} alt={dish.title} className="menu-item-image" />
             <Card.Body className="d-flex flex-column">
                 <Card.Title className="menu-item-title">{dish.title}</Card.Title>
-                <Card.Text className="menu-item-ingredients">
-                    <div dangerouslySetInnerHTML={{ __html: dish.ingredients }} />
-                </Card.Text>
+                <div className="menu-item-ingredients" dangerouslySetInnerHTML={{ __html: dish.ingredients }} />
                 <div className="mt-auto">
                     <div className="d-flex justify-content-between align-items-center">
                         <span className="menu-item-price">€{!isNaN(priceNum) ? priceNum.toFixed(2) : dish.price}</span>
