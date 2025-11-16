@@ -58,10 +58,6 @@ function Header() {
       <Navbar expand="lg" className="nardoen-navbar" variant="dark" fixed="top">
       {/* ... existing code ... */}
       <Container className="header-container">
-        {/* ... existing code ... */}
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
-        {/* ... existing code ... */}
         <Navbar.Brand as={Link} to="/" className="nardoen-logo">
           <span
             style={{
@@ -75,20 +71,34 @@ function Header() {
           </span>
         </Navbar.Brand>
 
-        {/* ... existing code ... */}
+        {/* Shopping cart icon - visible only on mobile, positioned right of hamburger menu */}
+        <div className="d-flex align-items-center d-lg-none">
+          <Nav.Link onClick={toggleCart} className="shopping-cart-icon me-2" style={{ color: 'white', padding: '8px' }}>
+            <FaShoppingCart size={20} />
+            {cartCount > 0 && (
+              <Badge pill bg="danger" className="cart-badge">
+                {cartCount}
+              </Badge>
+            )}
+          </Nav.Link>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        </div>
+
+        {/* Hamburger menu for desktop (when mobile cart is hidden) */}
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="d-none d-lg-block d-xl-none" />
+
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
-          {/* ... existing code ... */}
           <Nav className="nardoen-nav-links nav-left">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/menu">Menu</Nav.Link>
             <Nav.Link as={Link} to="/about">About Us</Nav.Link>
           </Nav>
 
-          {/* ... existing code ... */}
           <Nav className="nardoen-nav-links nav-right">
             <Nav.Link as={Link} to="/contact">Contact Us</Nav.Link>
 
-            <Nav.Link onClick={toggleCart} className="shopping-cart-icon">
+            {/* Shopping cart for desktop - hidden on mobile */}
+            <Nav.Link onClick={toggleCart} className="shopping-cart-icon d-none d-lg-block">
               <FaShoppingCart size={20} />
               {cartCount > 0 && (
                 <Badge pill bg="danger" className="cart-badge">
