@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import Menu from '../components/Menu.jsx';
 import '../assets/css/MenuPage.css';
 
 function MenuPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="menu-page-bg">
       <Header />
