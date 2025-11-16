@@ -75,7 +75,6 @@ const CartModal = () => {
   }
 
   const handleAuthSuccess = async () => {
-    console.log('Auth success!');
     setAuthSuccess(true);
     setShowAuthModal(false);
     setLoginLoading(true);
@@ -101,7 +100,6 @@ const CartModal = () => {
   };
 
   const handleGuestContinue = () => {
-  console.log('Continue as guest clicked');
   setShowGuestForm(true);
   setGuestError('');
   };
@@ -118,8 +116,6 @@ const CartModal = () => {
       return;
     }
     try {
-      // Send guest info to backend (adjust endpoint as needed)
-      console.log('Sending guest info to backend...');
       await authAxios.post('/api/guest-checkout/', { name, email, is_guest: true });
       setShowAuthModal(false);
       setShowGuestForm(false);
@@ -221,12 +217,10 @@ const CartModal = () => {
       </div>
       </div>
       {/* Auth Modal */}
-      {console.log('Render: showAuthModal', showAuthModal, 'showGuestForm', showGuestForm)}
       {showAuthModal && (
         <div className="cart-auth-modal-overlay">
           <div className="cart-auth-modal-content">
             <button className="cart-close-button" onClick={() => { 
-              console.log('Closing auth modal');
               setShowAuthModal(false); setShowGuestForm(false); setCheckoutError(''); }}>&times;</button>
             {checkoutError && (
               <div className="text-danger mb-3" style={{ textAlign: 'center' }}>{checkoutError}</div>

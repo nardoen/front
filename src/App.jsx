@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import CartModal from './components/CartModal';
+import CookieConsent from './components/CookieConsent';
 import './App.css';
 import PaymentReturn from './pages/PaymentReturn';
 
@@ -14,6 +15,7 @@ function App() {
   return (
     <>
       <CartModal />
+      <CookieConsent />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/menu" element={<MenuPage />} />
