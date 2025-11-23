@@ -379,8 +379,8 @@
     .menu-card {
         min-width: 100vw;
         max-width: 100vw;
-        height: auto;
-        margin: 0 -16px;
+        min-height: 100vh;
+        margin: 0;
         border-radius: 0;
     }
     .menu-card-img {
@@ -403,5 +403,13 @@
     .full-menu-cta {
         font-size: 0.95rem;
         padding: 10px 16px;
+    }
+                                        
+    .card-text-container{
+        flex-grow: 0;
+    }
+    .card-dish-text{
+        margin: 0 !important;
+        min-height: 50px;
     }
 }

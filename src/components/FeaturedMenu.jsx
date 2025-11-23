@@ -91,7 +91,7 @@ function FeaturedMenu() {
                     </Col>
 
                     {/* Menu Cards Container (Carousel Items) */}
-                    <Col xs={10}>
+                    <Col xs={12}>
                         <div className={`menu-cards-container ${fadeClass}`}>
                             {visibleDishes.map((dish, idx) => (
                                 <Card key={dish.code + idx} className="menu-card text-center">
@@ -104,7 +104,7 @@ function FeaturedMenu() {
                                     <Card.Body className="menu-card-body">
                                         <Card.Title className="card-dish-title">{dish.name}</Card.Title>
                                         <div className="card-text-container">
-                                            <Card.Text className="card-dish-text">
+                                            <Card.Text className="">
                                                 {getCleanText(dish.description)}
                                             </Card.Text>
                                         </div>
