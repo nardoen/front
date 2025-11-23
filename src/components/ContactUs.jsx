@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 import authAxios from '../api/authAxios';
@@ -13,6 +13,26 @@ function ContactUs() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+  const [contactInfo, setContactInfo] = useState({
+    address: '',
+    FOOTER_INFO_ADDRESS: '',
+    email: ''
+  });
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const response = await authAxios.get('/api/footer-info/');
+        if (response.data) {
+          setContactInfo(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching contact info:', error);
+      }
+    };
+
+    fetchContactInfo();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -146,15 +166,15 @@ function ContactUs() {
               <ul className="contact-details-list">
                 <li>
                   <FaMapMarkerAlt className="contact-icon" />
-                  <span>123 Saffron Street, Foodie City, 12345</span>
+                  <span>{contactInfo.address || 'Loading address...'}</span>
                 </li>
                 <li>
                   <FaPhoneAlt className="contact-icon" />
-                  <span>(123) 456-7890</span>
+                  <span>{contactInfo.phone_number || 'Loading phone...'}</span>
                 </li>
                 <li>
                   <FaEnvelope className="contact-icon" />
-                  <span>contact@nardoen.com</span>
+                  <span>{contactInfo.email || 'Loading email...'}</span>
                 </li>
               </ul>
             </div>
