@@ -43,8 +43,7 @@ const CookieConsent = () => {
           <h5>We use cookies and collect data</h5>
           <p>
             We use cookies and similar technologies to enhance your experience, analyze website traffic, 
-            and personalize content. By clicking "Accept", you consent to our use of cookies and data collection 
-            as described in our <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+            and personalize content. By clicking "Accept", you consent to our use of cookies and data collection.
           </p>
         </div>
         <div className="cookie-consent-actions">
