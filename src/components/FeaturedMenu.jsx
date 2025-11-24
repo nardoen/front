@@ -15,7 +15,6 @@ function FeaturedMenu() {
     const [isFading, setIsFading] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [expandedCards, setExpandedCards] = useState({});
     const maxVisible = 4;
 
 
@@ -29,7 +28,8 @@ function FeaturedMenu() {
         async function fetchMenu() {
             try {
                 const res = await axios.get(`${API_URL}/api/items/`);
-                setMenuItems(res.data);
+                const filteredItems = res.data.filter(item => item.type === 'dish'); // Filter items with type 'dish'
+                setMenuItems(filteredItems);
             } catch (err) {
                 setError('Failed to load menu.');
             } finally {

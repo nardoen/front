@@ -19,7 +19,23 @@ function MenuPage() {
         async function fetchMenu() {
             try {
                 const res = await axios.get(`${API_URL}/api/items/`);
-                setMenuItems(res.data);
+                const filteredItems = res.data.reduce((acc, item) => {
+                    if (!acc[item.type]) {
+                        acc[item.type] = [];
+                    }
+                    acc[item.type].push(item);
+                    return acc;
+                }, {});
+
+                // Ensure the order: dish -> side -> drink -> other
+                const orderedItems = {};
+                ['dish', 'side', 'drink', 'other'].forEach(type => {
+                    if (filteredItems[type]) {
+                        orderedItems[type] = filteredItems[type];
+                    }
+                });
+
+                setMenuItems(orderedItems);
             } catch (err) {
                 setError('Failed to load menu.');
             } finally {
@@ -43,21 +59,26 @@ function MenuPage() {
                 {loading && <div>Loading menu...</div>}
                 {error && <div>{error}</div>}
 
-                <Row className="g-4">
-                    {menuItems.map((dish, idx) => (
-                        <Col key={dish.code || idx} xs={12} sm={6} lg={4}>
-                            <MenuItemCard
-                                dish={{
-                                    id: dish.id, // Ensure unique id is passed
-                                    title: dish.name,
-                                    ingredients: dish.description,
-                                    price: dish.price,
-                                    imageUrl: dish.details && dish.details[0] ? `${API_URL}/${dish.details[0].path_img}` : ''
-                                }}
-                            />
-                        </Col>
-                    ))}
-                </Row>
+                {Object.keys(menuItems).map((type) => (
+                    <div key={type} className="menu-category-section">
+                        <h2 className="menu-category-title text-center">{type.charAt(0).toUpperCase() + type.slice(1)}</h2>
+                        <Row className="g-4">
+                            {menuItems[type].map((dish, idx) => (
+                                <Col key={dish.code || idx} xs={12} sm={6} lg={4}>
+                                    <MenuItemCard
+                                        dish={{
+                                            id: dish.id, // Ensure unique id is passed
+                                            title: dish.name,
+                                            ingredients: dish.description,
+                                            price: dish.price,
+                                            imageUrl: dish.details && dish.details[0] ? `${API_URL}/${dish.details[0].path_img}` : ''
+                                        }}
+                                    />
+                                </Col>
+                            ))}
+                        </Row>
+                    </div>
+                ))}
             </Container>
         </section>
     );

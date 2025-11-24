@@ -11,6 +11,7 @@
   background: linear-gradient(90deg, #ffecd2 0%, #fcb69f 100%);
   box-shadow: 0 4px 24px rgba(255, 140, 0, 0.08);
   margin-top: 76px; /* Add margin-top to push content below fixed header */
+  position: relative;
 }
 
 .menu-page-title {
@@ -36,6 +37,16 @@
   margin: 0 auto 2rem auto;
 }
 
+/* Halal logo styles */
+.menu-page-halal-logo {
+  position: absolute;
+  top: 80px;
+  right: 32px;
+  width: 150px;
+  height: auto;
+  z-index: 2;
+}
+
 .menu-page-content {
   flex: 1;
   max-width: 1200px;
@@ -50,6 +61,12 @@
   .menu-page-hero {
     padding: 4rem 0.5rem 1.5rem 0.5rem; /* Adjusted top padding for mobile */
     margin-top: 70px; /* Slightly less margin for mobile header */
+    min-height: 180px;
+  }
+  .menu-page-halal-logo {
+    top: 5px;
+    right: 12px;
+    width: 60px;
   }
   .menu-page-content {
     padding: 1rem 0.5rem 2rem 0.5rem;
