@@ -188,3 +188,23 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
+
+/* --- Menu Category Header Styling --- */
+.menu-category-header {
+    margin-bottom: 2rem;
+}
+
+.menu-category-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #363636;
+    margin-bottom: 0.5rem;
+}
+
+.menu-category-underline {
+    width: 100px;
+    height: 4px;
+    background-color: #c99f6b;
+    margin-top: 0.5rem;
+}

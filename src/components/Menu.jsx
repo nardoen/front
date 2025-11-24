@@ -61,7 +61,12 @@ function MenuPage() {
 
                 {Object.keys(menuItems).map((type) => (
                     <div key={type} className="menu-category-section">
-                        <h2 className="menu-category-title text-center">{type.charAt(0).toUpperCase() + type.slice(1)}</h2>
+                        <div className="menu-category-header text-center">
+                            <h2 className="menu-category-title">
+                                {type.charAt(0).toUpperCase() + type.slice(1)}
+                            </h2>
+                            <div className="menu-category-underline mx-auto"></div>
+                        </div>
                         <Row className="g-4">
                             {menuItems[type].map((dish, idx) => (
                                 <Col key={dish.code || idx} xs={12} sm={6} lg={4}>
