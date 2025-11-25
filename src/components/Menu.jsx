@@ -59,7 +59,7 @@ function MenuPage() {
                 {loading && <div>Loading menu...</div>}
                 {error && <div>{error}</div>}
 
-                {Object.keys(menuItems).map((type) => (
+                {['dish', 'side'].map((type) => (
                     <div key={type} className="menu-category-section">
                         <div className="menu-category-header text-center">
                             <h2 className="menu-category-title">
@@ -68,7 +68,7 @@ function MenuPage() {
                             <div className="menu-category-underline mx-auto"></div>
                         </div>
                         <Row className="g-4">
-                            {menuItems[type].map((dish, idx) => (
+                            {menuItems[type]?.map((dish, idx) => (
                                 <Col key={dish.code || idx} xs={12} sm={6} lg={4}>
                                     <MenuItemCard
                                         dish={{
