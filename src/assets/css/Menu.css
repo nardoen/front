@@ -25,7 +25,7 @@
 /* Uniform size for menu card images */
 .menu-item-image {
     width: 100%;
-    height: 220px;
+    height: 300px; /* Increased height for a larger image */
     object-fit: cover;
     object-position: center;
     border-radius: 0.5rem 0.5rem 0 0;
