@@ -38,7 +38,7 @@ function Footer() {
     }, []);
 
     // Use mapEmbedUrl from the backend, fallback if not provided
-    const mapEmbedUrl = footerInfo.mapEmbedUrl || `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2439.8!2d5.9!3d52.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDAyJzAwLjAiTiA1wrA1NCcwMC4wIkU!5e0!3m2!1sen!2snl!4v1700000000000!5m2!1sen!2snl&q=${encodeURIComponent(footerInfo.address)}`;
+    const mapEmbedUrl = footerInfo.mapEmbedUrl;
     
     return (
         <footer className="main-footer">
@@ -93,14 +93,18 @@ function Footer() {
                             {footerInfo.address}
                         </p>
                         <div className="map-wrapper">
-                            <iframe 
-                                src={mapEmbedUrl} 
-                                width="100%" 
-                                height="200" 
-                                allowFullScreen="" 
-                                loading="lazy" 
-                                title="Nardoen Location Map"
-                            ></iframe>
+                            {mapEmbedUrl ? (
+                                <iframe 
+                                    src={mapEmbedUrl} 
+                                    width="100%" 
+                                    height="200" 
+                                    allowFullScreen="" 
+                                    loading="lazy" 
+                                    title="Nardoen Location Map"
+                                ></iframe>
+                            ) : (
+                                <p>Loading map...</p>
+                            )}
                         </div>
                     </Col>
                 </Row>
