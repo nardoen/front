@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { OffDayProvider } from './context/OffDayContext';
+import { ItemProvider } from './context/ItemContext';
 import App from './App.jsx'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,7 +22,9 @@ createRoot(document.getElementById('root')).render(
       <AuthProvider>
         <CartProvider>
           <OffDayProvider>
-            <App />
+            <ItemProvider>
+              <App />
+            </ItemProvider>
           </OffDayProvider>
         </CartProvider>
       </AuthProvider>

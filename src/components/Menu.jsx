@@ -2,48 +2,12 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import MenuItemCard from './MenuItemCard';
 import '../assets/css/Menu.css';
-import axios from 'axios';
+import { useItems } from '../context/ItemContext';
+
 const API_URL = import.meta.env.VITE_API_URL || '';
 
-
-const dailyMenu = []; // Placeholder for dynamic menu data
-
-
-
 function MenuPage() {
-    const [menuItems, setMenuItems] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
-    const [error, setError] = React.useState('');
-
-    React.useEffect(() => {
-        async function fetchMenu() {
-            try {
-                const res = await axios.get(`${API_URL}/api/items/`);
-                const filteredItems = res.data.reduce((acc, item) => {
-                    if (!acc[item.type]) {
-                        acc[item.type] = [];
-                    }
-                    acc[item.type].push(item);
-                    return acc;
-                }, {});
-
-                // Ensure the order: dish -> side -> drink -> other
-                const orderedItems = {};
-                ['dish', 'side', 'drink', 'other'].forEach(type => {
-                    if (filteredItems[type]) {
-                        orderedItems[type] = filteredItems[type];
-                    }
-                });
-
-                setMenuItems(orderedItems);
-            } catch (err) {
-                setError('Failed to load menu.');
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchMenu();
-    }, []);
+    const { menuItems, loading, error } = useItems();
 
     return (
         <section className="menu-page-section">

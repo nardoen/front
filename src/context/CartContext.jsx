@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { addDays } from 'date-fns';
+import authAxios from '../api/authAxios';
 
 const CartContext = createContext();
 
@@ -41,6 +42,9 @@ export const CartProvider = ({ children }) => {
   });
 
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [extraItems, setExtraItems] = useState({ drink: [], other: [] });
+  const [extraLoading, setExtraLoading] = useState(false);
+  const [extraError, setExtraError] = useState('');
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -93,6 +97,27 @@ export const CartProvider = ({ children }) => {
     setIsCartOpen(!isCartOpen);
   };
 
+  const fetchExtras = useCallback(async () => {
+    setExtraLoading(true);
+    setExtraError('');
+    try {
+      const res = await authAxios.get(`${import.meta.env.VITE_API_URL}/api/items/`);
+      const filteredItems = res.data.reduce((acc, item) => {
+        if (!acc[item.type]) acc[item.type] = [];
+        acc[item.type].push(item);
+        return acc;
+      }, {});
+      setExtraItems({
+        drink: filteredItems.drink || [],
+        other: filteredItems.other || []
+      });
+    } catch (err) {
+      setExtraError('Failed to load extras.');
+    } finally {
+      setExtraLoading(false);
+    }
+  }, []);
+
   const cartTotal = cartItems.reduce((acc, item) => acc + Number(item.price) * item.quantity, 0).toFixed(2);
 
   const value = {
@@ -107,7 +132,11 @@ export const CartProvider = ({ children }) => {
     isCartOpen,
     toggleCart,
     cartCount: cartItems.reduce((acc, item) => acc + item.quantity, 0),
-    cartTotal
+    cartTotal,
+    extraItems,
+    extraLoading,
+    extraError,
+    fetchExtras,
   };
 
   return (
@@ -116,3 +145,26 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
+
+// Utility function to order items by type
+const orderItemsByType = (items) => {
+  const filteredItems = items.reduce((acc, item) => {
+    if (!acc[item.type]) {
+      acc[item.type] = [];
+    }
+    acc[item.type].push(item);
+    return acc;
+  }, {});
+
+  const orderedItems = {};
+  ['dish', 'side', 'drink', 'other'].forEach((type) => {
+    if (filteredItems[type]) {
+      orderedItems[type] = filteredItems[type];
+    }
+  });
+
+  return orderedItems;
+};
+
+// Export the utility function
+export { orderItemsByType };

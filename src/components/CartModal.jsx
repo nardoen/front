@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useOffDay } from '../context/OffDayContext';
+import { useItems } from '../context/ItemContext';
 import '../assets/css/CartModal.css';
 import '../assets/css/DatePicker.css'; 
 import { FaTrashAlt } from 'react-icons/fa';
@@ -11,10 +12,10 @@ import Login from './Login';
 import authAxios from '../api/authAxios';
 
 const CartModal = () => {
-
-  const { isCartOpen, toggleCart, cartItems, updateQuantity, removeFromCart, deliveryDate, updateOrderDeliveryDate, getMinDate, cartTotal } = useCart();
+  const { isCartOpen, toggleCart, cartItems, updateQuantity, removeFromCart, deliveryDate, updateOrderDeliveryDate, getMinDate, cartTotal, addToCart } = useCart();
   const { isLoggedIn } = useAuth();
   const { isOffDay, getOffDayDates } = useOffDay();
+  const { menuItems, loading: itemsLoading, error: itemsError } = useItems();
   
   // Set default delivery date to tomorrow if not already set when cart opens
   React.useEffect(() => {
@@ -192,6 +193,42 @@ const CartModal = () => {
                 );
               })}
             </ul>
+            {/* Extras Section */}
+            {cartItems.length > 0 && (
+              <div className="cart-extras-section">
+                <h4>Add a Drink or Extra?</h4>
+                {itemsLoading ? (
+                  <div>Loading extras...</div>
+                ) : itemsError ? (
+                  <div className="text-danger">{itemsError}</div>
+                ) : (
+                  <div className="cart-extras-list">
+                    {[...(menuItems.drink || []), ...(menuItems.other || [])].map((item) => (
+                      <div key={item.id} className="cart-extra-item">
+                        <img
+                          src={item.details && item.details[0] ? `${import.meta.env.VITE_API_URL}/${item.details[0].path_img}` : ''}
+                          alt={item.name}
+                        />
+                        <div>{item.name}</div>
+                        <div className="cart-extra-price">€{Number(item.price).toFixed(2)}</div>
+                        <button
+                          className="add-to-basket-btn"
+                          onClick={() =>
+                            addToCart({
+                              ...item,
+                              imageUrl: item.details && item.details[0] ? `${import.meta.env.VITE_API_URL}/${item.details[0].path_img}` : '',
+                            })
+                          }
+                        >
+                          Add to Cart
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+            {/* Price Section */}
             <div className="cart-modal-footer">
               <div className="cart-total">Total: ${cartTotal}</div>
               <div className="date-picker-container" style={{ marginBottom: '1rem', textAlign: 'left' }}>

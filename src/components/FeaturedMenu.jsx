@@ -1,45 +1,18 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // Icons for navigation
-import '../assets/css/FeaturedMenu.css'; 
-import axios from 'axios';
-const API_URL = import.meta.env.VITE_API_URL || '';
-
-// Fetch menu data from API
-
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import '../assets/css/FeaturedMenu.css';
+import { useItems } from '../context/ItemContext';
 
 function FeaturedMenu() {
-    const [menuItems, setMenuItems] = useState([]);
+    const { menuItems, loading, error } = useItems();
     const [startIdx, setStartIdx] = useState(0);
     const [isFading, setIsFading] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
     const maxVisible = 4;
 
-
-    // Function to get clean text from HTML
-    const getCleanText = (description) => {
-        if (!description) return '';
-        return description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-    };
-
-    React.useEffect(() => {
-        async function fetchMenu() {
-            try {
-                const res = await axios.get(`${API_URL}/api/items/`);
-                const filteredItems = res.data.filter(item => item.type === 'dish'); // Filter items with type 'dish'
-                setMenuItems(filteredItems);
-            } catch (err) {
-                setError('Failed to load menu.');
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchMenu();
-    }, []);
-
-    const total = menuItems.length;
+    const dishes = menuItems.dish || [];
+    const total = dishes.length;
 
     const handlePrev = () => {
         if (startIdx === 0 || isFading) return;
@@ -59,7 +32,7 @@ function FeaturedMenu() {
         }, 350);
     };
 
-    const visibleDishes = menuItems.slice(startIdx, startIdx + maxVisible);
+    const visibleDishes = dishes.slice(startIdx, startIdx + maxVisible);
     const fadeClass = isFading ? 'fade-menu' : '';
 
     if (loading) return <div>Loading menu...</div>;
@@ -75,9 +48,7 @@ function FeaturedMenu() {
                     </Col>
                 </Row>
 
-                {/* Menu Carousel Wrapper */}
                 <Row className="menu-carousel-wrapper">
-                    {/* Left Navigation Button */}
                     <Col xs={1} className="d-flex align-items-center justify-content-center p-0">
                         <button
                             className="carousel-nav-btn left-btn"
@@ -90,23 +61,23 @@ function FeaturedMenu() {
                         </button>
                     </Col>
 
-                    {/* Menu Cards Container (Carousel Items) */}
                     <Col xs={12}>
                         <div className={`menu-cards-container ${fadeClass}`}>
                             {visibleDishes.map((dish, idx) => (
                                 <Card key={dish.code + idx} className="menu-card text-center">
                                     <Card.Img
                                         variant="top"
-                                        src={dish.details && dish.details[0] ? `${API_URL}/${dish.details[0].path_img}` : ''}
+                                        src={dish.details && dish.details[0] ? `${import.meta.env.VITE_API_URL}/${dish.details[0].path_img}` : ''}
                                         className="menu-card-img"
                                         alt={dish.name}
                                     />
                                     <Card.Body className="menu-card-body">
                                         <Card.Title className="card-dish-title">{dish.name}</Card.Title>
                                         <div className="card-text-container">
-                                            <Card.Text className="">
-                                                {getCleanText(dish.description)}
-                                            </Card.Text>
+                                            <Card.Text
+                                                className=""
+                                                dangerouslySetInnerHTML={{ __html: dish.description }}
+                                            />
                                         </div>
                                         <div className="card-price-section">
                                             <strong className="dish-price">€{dish.price}</strong>
@@ -126,7 +97,6 @@ function FeaturedMenu() {
                         </div>
                     </Col>
 
-                    {/* Right Navigation Button */}
                     <Col xs={1} className="d-flex align-items-center justify-content-center p-0">
                         <button
                             className="carousel-nav-btn right-btn"

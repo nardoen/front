@@ -398,3 +398,79 @@
   font-size: 1.3rem;
 }
 
+.cart-extras-section {
+  margin-bottom: 1.5rem;
+}
+
+.cart-extras-section h4 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.cart-extras-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.cart-extra-item {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 0.3rem 0.5rem; /* Reduced padding */
+  min-width: 100px; /* Reduced minimum width */
+  text-align: center;
+  background: #fff;
+}
+
+.cart-extra-item img {
+  width: 50px; /* Reduced image size */
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.3rem; /* Reduced margin */
+}
+
+.cart-extra-item div {
+  font-weight: bold;
+  font-size: 0.9rem; /* Reduced font size */
+}
+
+.cart-extra-item .cart-extra-price {
+  color: #c99f6b;
+  font-weight: 600;
+  margin-bottom: 0.3rem; /* Reduced margin */
+  font-size: 0.85rem; /* Reduced font size */
+}
+
+.cart-extra-item .add-to-basket-btn {
+  font-size: 0.75rem; /* Reduced button font size */
+  padding: 0.2rem 0.5rem; /* Reduced padding */
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .cart-extra-item {
+    min-width: 80px; /* Further reduced for small screens */
+    padding: 0.2rem 0.4rem;
+  }
+
+  .cart-extra-item img {
+    width: 40px; /* Smaller image for small screens */
+    height: 40px;
+  }
+
+  .cart-extra-item div {
+    font-size: 0.8rem; /* Smaller font size */
+  }
+
+  .cart-extra-item .cart-extra-price {
+    font-size: 0.75rem; /* Smaller font size */
+  }
+
+  .cart-extra-item .add-to-basket-btn {
+    font-size: 0.7rem; /* Smaller button font size */
+    padding: 0.15rem 0.4rem;
+  }
+}
+
