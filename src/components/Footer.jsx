@@ -14,7 +14,8 @@ function Footer() {
         pickup_hours: '2-6',
         facebook_url: 'https://www.facebook.com',
         instagram_url: 'https://www.instagram.com',
-        whatsapp_number: '0639252180'
+        whatsapp_number: '0639252180',
+        mapEmbedUrl: '' // Added mapEmbedUrl to the default state
     });
     const [loading, setLoading] = useState(true);
 
@@ -36,10 +37,8 @@ function Footer() {
         fetchFooterInfo();
     }, []);
 
-    // Google Maps embed for the dynamic address
-    const mapEmbedUrl = `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(footerInfo.address)}`;
-    // Fallback map URL if no API key
-    const fallbackMapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2439.8!2d5.9!3d52.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDAyJzAwLjAiTiA1wrA1NCcwMC4wIkU!5e0!3m2!1sen!2snl!4v1700000000000!5m2!1sen!2snl&q=" + encodeURIComponent(footerInfo.address);
+    // Use mapEmbedUrl from the backend, fallback if not provided
+    const mapEmbedUrl = footerInfo.mapEmbedUrl || `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2439.8!2d5.9!3d52.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDAyJzAwLjAiTiA1wrA1NCcwMC4wIkU!5e0!3m2!1sen!2snl!4v1700000000000!5m2!1sen!2snl&q=${encodeURIComponent(footerInfo.address)}`;
     
     return (
         <footer className="main-footer">
@@ -95,7 +94,7 @@ function Footer() {
                         </p>
                         <div className="map-wrapper">
                             <iframe 
-                                src={fallbackMapUrl} 
+                                src={mapEmbedUrl} 
                                 width="100%" 
                                 height="200" 
                                 allowFullScreen="" 
