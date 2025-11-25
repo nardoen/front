@@ -23,6 +23,14 @@ const CartModal = () => {
       updateOrderDeliveryDate(getMinDate());
     }
   }, [isCartOpen, deliveryDate, updateOrderDeliveryDate, getMinDate]);
+  
+  // Add useEffect to dynamically update off-day dates when the modal is toggled
+  React.useEffect(() => {
+    if (isCartOpen) {
+      getOffDayDates(); // Ensure the latest off-day dates are fetched
+    }
+  }, [isCartOpen, getOffDayDates]);
+
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authSuccess, setAuthSuccess] = useState(false);
   const [showGuestForm, setShowGuestForm] = useState(false);
