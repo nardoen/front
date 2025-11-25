@@ -72,3 +72,11 @@
     padding: 1rem 0.5rem 2rem 0.5rem;
   }
 }
+
+@media (min-width: 768px) and (max-width: 1400px) {
+  .menu-page-halal-logo {
+    top: 10px;
+    right: 20px;
+    width: 80px;
+  }
+}

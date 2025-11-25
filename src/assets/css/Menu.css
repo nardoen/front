@@ -7,7 +7,7 @@
     padding: 0.7rem 1.4rem;
     border-radius: 10px;
     transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-    font-size: 1rem;
+    font-size: 2rem;
     letter-spacing: 0.5px;
     box-shadow: 0 2px 8px rgba(201, 159, 107, 0.15);
     text-transform: uppercase;
@@ -145,12 +145,22 @@
     background-color: #ac8152;
     border-color: #ac8152;
 }
+.menu-item-title{
+    text-align: center;
+}
 
 /* --- Responsive Adjustments --- */
 @media (max-width: 576px) {
     .menu-main-title {
         font-size: 2.2rem;
     }
+}
+@media (min-width: 576px) and (max-width: 768px) {
+  .add-to-basket-btn {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.7rem !important;
+    border-radius: 8px !important;
+  }
 }
 
 /* --- HTML Content Styling for Menu Items --- */
@@ -160,12 +170,11 @@
     list-style-type: disc;
 }
 
-.menu-item-ingredients li {
+/* .menu-item-ingredients li {
     margin-bottom: 0.4rem;
     line-height: 1.4;
-    color: #6c757d;
     font-size: 0.9rem;
-}
+} */
 
 .menu-item-ingredients ul li:last-child {
     margin-bottom: 0;
@@ -200,6 +209,9 @@
     font-weight: 700;
     color: #363636;
     margin-bottom: 0.5rem;
+    margin-top: 2rem; /* Add spacing above */
+    padding: 1rem 0; /* Add padding to make it more distinct */
+    border-top: 1px solid #e0e0e0; /* Optional: Add a top border for separation */
 }
 
 .menu-category-underline {
