@@ -37,8 +37,8 @@ function MenuPage() {
                                     <MenuItemCard
                                         dish={{
                                             id: dish.id, // Ensure unique id is passed
-                                            title: dish.name,
-                                            ingredients: dish.description,
+                                            name: dish.name,
+                                            description: dish.description,
                                             price: dish.price,
                                             imageUrl: dish.details && dish.details[0] ? `${API_URL}/${dish.details[0].path_img}` : ''
                                         }}

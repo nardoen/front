@@ -10,10 +10,10 @@ function MenuItemCard({ dish }) {
     const priceNum = Number(dish.price);
     return (
         <Card className="menu-item-card h-100">
-            <Card.Img variant="top" src={dish.imageUrl} alt={dish.title} className="menu-item-image" />
+            <Card.Img variant="top" src={dish.imageUrl} alt={dish.name} className="menu-item-image" />
             <Card.Body className="d-flex flex-column">
-                <Card.Title className="menu-item-title">{dish.title}</Card.Title>
-                <div className="menu-item-ingredients" dangerouslySetInnerHTML={{ __html: dish.ingredients }} />
+                <Card.Title className="menu-item-title">{dish.name}</Card.Title>
+                <div className="menu-item-ingredients" dangerouslySetInnerHTML={{ __html: dish.description }} />
                 <div className="mt-auto">
                     <div className="d-flex justify-content-between align-items-center">
                         <span className="menu-item-price">€{!isNaN(priceNum) ? priceNum.toFixed(2) : dish.price}</span>

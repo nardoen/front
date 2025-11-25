@@ -172,7 +172,7 @@ const CartModal = () => {
                 const priceNum = Number(item.price);
                 return (
                   <li key={item.id + '-' + idx} className="cart-item">
-                    <img src={item.imageUrl} alt={item.title} className="cart-item-image" />
+                    <img src={item.imageUrl} alt={item.name} className="cart-item-image" />
                     <div className="cart-item-details">
                       <h4>{item.title}</h4>
                       <p>${!isNaN(priceNum) ? priceNum.toFixed(2) : item.price}</p>
