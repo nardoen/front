@@ -245,7 +245,7 @@ const CartModal = () => {
                             })
                           }
                         >
-                          In Winkelwagen
+                          In mandje
                         </button>
                       </div>
                     ))}
