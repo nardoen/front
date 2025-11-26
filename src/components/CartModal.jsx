@@ -245,7 +245,7 @@ const CartModal = () => {
                             })
                           }
                         >
-                          Voeg toe aan Winkelwagen
+                          In Winkelwagen
                         </button>
                       </div>
                     ))}
@@ -283,7 +283,7 @@ const CartModal = () => {
                   required
                 />
               </div>
-              <button className="checkout-button">Ga verder naar Betaling</button>
+              <button className="checkout-button" onClick={handleCheckout}>Ga verder naar Betaling</button>
               {/* Display checkoutError below the button if it exists */}
               {checkoutError && (
                 <div
