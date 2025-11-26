@@ -112,6 +112,7 @@ function Footer() {
                 <Row className="footer-bottom mt-5 pt-3">
                     <Col className="text-center">
                         <p>&copy; {new Date().getFullYear()} Nardoen. Alle rechten voorbehouden. | Ontworpen met 💛 voor Perzische Keuken.</p>
+                        <p>KVK nummer: 98941909</p>
                     </Col>
                 </Row>
             </Container>
