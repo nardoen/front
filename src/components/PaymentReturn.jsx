@@ -12,7 +12,6 @@ function PaymentReturn() {
   const { clearCart } = useCart();
   const [status, setStatus] = useState('loading'); // loading, success, failed
   const [paymentDetails, setPaymentDetails] = useState({});
-  const didClearCart = useRef(false); // Use ref to track if cart was cleared
   
   useEffect(() => {
     const fetchPaymentStatus = async () => {
@@ -42,9 +41,8 @@ function PaymentReturn() {
 
   // Effect to clear cart on successful payment
   useEffect(() => {
-    if (status === 'success' && !didClearCart.current) {
+    if (status === 'paid') {
       clearCart();
-      didClearCart.current = true; // Mark that the cart has been cleared
     }
   }, [status, clearCart]);
 
