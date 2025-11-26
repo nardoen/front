@@ -13,7 +13,7 @@ import authAxios from '../api/authAxios';
 
 const CartModal = () => {
   const { isCartOpen, toggleCart, cartItems, updateQuantity, removeFromCart, deliveryDate, updateOrderDeliveryDate, getMinDate, cartTotal, addToCart } = useCart();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, login } = useAuth();
   const { isOffDay, getOffDayDates } = useOffDay();
   const { menuItems, loading: itemsLoading, error: itemsError } = useItems();
   
@@ -27,7 +27,8 @@ const CartModal = () => {
   // Add useEffect to dynamically update off-day dates when the modal is toggled
   React.useEffect(() => {
     if (isCartOpen) {
-      getOffDayDates(); // Ensure the latest off-day dates are fetched
+      getOffDayDates(); 
+      console.log(getOffDayDates())// Ensure the latest off-day dates are fetched
     }
   }, [isCartOpen, getOffDayDates]);
 
@@ -46,23 +47,34 @@ const CartModal = () => {
     return null;
   }
 
+  // Helper function to handle payment start requests
+  const startPayment = async (data) => {
+    const deliveryDateISO = deliveryDate.toISOString();
+    const payload = { ...data, deliveryDate: deliveryDateISO };
+    try {
+      return await authAxios.post('/api/payment/start/', payload);
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.error) {
+        throw new Error(error.response.data.error);
+      }
+      throw new Error('An unexpected error occurred. Please try again.');
+    }
+  };
+
   // Validate token with backend before proceeding
   const handleCheckout = async () => {
     setCheckoutError('');
-    
     // Check if delivery date is selected
     if (!deliveryDate) {
       setCheckoutError('Please select a delivery date before proceeding to checkout.');
       return;
     }
-    
     if (isLoggedIn) {
       // Logged in: proceed directly to payment
       setLoginLoading(true);
       try {
-        const response = await authAxios.post('/api/payment/start/', {
+        const response = await startPayment({
           cart: cartItems,
-          deliveryDate,
           total: cartTotal,
         });
         if (response.data && response.data.checkout_url) {
@@ -71,8 +83,7 @@ const CartModal = () => {
           setCheckoutError('Could not start payment. Please try again.');
         }
       } catch (err) {
-        setCheckoutError('Could not start payment. Please try again.');
-        console.error('Payment start error:', err);
+        setCheckoutError(err.message);
       } finally {
         setLoginLoading(false);
       }
@@ -83,28 +94,37 @@ const CartModal = () => {
     setShowGuestForm(false);
   }
 
-  const handleAuthSuccess = async () => {
+  const handleAuthSuccess = async (user) => {
     setAuthSuccess(true);
     setShowAuthModal(false);
     setLoginLoading(true);
-    // Keep overlay until payment completes or fails
     try {
-      const response = await authAxios.post('/api/payment/start/', {
+      // Update global login state using the `login` function
+      login(user); // Notify the app of the login state change
+      // Start payment process
+      const response = await startPayment({
         cart: cartItems,
-        deliveryDate,
         total: cartTotal,
       });
       if (response.data && response.data.checkout_url) {
         window.location.href = response.data.checkout_url;
-        // Do not setLoginLoading(false) here, let redirect happen with overlay
       } else {
         setCheckoutError('Could not start payment. Please try again.');
-        setLoginLoading(false);
       }
     } catch (err) {
-      setCheckoutError('Could not start payment. Please try again.');
-      console.error('Payment start error:', err);
+      setCheckoutError(err.message || 'An unexpected error occurred during payment.');
+    } finally {
       setLoginLoading(false);
+    }
+  };
+
+  const handleAuthSuccessWrapper = async (user) => {
+    try {
+      await handleAuthSuccess(user); // Call the original handleAuthSuccess
+    } catch (error) {
+      // Update error state and ensure the modal remains open
+      setCheckoutError(error.message || 'An error occurred during login.');
+      setShowAuthModal(true);
     }
   };
 
@@ -126,14 +146,11 @@ const CartModal = () => {
     }
     try {
       await authAxios.post('/api/guest-checkout/', { name, email, is_guest: true });
-      setShowAuthModal(false);
-      setShowGuestForm(false);
       // Now start Mollie payment for guest
       try {
-        const response = await authAxios.post('/api/payment/start/', {
+        const response = await startPayment({
           email: email,
           cart: cartItems,
-          deliveryDate,
           total: cartTotal,
         });
         if (response.data && response.data.checkout_url) {
@@ -144,7 +161,7 @@ const CartModal = () => {
           setGuestError('Could not start payment. Please try again.');
         }
       } catch (err) {
-        setGuestError('Could not start payment. Please try again.');
+        setGuestError(err.message);
       }
     } catch (err) {
       const errorMessage = err.response?.data?.error || err.response?.data?.detail || 'Failed to continue as guest.';
@@ -239,8 +256,19 @@ const CartModal = () => {
             {/* Price Section */}
             <div className="cart-modal-footer">
               <div className="cart-total">Total: ${cartTotal}</div>
-              <div className="date-picker-container" style={{ marginBottom: '1rem', textAlign: 'left' }}>
-                <label style={{ fontWeight: 'bold', marginBottom: '0.5rem', display: 'block' }}>Delivery Date:</label>
+              <div
+                className="date-picker-container"
+                style={{ marginBottom: '1rem', textAlign: 'left' }}
+              >
+                <label
+                  style={{
+                    fontWeight: 'bold',
+                    marginBottom: '0.5rem',
+                    display: 'block',
+                  }}
+                >
+                  Delivery Date:
+                </label>
                 <DatePicker
                   key={isCartOpen}
                   selected={deliveryDate || getMinDate()}
@@ -255,7 +283,18 @@ const CartModal = () => {
                   required
                 />
               </div>
-              <button className="checkout-button" onClick={handleCheckout}>Proceed to Checkout</button>
+              <button className="checkout-button" onClick={handleCheckout}>
+                Proceed to Checkout
+              </button>
+              {/* Display checkoutError below the button if it exists */}
+              {checkoutError && (
+                <div
+                  className="text-danger mt-2"
+                  style={{ textAlign: 'center', fontSize: '0.9rem' }}
+                >
+                  {checkoutError}
+                </div>
+              )}
             </div>
           </>
         )}
@@ -265,16 +304,38 @@ const CartModal = () => {
       {showAuthModal && (
         <div className="cart-auth-modal-overlay">
           <div className="cart-auth-modal-content">
-            <button className="cart-close-button" onClick={() => { 
-              setShowAuthModal(false); setShowGuestForm(false); setCheckoutError(''); }}>&times;</button>
+            <button
+              className="cart-close-button"
+              onClick={() => {
+                setShowAuthModal(false);
+                setShowGuestForm(false);
+                setCheckoutError('');
+              }}
+            >
+              &times;
+            </button>
+            {/* Display checkoutError prominently in a styled box at the top of the modal */}
             {checkoutError && (
-              <div className="text-danger mb-3" style={{ textAlign: 'center' }}>{checkoutError}</div>
+              <div
+                className="auth-modal-error-box"
+                style={{
+                  backgroundColor: '#f8d7da',
+                  color: '#721c24',
+                  padding: '1rem',
+                  borderRadius: '5px',
+                  marginBottom: '1rem',
+                  textAlign: 'center',
+                  border: '1px solid #f5c6cb',
+                }}
+              >
+                {checkoutError}
+              </div>
             )}
             {!showGuestForm ? (
               <div className="login-card mx-auto p-4">
                 {/* Pass loading props so Login disables button and shows spinner in modal */}
                 <Login
-                  onAuthSuccess={handleAuthSuccess}
+                  onAuthSuccess={handleAuthSuccessWrapper}
                   loginLoading={loginLoading}
                   onLoginStart={() => setLoginLoading(true)}
                   onLoginEnd={() => setLoginLoading(false)}
@@ -282,7 +343,11 @@ const CartModal = () => {
                 <div style={{ textAlign: 'center', marginTop: '1rem' }}>
                   <span style={{ color: '#888' }}>or</span>
                   <br />
-                  <button className="guest-link-btn" onClick={handleGuestContinue} disabled={loginLoading}>
+                  <button
+                    className="guest-link-btn"
+                    onClick={handleGuestContinue}
+                    disabled={loginLoading}
+                  >
                     Continue as a guest
                   </button>
                 </div>
@@ -300,11 +365,31 @@ const CartModal = () => {
                     <input type="email" ref={guestEmailRef} className="form-control" required />
                   </div>
                   <input type="hidden" name="is_guest" value="true" />
-                  {guestError && <div className="text-danger mb-2">{guestError}</div>}
-                  <button type="submit" className="btn btn-primary w-100 auth-button" disabled={guestLoading}>
+                  {guestError && (
+                    <div
+                      className="text-danger mb-3"
+                      style={{ textAlign: 'center' }}
+                    >
+                      {guestError}
+                    </div>
+                  )}
+                  <button
+                    type="submit"
+                    className="btn btn-primary w-100 auth-button"
+                    disabled={guestLoading}
+                  >
                     {guestLoading ? (
-                      <span><span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Redirecting to Mollie...</span>
-                    ) : 'Continue to Payment'}
+                      <span>
+                        <span
+                          className="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>{' '}
+                        Redirecting to Mollie...
+                      </span>
+                    ) : (
+                      'Continue to Payment'
+                    )}
                   </button>
                 </form>
               </div>
