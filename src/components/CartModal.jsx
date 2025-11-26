@@ -57,7 +57,7 @@ const CartModal = () => {
       if (error.response && error.response.data && error.response.data.error) {
         throw new Error(error.response.data.error);
       }
-      throw new Error('An unexpected error occurred. Please try again.');
+      throw new Error('Er is een onverwachte fout opgetreden. Probeer het opnieuw.');
     }
   };
 
@@ -66,7 +66,7 @@ const CartModal = () => {
     setCheckoutError('');
     // Check if delivery date is selected
     if (!deliveryDate) {
-      setCheckoutError('Please select a delivery date before proceeding to checkout.');
+      setCheckoutError('Selecteer een bezorgdatum voordat u doorgaat naar de kassa.');
       return;
     }
     if (isLoggedIn) {
@@ -80,7 +80,7 @@ const CartModal = () => {
         if (response.data && response.data.checkout_url) {
           window.location.href = response.data.checkout_url;
         } else {
-          setCheckoutError('Could not start payment. Please try again.');
+          setCheckoutError('Betaling kon niet worden gestart. Probeer het opnieuw.');
         }
       } catch (err) {
         setCheckoutError(err.message);
@@ -109,10 +109,10 @@ const CartModal = () => {
       if (response.data && response.data.checkout_url) {
         window.location.href = response.data.checkout_url;
       } else {
-        setCheckoutError('Could not start payment. Please try again.');
+        setCheckoutError('Betaling kon niet worden gestart. Probeer het opnieuw.');
       }
     } catch (err) {
-      setCheckoutError(err.message || 'An unexpected error occurred during payment.');
+      setCheckoutError(err.message || 'Er is een onverwachte fout opgetreden tijdens de betaling.');
     } finally {
       setLoginLoading(false);
     }
@@ -123,7 +123,7 @@ const CartModal = () => {
       await handleAuthSuccess(user); // Call the original handleAuthSuccess
     } catch (error) {
       // Update error state and ensure the modal remains open
-      setCheckoutError(error.message || 'An error occurred during login.');
+      setCheckoutError(error.message || 'Er is een fout opgetreden tijdens het inloggen.');
       setShowAuthModal(true);
     }
   };
@@ -140,7 +140,7 @@ const CartModal = () => {
     const name = guestNameRef.current.value.trim();
     const email = guestEmailRef.current.value.trim();
     if (!name || !email) {
-      setGuestError('Please enter your name and email.');
+      setGuestError('Voer uw naam en e-mailadres in.');
       setGuestLoading(false);
       return;
     }
@@ -158,13 +158,13 @@ const CartModal = () => {
           setGuestLoading(true);
           window.location.href = response.data.checkout_url;
         } else {
-          setGuestError('Could not start payment. Please try again.');
+          setGuestError('Gastbetaling kon niet worden gestart. Probeer het opnieuw.');
         }
       } catch (err) {
         setGuestError(err.message);
       }
     } catch (err) {
-      const errorMessage = err.response?.data?.error || err.response?.data?.detail || 'Failed to continue as guest.';
+      const errorMessage = err.response?.data?.error || err.response?.data?.detail || 'Doorgaan als gast is mislukt.';
       setGuestError(errorMessage);
     } finally {
       setGuestLoading(false);
@@ -177,19 +177,19 @@ const CartModal = () => {
         <div className="cart-modal-loading-overlay">
           <div className="cart-modal-loading-spinner">
             <span className="spinner-border spinner-border-lg" role="status" aria-hidden="true"></span>
-            <span style={{ marginLeft: '1rem' }}>Processing, please wait...</span>
+            <span style={{ marginLeft: '1rem' }}>Verwerken, een moment geduld alstublieft...</span>
           </div>
         </div>
       )}
       <div className="cart-modal-overlay" onClick={toggleCart}>
         <div className="cart-modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="cart-modal-header">
-          <h2>Your Cart</h2>
+          <h2>Uw Winkelwagen</h2>
           <button className="cart-close-button" onClick={toggleCart}>&times;</button>
         </div>
         
         {cartItems.length === 0 ? (
-          <p className="cart-empty-message">Your cart is empty.</p>
+          <p className="cart-empty-message">Uw winkelwagen is leeg.</p>
         ) : (
           <>
             <ul className="cart-items-list">
@@ -221,9 +221,9 @@ const CartModal = () => {
             {/* Extras Section */}
             {cartItems.length > 0 && (
               <div className="cart-extras-section">
-                <h4>Add a Drink or Extra?</h4>
+                <h4>Een drankje of extra toevoegen?</h4>
                 {itemsLoading ? (
-                  <div>Loading extras...</div>
+                  <div>Extra's laden...</div>
                 ) : itemsError ? (
                   <div className="text-danger">{itemsError}</div>
                 ) : (
@@ -245,7 +245,7 @@ const CartModal = () => {
                             })
                           }
                         >
-                          Add to Cart
+                          Voeg toe aan Winkelwagen
                         </button>
                       </div>
                     ))}
@@ -255,7 +255,7 @@ const CartModal = () => {
             )}
             {/* Price Section */}
             <div className="cart-modal-footer">
-              <div className="cart-total">Total: ${cartTotal}</div>
+              <div className="cart-total">Totaal: €{cartTotal}</div>
               <div
                 className="date-picker-container"
                 style={{ marginBottom: '1rem', textAlign: 'left' }}
@@ -267,7 +267,7 @@ const CartModal = () => {
                     display: 'block',
                   }}
                 >
-                  Delivery Date:
+                  Bezorgdatum:
                 </label>
                 <DatePicker
                   key={isCartOpen}
@@ -277,15 +277,13 @@ const CartModal = () => {
                   excludeDates={getOffDayDates()}
                   dateFormat="MMMM d, yyyy"
                   className="form-control beautiful-datepicker"
-                  placeholderText="Select delivery date (required)"
+                  placeholderText="Selecteer een bezorgdatum (verplicht)"
                   openToDate={getMinDate()}
                   filterDate={(date) => !isOffDay(date)}
                   required
                 />
               </div>
-              <button className="checkout-button" onClick={handleCheckout}>
-                Proceed to Checkout
-              </button>
+              <button className="checkout-button">Ga verder naar Betaling</button>
               {/* Display checkoutError below the button if it exists */}
               {checkoutError && (
                 <div
@@ -341,27 +339,27 @@ const CartModal = () => {
                   onLoginEnd={() => setLoginLoading(false)}
                 />
                 <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-                  <span style={{ color: '#888' }}>or</span>
+                  <span style={{ color: '#888' }}>of</span>
                   <br />
                   <button
                     className="guest-link-btn"
                     onClick={handleGuestContinue}
                     disabled={loginLoading}
                   >
-                    Continue as a guest
+                    Doorgaan als een gast
                   </button>
                 </div>
               </div>
             ) : (
               <div className="login-card mx-auto p-4">
                 <form onSubmit={handleGuestSubmit} className="guest-form">
-                  <h4 className="form-title text-center mb-4">Continue as Guest</h4>
+                  <h4 className="form-title text-center mb-4">Doorgaan als Gast</h4>
                   <div className="mb-3">
-                    <label className="form-label">Name</label>
+                    <label className="form-label">Naam</label>
                     <input type="text" ref={guestNameRef} className="form-control" required />
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">Email</label>
+                    <label className="form-label">E-mail</label>
                     <input type="email" ref={guestEmailRef} className="form-control" required />
                   </div>
                   <input type="hidden" name="is_guest" value="true" />
@@ -385,10 +383,10 @@ const CartModal = () => {
                           role="status"
                           aria-hidden="true"
                         ></span>{' '}
-                        Redirecting to Mollie...
+                        Doorverwijzen naar Mollie...
                       </span>
                     ) : (
-                      'Continue to Payment'
+                      'Doorgaan naar Betaling'
                     )}
                   </button>
                 </form>

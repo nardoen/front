@@ -40,10 +40,10 @@ const CookieConsent = () => {
           <FaCookie size={24} />
         </div>
         <div className="cookie-consent-text">
-          <h5>We use cookies and collect data</h5>
+          <h5>Wij gebruiken cookies en verzamelen gegevens</h5>
           <p>
-            We use cookies and similar technologies to enhance your experience, analyze website traffic, 
-            and personalize content. By clicking "Accept", you consent to our use of cookies and data collection.
+            Wij gebruiken cookies en vergelijkbare technologieën om uw ervaring te verbeteren, het websiteverkeer te analyseren 
+            en inhoud te personaliseren. Door op "Accepteren" te klikken, stemt u in met ons gebruik van cookies en gegevensverzameling.
           </p>
         </div>
         <div className="cookie-consent-actions">
@@ -53,7 +53,7 @@ const CookieConsent = () => {
             onClick={() => handleConsent(true)}
             className="me-2"
           >
-            Accept
+            Accepteren
           </Button>
           <Button 
             variant="outline-secondary" 
@@ -61,14 +61,14 @@ const CookieConsent = () => {
             onClick={() => handleConsent(false)}
             className="me-2"
           >
-            Decline
+            Weigeren
           </Button>
           <Button 
             variant="link" 
             size="sm" 
             onClick={() => handleConsent(false)}
             className="p-1 text-muted"
-            title="Close"
+            title="Sluiten"
           >
             <FaTimes />
           </Button>

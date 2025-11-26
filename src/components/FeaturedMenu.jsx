@@ -35,7 +35,7 @@ function FeaturedMenu() {
     const visibleDishes = dishes.slice(startIdx, startIdx + maxVisible);
     const fadeClass = isFading ? 'fade-menu' : '';
 
-    if (loading) return <div>Loading menu...</div>;
+    if (loading) return <div>Menu laden...</div>;
     if (error) return <div>{error}</div>;
 
     return (
@@ -43,7 +43,7 @@ function FeaturedMenu() {
             <Container>
                 <Row>
                     <Col xs={12} className="text-center mb-5">
-                        <h2 className="featured-menu-title">Our Featured Dinner Menu</h2>
+                        <h2 className="featured-menu-title">Ons Uitgelichte Diner Menu</h2>
                         <div className="title-underline"></div>
                     </Col>
                 </Row>
@@ -52,7 +52,7 @@ function FeaturedMenu() {
                     <Col xs={1} className="d-flex align-items-center justify-content-center p-0">
                         <button
                             className="carousel-nav-btn left-btn"
-                            aria-label="Previous Menu Item"
+                            aria-label="Vorige Menu Item"
                             onClick={handlePrev}
                             disabled={startIdx === 0 || isFading}
                             style={{ opacity: startIdx === 0 ? 0.5 : 1 }}
@@ -89,7 +89,7 @@ function FeaturedMenu() {
                                             as={Link}
                                             to="/menu"
                                         >
-                                            View Menu
+                                            Bekijk Menu
                                         </Button>
                                     </Card.Body>
                                 </Card>
@@ -100,7 +100,7 @@ function FeaturedMenu() {
                     <Col xs={1} className="d-flex align-items-center justify-content-center p-0">
                         <button
                             className="carousel-nav-btn right-btn"
-                            aria-label="Next Menu Item"
+                            aria-label="Volgende Menu Item"
                             onClick={handleNext}
                             disabled={startIdx + maxVisible >= total || isFading}
                             style={{ opacity: startIdx + maxVisible >= total ? 0.5 : 1 }}
@@ -113,7 +113,7 @@ function FeaturedMenu() {
                 <Row className="mt-5">
                     <Col className="text-center">
                         <Button as={Link} to="/menu" variant="primary" size="lg" className="full-menu-cta">
-                            See Our Full Menu
+                            Bekijk Ons Volledige Menu
                         </Button>
                     </Col>
                 </Row>

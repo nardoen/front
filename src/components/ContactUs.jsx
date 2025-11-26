@@ -52,7 +52,7 @@ function ContactUs() {
 
     // Basic validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setError('Please fill in all fields.');
+      setError('Vul alstublieft alle velden in.');
       setLoading(false);
       return;
     }
@@ -60,7 +60,7 @@ function ContactUs() {
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      setError('Please enter a valid email address.');
+      setError('Voer een geldig e-mailadres in.');
       setLoading(false);
       return;
     }
@@ -73,15 +73,15 @@ function ContactUs() {
       });
 
       if (response.data.success || response.status === 200 || response.status === 201) {
-        setSuccess('Thank you for your message! We\'ll get back to you soon.');
+        setSuccess('Bedankt voor uw bericht! We nemen binnenkort contact met u op.');
         setFormData({ name: '', email: '', message: '' }); // Reset form
       } else {
-        setError('Failed to send message. Please try again.');
+        setError('Bericht verzenden is mislukt. Probeer het opnieuw.');
       }
     } catch (err) {
       const errorMessage = err.response?.data?.error || 
                           err.response?.data?.message || 
-                          'Failed to send message. Please try again.';
+                          'Bericht verzenden is mislukt. Probeer het opnieuw.';
       setError(errorMessage);
       console.error('Contact form error:', err);
     } finally {
@@ -92,14 +92,14 @@ function ContactUs() {
     <section className="contact-us-section">
       <Container>
         <div className="text-center mb-5">
-          <h5 className="contact-us-subtitle">Get In Touch</h5>
-          <h2 className="contact-us-title">Contact Us</h2>
+          <h5 className="contact-us-subtitle">Neem Contact Op</h5>
+          <h2 className="contact-us-title">Contacteer Ons</h2>
           <div className="contact-us-underline"></div>
         </div>
         <Row>
           <Col lg={6} className="mb-5 mb-lg-0">
             <div className="contact-form-wrapper">
-              <h3 className="form-title">Send Us a Message</h3>
+              <h3 className="form-title">Stuur Ons Een Bericht</h3>
               
               {success && <Alert variant="success" className="mb-4">{success}</Alert>}
               {error && <Alert variant="danger" className="mb-4">{error}</Alert>}
@@ -109,7 +109,7 @@ function ContactUs() {
                   <Form.Control 
                     type="text" 
                     name="name"
-                    placeholder="Your Name" 
+                    placeholder="Uw Naam" 
                     className="contact-form-input" 
                     value={formData.name}
                     onChange={handleChange}
@@ -120,7 +120,7 @@ function ContactUs() {
                   <Form.Control 
                     type="email" 
                     name="email"
-                    placeholder="Your Email" 
+                    placeholder="Uw E-mail" 
                     className="contact-form-input" 
                     value={formData.email}
                     onChange={handleChange}
@@ -132,7 +132,7 @@ function ContactUs() {
                     as="textarea" 
                     rows={5} 
                     name="message"
-                    placeholder="Your Message" 
+                    placeholder="Uw Bericht" 
                     className="contact-form-input" 
                     value={formData.message}
                     onChange={handleChange}
@@ -148,10 +148,10 @@ function ContactUs() {
                   {loading ? (
                     <>
                       <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                      Sending...
+                      Verzenden...
                     </>
                   ) : (
-                    'Send Message'
+                    'Bericht Verzenden'
                   )}
                 </Button>
               </Form>
@@ -159,22 +159,22 @@ function ContactUs() {
           </Col>
           <Col lg={6}>
             <div className="contact-info-wrapper">
-              <h3 className="info-title">Our Contact Details</h3>
+              <h3 className="info-title">Onze Contactgegevens</h3>
               <p className="info-text">
-                Have a question or want to pre-order? Feel free to reach out to us. We’re here to help!
+                Heeft u een vraag of wilt u vooraf bestellen? Neem gerust contact met ons op. We helpen u graag!
               </p>
               <ul className="contact-details-list">
                 <li>
                   <FaMapMarkerAlt className="contact-icon" />
-                  <span>{contactInfo.address || 'Loading address...'}</span>
+                  <span>{contactInfo.address || 'Adres laden...'}</span>
                 </li>
                 <li>
                   <FaPhoneAlt className="contact-icon" />
-                  <span>{contactInfo.phone_number || 'Loading phone...'}</span>
+                  <span>{contactInfo.phone_number || 'Telefoonnummer laden...'}</span>
                 </li>
                 <li>
                   <FaEnvelope className="contact-icon" />
-                  <span>{contactInfo.email || 'Loading email...'}</span>
+                  <span>{contactInfo.email || 'E-mailadres laden...'}</span>
                 </li>
               </ul>
             </div>

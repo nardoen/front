@@ -24,7 +24,7 @@ function ChefSection() {
 
                     {/* Chef Introduction Text Column */}
                     <Col xs={12} md={6} className="chef-text-col text-center text-md-start d-flex flex-column justify-content-center">
-                        <h2 className="chef-section-title mb-2">Meet Our Chef</h2>
+                        <h2 className="chef-section-title mb-2">Ontmoet Onze Chef</h2>
                         <div className="title-underline mb-3"></div>
                         <p className="chef-intro-text mt-4">
                             <span className="chef-quote">“</span>
@@ -35,7 +35,7 @@ function ChefSection() {
                             <span className="chef-quote">”</span>
                         </p>
                         <Link to="/about"><Button className="chef-story-button">
-                            <span className="chef-story-btn-text">Read My Story</span>
+                            <span className="chef-story-btn-text">Lees Mijn Verhaal</span>
                             <span className="chef-story-btn-arrow">→</span>
                         </Button></Link>
                     </Col>

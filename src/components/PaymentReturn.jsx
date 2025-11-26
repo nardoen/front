@@ -26,7 +26,7 @@ function PaymentReturn() {
         status: paymentStatus,
         amount: params.get('amount'),
         orderNumber: params.get('order') || `ORD-${Date.now()}`,
-        date: new Date().toLocaleDateString('en-US', {
+        date: new Date().toLocaleDateString('nl-NL', {
           year: 'numeric',
           month: 'long',
           day: 'numeric',
@@ -82,8 +82,8 @@ function PaymentReturn() {
                   <div className="payment-icon mb-4">
                     <FaSpinner className="fa-spin" size={60} />
                   </div>
-                  <h2 className="payment-title mb-3">Processing Payment...</h2>
-                  <p className="payment-text">Please wait while we verify your payment.</p>
+                  <h2 className="payment-title mb-3">Betaling verwerken...</h2>
+                  <p className="payment-text">Even geduld terwijl we uw betaling verifiëren.</p>
                 </Card.Body>
               </Card>
             </Col>
@@ -104,29 +104,29 @@ function PaymentReturn() {
                   <div className="payment-icon success mb-4">
                     <FaCheckCircle size={80} />
                   </div>
-                  <h2 className="payment-title success mb-3">Payment Successful! 🎉</h2>
+                  <h2 className="payment-title success mb-3">Betaling geslaagd! 🎉</h2>
                   <Alert variant="success" className="payment-alert">
-                    <h5 className="mb-2">Thank you for your order!</h5>
-                    <p className="mb-0">Your payment has been processed successfully.</p>
+                    <h5 className="mb-2">Bedankt voor uw bestelling!</h5>
+                    <p className="mb-0">Uw betaling is succesvol verwerkt.</p>
                   </Alert>
                   
                   <div className="payment-details">
                     <Row className="mb-3">
-                      <Col xs={6} className="detail-label">Order Number:</Col>
+                      <Col xs={6} className="detail-label">Bestelnummer:</Col>
                       <Col xs={6} className="detail-value">
                         <strong>{paymentDetails.orderNumber}</strong>
                       </Col>
                     </Row>
                     {paymentDetails.id && (
                       <Row className="mb-3">
-                        <Col xs={6} className="detail-label">Payment ID:</Col>
+                        <Col xs={6} className="detail-label">Betalings-ID:</Col>
                         <Col xs={6} className="detail-value">
                           <code>{paymentDetails.id}</code>
                         </Col>
                       </Row>
                     )}
                     <Row className="mb-4">
-                      <Col xs={6} className="detail-label">Date:</Col>
+                      <Col xs={6} className="detail-label">Datum:</Col>
                       <Col xs={6} className="detail-value">{paymentDetails.date}</Col>
                     </Row>
                   </div>
@@ -134,18 +134,18 @@ function PaymentReturn() {
                   <div className="confirmation-info mb-4">
                     <div className="info-box">
                       <FaReceipt className="me-2" />
-                      <span>A confirmation email has been sent to your email address.</span>
+                      <span>Een bevestigingsmail is naar uw e-mailadres verzonden.</span>
                     </div>
                     <div className="info-box">
                       <FaPhone className="me-2" />
-                      <span>We'll contact you about pickup details soon.</span>
+                      <span>We nemen binnenkort contact met u op over de afhaaldetails.</span>
                     </div>
                   </div>
 
                   <div className="countdown-info mb-4">
                     <Alert variant="info" className="text-center">
                       <FaHome className="me-2" />
-                      Redirecting to home page in <strong>{countdown}</strong> seconds...
+                      U wordt binnen <strong>{countdown}</strong> seconden doorgestuurd naar de homepage...
                     </Alert>
                   </div>
 
@@ -155,11 +155,11 @@ function PaymentReturn() {
                       onClick={() => navigate('/')}
                     >
                       <FaHome className="me-2" />
-                      Go to Home Now
+                      Ga naar homepage
                     </Button>
                     <Link to="/menu">
                       <Button variant="outline-primary" className="payment-btn secondary">
-                        Order Again
+                        Opnieuw bestellen
                       </Button>
                     </Link>
                   </div>
@@ -183,16 +183,16 @@ function PaymentReturn() {
                 <div className="payment-icon failed mb-4">
                   <FaTimesCircle size={80} />
                 </div>
-                <h2 className="payment-title failed mb-3">Payment Failed</h2>
+                <h2 className="payment-title failed mb-3">Betaling mislukt</h2>
                 <Alert variant="danger" className="payment-alert">
-                  <h5 className="mb-2">Oops! Something went wrong</h5>
-                  <p className="mb-0">Your payment could not be processed. Please try again.</p>
+                  <h5 className="mb-2">Oeps! Er is iets misgegaan</h5>
+                  <p className="mb-0">Uw betaling kon niet worden verwerkt. Probeer het opnieuw.</p>
                 </Alert>
 
                 {paymentDetails.id && (
                   <div className="payment-details mb-4">
                     <Row>
-                      <Col xs={6} className="detail-label">Reference ID:</Col>
+                      <Col xs={6} className="detail-label">Referentie-ID:</Col>
                       <Col xs={6} className="detail-value">
                         <code>{paymentDetails.id}</code>
                       </Col>
@@ -203,12 +203,12 @@ function PaymentReturn() {
                 <div className="action-buttons">
                   <Link to="/menu">
                     <Button className="payment-btn primary me-3">
-                      Try Again
+                      Probeer opnieuw
                     </Button>
                   </Link>
                   <Link to="/contact">
                     <Button variant="outline-secondary" className="payment-btn secondary">
-                      Contact Support
+                      Neem contact op met support
                     </Button>
                   </Link>
                 </div>

@@ -14,20 +14,20 @@ function MenuPage() {
             <Container>
                 <Row className="text-center mb-5">
                     <Col>
-                        <h1 className="menu-main-title">Today's Dinner Menu</h1>
-                        <p className="menu-subtitle">Pre-order by 12:00 PM for next-day pick-up.</p>
+                        <h1 className="menu-main-title">Dinerkaart van vandaag</h1>
+                        <p className="menu-subtitle">Bestel vóór 12:00 uur voor afhalen de volgende dag.</p>
                         <div className="title-underline mx-auto"></div>
                     </Col>
                 </Row>
 
-                {loading && <div>Loading menu...</div>}
+                {loading && <div>Menu laden...</div>}
                 {error && <div>{error}</div>}
 
                 {['dish', 'side'].map((type) => (
                     <div key={type} className="menu-category-section">
                         <div className="menu-category-header text-center">
                             <h2 className="menu-category-title">
-                                {type.charAt(0).toUpperCase() + type.slice(1)}
+                                {type === 'dish' ? 'Hoofdgerechten' : 'Bijgerechten'}
                             </h2>
                             <div className="menu-category-underline mx-auto"></div>
                         </div>

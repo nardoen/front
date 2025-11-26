@@ -49,9 +49,9 @@ function Footer() {
                         <h5 className="footer-heading">Nardoen</h5>
                         <ul className="footer-links">
                             <li><Link to="/">Home</Link></li>
-                            <li><Link to="/menu">Full Menu</Link></li>
-                            <li><Link to="/#howitworks">How It Works</Link></li>
-                            <li><Link to="/about">About Us</Link></li>
+                            <li><Link to="/menu">Volledige Menu</Link></li>
+                            <li><Link to="/#howitworks">Hoe Het Werkt</Link></li>
+                            <li><Link to="/about">Over Ons</Link></li>
                             <li><Link to="/contact">Contact</Link></li>
                         </ul>
                         <div className="social-icons mt-3">
@@ -64,7 +64,7 @@ function Footer() {
                     
                     {/* Column 2: Contact & Hours */}
                     <Col xs={12} md={4} className="footer-col footer-contact mt-4 mt-md-0">
-                        <h5 className="footer-heading">Order & Pick-Up</h5>
+                        <h5 className="footer-heading">Bestellen & Afhalen</h5>
                         <ul className="footer-contact-info">
                             <li>
                                 <FaEnvelope className="contact-icon" />
@@ -75,11 +75,11 @@ function Footer() {
                                 <a href={`tel:${footerInfo.phone_number.replace(/[^0-9]/g, '')}`}>{footerInfo.phone_number}</a>
                             </li>
                             <li className="mt-3 info-section">
-                                <h6>Order Deadline:</h6>
+                                <h6>Bestel Deadline:</h6>
                                 <p>{footerInfo.order_deadline}</p>
                             </li>
                             <li className="info-section">
-                                <h6>Pick-Up Hours:</h6>
+                                <h6>Afhaaltijden:</h6>
                                 <p>{footerInfo.pickup_hours}</p>
                             </li>
                         </ul>
@@ -87,7 +87,7 @@ function Footer() {
 
                     {/* Column 3: Map & Address */}
                     <Col xs={12} md={4} className="footer-col footer-map mt-4 mt-md-0">
-                        <h5 className="footer-heading">Find Us</h5>
+                        <h5 className="footer-heading">Vind Ons</h5>
                         <p className="address-text">
                             <FaMapMarkerAlt className="contact-icon map-icon me-2" />
                             {footerInfo.address}
@@ -103,7 +103,7 @@ function Footer() {
                                     title="Nardoen Location Map"
                                 ></iframe>
                             ) : (
-                                <p>Loading map...</p>
+                                <p>Kaart laden...</p>
                             )}
                         </div>
                     </Col>
@@ -111,7 +111,7 @@ function Footer() {
                 
                 <Row className="footer-bottom mt-5 pt-3">
                     <Col className="text-center">
-                        <p>&copy; {new Date().getFullYear()} Nardoen. All Rights Reserved. | Designed with 💛 for Persian Cuisine.</p>
+                        <p>&copy; {new Date().getFullYear()} Nardoen. Alle rechten voorbehouden. | Ontworpen met 💛 voor Perzische Keuken.</p>
                     </Col>
                 </Row>
             </Container>

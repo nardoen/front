@@ -26,7 +26,7 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
     setSuccess('');
     // Simple validation
     if (regForm.password !== regForm.repeatPassword) {
-      setError('Passwords do not match.');
+      setError('Wachtwoorden komen niet overeen.');
       return;
     }
     setLoading(true);
@@ -42,10 +42,10 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
           onAuthSuccess(res.data.user);
         }
       } else {
-        setError(res.data.error || 'Registration failed.');
+        setError(res.data.error || 'Registratie mislukt.');
       }
     } catch (err) {
-      setError(err.response?.data?.error || 'Registration failed.');
+      setError(err.response?.data?.error || 'Registratie mislukt.');
     } finally {
       setLoading(false);
     }
@@ -55,23 +55,23 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
   const validateFields = (fields) => {
     const errors = {};
     if (!fields.lastname) {
-      errors.lastname = 'Last Name is required.';
+      errors.lastname = 'Achternaam is verplicht.';
     }
     if (!fields.email) {
-      errors.email = 'Email is required.';
+      errors.email = 'E-mailadres is verplicht.';
     } else {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(fields.email)) {
-        errors.email = 'Please enter a valid email address.';
+        errors.email = 'Voer een geldig e-mailadres in.';
       }
     }
     if (!fields.password) {
-      errors.password = 'Password is required.';
+      errors.password = 'Wachtwoord is verplicht.';
     } else if (fields.password.length < 6) {
-      errors.password = 'Password must be at least 6 characters long.';
+      errors.password = 'Wachtwoord moet minimaal 6 tekens lang zijn.';
     }
     if (fields.password !== fields.repeatPassword) {
-      errors.repeatPassword = 'Passwords do not match.';
+      errors.repeatPassword = 'Wachtwoorden komen niet overeen.';
     }
     return errors;
   };
@@ -88,7 +88,7 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
 
   return (
     <div className="login-card mx-auto p-4">
-      <h2 className="text-center mb-4 form-title">Create an Account</h2>
+      <h2 className="text-center mb-4 form-title">Maak een account aan</h2>
       {error && (
         <div style={{ background: '#ffe6e6', color: '#b30000', border: '1px solid #ffb3b3', borderRadius: '8px', padding: '0.75rem', marginBottom: '1rem', textAlign: 'left', fontWeight: '600', whiteSpace: 'pre-line' }}>
           {error.split('\n').map((err, idx) => (
@@ -101,10 +101,10 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
         <Row>
           <Col md={6}>
             <Form.Group className="mb-3" controlId="regFirstname">
-              <Form.Label>First Name <span style={{ color: '#888', fontWeight: '400', fontSize: '0.95em' }}>(optional)</span></Form.Label>
+              <Form.Label>Voornaam <span style={{ color: '#888', fontWeight: '400', fontSize: '0.95em' }}>(optioneel)</span></Form.Label>
               <Form.Control
                 type="text"
-                placeholder="John"
+                placeholder="Jan"
                 value={regForm.firstname}
                 onChange={(e) => handleFieldChange('firstname', e.target.value)}
               />
@@ -112,10 +112,10 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
           </Col>
           <Col md={6}>
             <Form.Group className="mb-3" controlId="regLastname">
-              <Form.Label>Last Name <span style={{ color: '#ff5722', fontWeight: '400', fontSize: '0.95em' }}>*</span></Form.Label>
+              <Form.Label>Achternaam <span style={{ color: '#ff5722', fontWeight: '400', fontSize: '0.95em' }}>*</span></Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Doe"
+                placeholder="Jansen"
                 value={regForm.lastname}
                 onChange={(e) => handleFieldChange('lastname', e.target.value)}
                 isInvalid={!!fieldErrors.lastname}
@@ -127,10 +127,10 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
           </Col>
         </Row>
         <Form.Group className="mb-3" controlId="regEmail">
-          <Form.Label>Email address <span style={{ color: '#ff5722', fontWeight: '400', fontSize: '0.95em' }}>*</span></Form.Label>
+          <Form.Label>E-mailadres <span style={{ color: '#ff5722', fontWeight: '400', fontSize: '0.95em' }}>*</span></Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder="Voer e-mailadres in"
             value={regForm.email}
             onChange={(e) => handleFieldChange('email', e.target.value)}
             isInvalid={!!fieldErrors.email}
@@ -140,10 +140,10 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3" controlId="regPassword">
-          <Form.Label>Password <span style={{ color: '#ff5722', fontWeight: '400', fontSize: '0.95em' }}>*</span></Form.Label>
+          <Form.Label>Wachtwoord <span style={{ color: '#ff5722', fontWeight: '400', fontSize: '0.95em' }}>*</span></Form.Label>
           <Form.Control
             type="password"
-            placeholder="Create a password"
+            placeholder="Maak een wachtwoord aan"
             value={regForm.password}
             onChange={(e) => handleFieldChange('password', e.target.value)}
             isInvalid={!!fieldErrors.password}
@@ -153,10 +153,10 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3" controlId="regRepeatPassword">
-          <Form.Label>Repeat Password <span style={{ color: '#ff5722', fontWeight: '400', fontSize: '0.95em' }}>*</span></Form.Label>
+          <Form.Label>Herhaal wachtwoord <span style={{ color: '#ff5722', fontWeight: '400', fontSize: '0.95em' }}>*</span></Form.Label>
           <Form.Control
             type="password"
-            placeholder="Repeat your password"
+            placeholder="Herhaal uw wachtwoord"
             value={regForm.repeatPassword}
             onChange={(e) => handleFieldChange('repeatPassword', e.target.value)}
             isInvalid={!!fieldErrors.repeatPassword}
@@ -166,10 +166,10 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3" controlId="regAddress">
-          <Form.Label>Address <span style={{ color: '#888', fontWeight: '400', fontSize: '0.95em' }}>(optional)</span></Form.Label>
+          <Form.Label>Adres <span style={{ color: '#888', fontWeight: '400', fontSize: '0.95em' }}>(optioneel)</span></Form.Label>
           <Form.Control
             type="text"
-            placeholder="123 Main St"
+            placeholder="Hoofdstraat 123"
             value={regForm.address}
             onChange={(e) => handleFieldChange('address', e.target.value)}
           />
@@ -177,10 +177,10 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
         <Row>
           <Col md={6}>
             <Form.Group className="mb-3" controlId="regZipcode">
-              <Form.Label>Zip Code <span style={{ color: '#888', fontWeight: '400', fontSize: '0.95em' }}>(optional)</span></Form.Label>
+              <Form.Label>Postcode <span style={{ color: '#888', fontWeight: '400', fontSize: '0.95em' }}>(optioneel)</span></Form.Label>
               <Form.Control
                 type="text"
-                placeholder="90210"
+                placeholder="1234 AB"
                 value={regForm.zipcode}
                 onChange={(e) => handleFieldChange('zipcode', e.target.value)}
               />
@@ -188,10 +188,10 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
           </Col>
           <Col md={6}>
             <Form.Group className="mb-4" controlId="regPhone">
-              <Form.Label>Phone <span style={{ color: '#888', fontWeight: '400', fontSize: '0.95em' }}>(optional)</span></Form.Label>
+              <Form.Label>Telefoonnummer <span style={{ color: '#888', fontWeight: '400', fontSize: '0.95em' }}>(optioneel)</span></Form.Label>
               <Form.Control
                 type="tel"
-                placeholder="(123) 456-7890"
+                placeholder="06 12345678"
                 value={regForm.phone}
                 onChange={(e) => handleFieldChange('phone', e.target.value)}
               />
@@ -199,14 +199,14 @@ function Registration({ onAuthSuccess, onSwitchToLogin }) {
           </Col>
         </Row>
         <Button variant="primary" type="submit" className="w-100 auth-button" disabled={loading}>
-          {loading ? 'Registering...' : 'Register'}
+          {loading ? 'Registreren...' : 'Registreren'}
         </Button>
       </Form>
       {onSwitchToLogin && (
         <div className="mt-4 text-center switch-view-text">
-          Already have an account?
+          Heeft u al een account?
           <Button variant="link" onClick={onSwitchToLogin} className="switch-view-button">
-            Login
+            Inloggen
           </Button>
         </div>
       )}

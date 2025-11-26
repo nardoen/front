@@ -27,7 +27,7 @@ function ForgotPassword() {
         setSubmitted(true);
       }
     } catch (err) {
-      setError(err.response?.data?.error || 'Something went wrong. Please try again.');
+      setError(err.response?.data?.error || 'Er is iets misgegaan. Probeer het opnieuw.');
     } finally {
       setLoading(false);
     }
@@ -36,7 +36,7 @@ function ForgotPassword() {
   if (submitted) {
     return (
       <div className="login-card mx-auto p-4">
-        <h2 className="text-center mb-4 form-title">Check Your Email</h2>
+        <h2 className="text-center mb-4 form-title">Controleer Uw E-mail</h2>
         <Alert variant="success" className="text-center">
           <div className="mb-3">
             <i className="fas fa-envelope fa-3x text-success mb-3"></i>
@@ -44,7 +44,7 @@ function ForgotPassword() {
           {message}
         </Alert>
         <div className="text-center">
-          <p className="mb-3">Didn't receive an email? Check your spam folder or try again.</p>
+          <p className="mb-3">Geen e-mail ontvangen? Controleer uw spammap of probeer het opnieuw.</p>
           <Button 
             variant="outline-secondary" 
             onClick={() => {
@@ -54,11 +54,11 @@ function ForgotPassword() {
             }}
             className="me-2"
           >
-            Try Again
+            Probeer Opnieuw
           </Button>
           <Link to="/login">
             <Button variant="primary" className="auth-button">
-              Back to Login
+              Terug naar Inloggen
             </Button>
           </Link>
         </div>
@@ -68,19 +68,19 @@ function ForgotPassword() {
 
   return (
     <div className="login-card mx-auto p-4">
-      <h2 className="text-center mb-4 form-title">Reset Password</h2>
+      <h2 className="text-center mb-4 form-title">Wachtwoord Resetten</h2>
       <p className="text-center text-muted mb-4">
-        Enter your email address and we'll send you a link to reset your password.
+        Voer uw e-mailadres in en we sturen u een link om uw wachtwoord te resetten.
       </p>
       
       {error && <Alert variant="danger">{error}</Alert>}
       
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="forgotEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>E-mailadres</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter your email address"
+            placeholder="Voer uw e-mailadres in"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -96,16 +96,16 @@ function ForgotPassword() {
           {loading ? (
             <>
               <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-              Sending...
+              Verzenden...
             </>
-          ) : 'Send Reset Link'}
+          ) : 'Reset Link Verzenden'}
         </Button>
       </Form>
       
       <div className="text-center">
         <Link to="/login">
           <Button variant="link" className="switch-view-button">
-            Back to Login
+            Terug naar Inloggen
           </Button>
         </Link>
       </div>

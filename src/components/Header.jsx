@@ -32,13 +32,10 @@ function Header() {
             style={{ borderRadius: '0', border: 'none' }}
           >
             <div className="flex-grow-1">
-              <strong>We are temporarily closed</strong>
+              <strong>We zijn tijdelijk gesloten</strong>
               {offDayInfo.offDays.map((offDay, index) => (
                 <div key={index} className="mt-2">
-                  <div>{offDay.description}</div>
-                  <small>
-                    From: {formatDate(offDay.start_date)} to {formatDate(offDay.end_date)}
-                  </small>
+                  <div>Vanwege drukte accepteren we helaas geen nieuwe bestellingen van {formatDate(offDay.start_date)} t/m {formatDate(offDay.end_date)}.</div>
                   {index < offDayInfo.offDays.length - 1 && <hr className="my-2" />}
                 </div>
               ))}
@@ -91,11 +88,11 @@ function Header() {
           <Nav className="nardoen-nav-links nav-left">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/menu">Menu</Nav.Link>
-            <Nav.Link as={Link} to="/about">About Us</Nav.Link>
+            <Nav.Link as={Link} to="/about">Over ons</Nav.Link>
           </Nav>
 
           <Nav className="nardoen-nav-links nav-right">
-            <Nav.Link as={Link} to="/contact">Contact Us</Nav.Link>
+            <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
 
             {/* Shopping cart for desktop - hidden on mobile */}
             <Nav.Link onClick={toggleCart} className="shopping-cart-icon d-none d-lg-block">
@@ -109,15 +106,15 @@ function Header() {
             {isLoggedIn ? (
               <>
                 <Navbar.Text className="text-white me-3">
-                  Hi, {user?.first_name || 'User'}
+                  Hallo, {user?.first_name || 'Gebruiker'}
                 </Navbar.Text>
                 <Button variant="outline-light" className="ms-lg-3 me-2 nav-button" onClick={logout}>
-                  Logout
+                  Uitloggen
                 </Button>
               </>
             ) : (
               <Button as={Link} to="/login" variant="outline-light" className="ms-lg-3 me-2 nav-button">
-                Login / Register
+                Inloggen / Registreren
               </Button>
             )}
           </Nav>

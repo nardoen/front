@@ -39,7 +39,7 @@ export function AuthProvider({ children }) {
       setUser(null);
       window.location.href = '/login'; // Redirect to login after logout
     } catch (error) {
-      console.error('Logout failed:', error);
+      console.error('Uitloggen mislukt:', error);
     }
   };
 

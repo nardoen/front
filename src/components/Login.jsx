@@ -31,16 +31,16 @@ function Login({ onAuthSuccess, onSwitchToRegister, loginLoading, onLoginStart, 
     try {
       const res = await authAxios.post(`/api/login/`, loginForm);
       if (res.data.success) {
-        setSuccess('Login successful.');
+        setSuccess('Inloggen gelukt.');
         // Call the callback from LoginPage to update global state and redirect
         if (onAuthSuccess) {
           setTimeout(() => onAuthSuccess(res.data.user), 800);
         }
       } else {
-        setError(res.data.detail || res.data.error || 'Login failed.');
+        setError(res.data.detail || res.data.error || 'Inloggen mislukt.');
       }
     } catch (err) {
-      setError(err.response?.data?.detail || err.response?.data?.error || 'Login failed.');
+      setError(err.response?.data?.detail || err.response?.data?.error || 'Inloggen mislukt.');
     } finally {
       if (onLoginEnd) {
         onLoginEnd();
@@ -52,25 +52,25 @@ function Login({ onAuthSuccess, onSwitchToRegister, loginLoading, onLoginStart, 
 
   return (
     <div className="login-card mx-auto p-4">
-      <h2 className="text-center mb-4 form-title">Welcome Back</h2>
+      <h2 className="text-center mb-4 form-title">Welkom terug</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       {success && <Alert variant="success">{success}</Alert>}
       <Form onSubmit={handleLogin}>
         <Form.Group className="mb-3" controlId="loginEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>E-mailadres</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder="Voer e-mailadres in"
             required
             value={loginForm.email}
             onChange={(e) => setLoginForm((f) => ({ ...f, email: e.target.value }))}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="loginPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Wachtwoord</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder="Voer wachtwoord in"
             required
             value={loginForm.password}
             onChange={(e) => setLoginForm((f) => ({ ...f, password: e.target.value }))}
@@ -83,7 +83,7 @@ function Login({ onAuthSuccess, onSwitchToRegister, loginLoading, onLoginStart, 
             className="p-0 forgot-password-link" 
             onClick={() => navigate('/forgot-password')}
           >
-            Forgot Password?
+            Wachtwoord vergeten?
           </Button>
         </div>
 
@@ -91,16 +91,16 @@ function Login({ onAuthSuccess, onSwitchToRegister, loginLoading, onLoginStart, 
           {effectiveLoading ? (
           <>
             <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-            Logging in...
+            Bezig met inloggen...
           </>
-          ) : 'Login'}
+          ) : 'Inloggen'}
         </Button>
       </Form>
       {onSwitchToRegister && (
         <div className="mt-4 text-center switch-view-text">
-          Don't have an account?
+          Nog geen account?
           <Button variant="link" onClick={onSwitchToRegister} className="switch-view-button">
-            Sign Up
+            Registreren
           </Button>
         </div>
       )}

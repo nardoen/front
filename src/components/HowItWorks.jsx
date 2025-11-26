@@ -9,13 +9,13 @@ function HowItWorks() {
             <Container>
                 <Row>
                     <Col xs={12} className="text-center mb-5">
-                        <h2 className="how-it-works-title">How Our Pre-Order Works</h2>
+                        <h2 className="how-it-works-title">Hoe onze pre-order werkt</h2>
                         <div className="title-underline"></div>
                     </Col>
                 </Row>
                 
                 <Row className="g-2 g-md-5">
-                    {/* Step 1: Choose Dish */}
+                    {/* Stap 1: Kies Gerecht */}
                     <Col xs={12} md={4} className="text-center how-it-works-step">
                         <div className="step-icon-wrapper">
                             <FaCalendarAlt size={45} className="step-icon" />
@@ -26,7 +26,7 @@ function HowItWorks() {
                         </p>
                     </Col>
 
-                    {/* Step 2: Order Deadline */}
+                    {/* Stap 2: Bestel Deadline */}
                     <Col xs={12} md={4} className="text-center how-it-works-step">
                         <div className="step-icon-wrapper">
                             <FaClock size={45} className="step-icon" />
@@ -40,7 +40,7 @@ function HowItWorks() {
                         </p>
                     </Col>
 
-                    {/* Step 3: Pick Up */}
+                    {/* Stap 3: Afhalen */}
                     <Col xs={12} md={4} className="text-center how-it-works-step">
                         <div className="step-icon-wrapper">
                             <FaStore size={45} className="step-icon" />

@@ -15,8 +15,8 @@ function AboutUs() {
           </Col>
           <Col lg={6}>
             <div className="about-us-content">
-              <h5 className="about-us-subtitle">Our Story</h5>
-              <h2 className="about-us-title">A Tradition of Authentic Persian Cuisine</h2>
+              <h5 className="about-us-subtitle">Ons Verhaal</h5>
+              <h2 className="about-us-title">Een Traditie van Authentieke Perzische Keuken</h2>
               <div className="about-us-underline"></div>
               <p>
                 Welkom bij Nardoen, waar culinaire traditie samenkomt met moderne elegantie. <br />

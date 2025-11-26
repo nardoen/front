@@ -32,12 +32,12 @@ function ResetPassword() {
 
     // Validation
     if (formData.newPassword !== formData.confirmPassword) {
-      setError('Passwords do not match.');
+      setError('Wachtwoorden komen niet overeen.');
       return;
     }
 
     if (formData.newPassword.length < 8) {
-      setError('Password must be at least 8 characters long.');
+      setError('Wachtwoord moet minimaal 8 tekens lang zijn.');
       return;
     }
 
@@ -62,7 +62,7 @@ function ResetPassword() {
         }
       }
     } catch (err) {
-      setError(err.response?.data?.error || 'Something went wrong. Please try again.');
+      setError(err.response?.data?.error || 'Er is iets misgegaan. Probeer het opnieuw.');
     } finally {
       setLoading(false);
     }
@@ -71,14 +71,14 @@ function ResetPassword() {
   if (success) {
     return (
       <div className="login-card mx-auto p-4">
-        <h2 className="text-center mb-4 form-title">Password Reset Successful!</h2>
+        <h2 className="text-center mb-4 form-title">Wachtwoord succesvol opnieuw ingesteld!</h2>
         <Alert variant="success" className="text-center">
           <div className="mb-3">
             <i className="fas fa-check-circle fa-3x text-success mb-3"></i>
           </div>
           {success}
           <div className="mt-3">
-            <p>You will be redirected to the homepage in a moment...</p>
+            <p>U wordt zo meteen doorgestuurd naar de homepage...</p>
           </div>
         </Alert>
       </div>
@@ -87,36 +87,36 @@ function ResetPassword() {
 
   return (
     <div className="login-card mx-auto p-4">
-      <h2 className="text-center mb-4 form-title">Set New Password</h2>
+      <h2 className="text-center mb-4 form-title">Stel een nieuw wachtwoord in</h2>
       <p className="text-center text-muted mb-4">
-        Please enter your new password below.
+        Voer hieronder uw nieuwe wachtwoord in.
       </p>
       
       {error && <Alert variant="danger">{error}</Alert>}
       
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="newPassword">
-          <Form.Label>New Password</Form.Label>
+          <Form.Label>Nieuw wachtwoord</Form.Label>
           <Form.Control
             type="password"
             name="newPassword"
-            placeholder="Enter new password"
+            placeholder="Voer nieuw wachtwoord in"
             value={formData.newPassword}
             onChange={handleChange}
             required
             minLength="8"
           />
           <Form.Text className="text-muted">
-            Password must be at least 8 characters long.
+            Wachtwoord moet minimaal 8 tekens lang zijn.
           </Form.Text>
         </Form.Group>
         
         <Form.Group className="mb-3" controlId="confirmPassword">
-          <Form.Label>Confirm New Password</Form.Label>
+          <Form.Label>Bevestig nieuw wachtwoord</Form.Label>
           <Form.Control
             type="password"
             name="confirmPassword"
-            placeholder="Confirm new password"
+            placeholder="Bevestig nieuw wachtwoord"
             value={formData.confirmPassword}
             onChange={handleChange}
             required
@@ -132,9 +132,9 @@ function ResetPassword() {
           {loading ? (
             <>
               <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-              Resetting...
+              Bezig met opnieuw instellen...
             </>
-          ) : 'Reset Password'}
+          ) : 'Wachtwoord opnieuw instellen'}
         </Button>
       </Form>
     </div>
