@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaInstagram, FaFacebook, FaWhatsapp } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import authAxios from '../api/authAxios';
 import '../assets/css/Footer.css'; 
 
@@ -12,7 +12,6 @@ function Footer() {
         address: 'Kastanjelaan 275, 3316GZ Dordrecht',
         phone_number: '0639222222',
         pickup_hours: '2-6',
-        facebook_url: 'https://www.facebook.com',
         instagram_url: 'https://www.instagram.com',
         whatsapp_number: '0639252180',
         mapEmbedUrl: '' // Added mapEmbedUrl to the default state
@@ -56,9 +55,10 @@ function Footer() {
                             <li><Link to="/contact">Contact</Link></li>
                         </ul>
                         <div className="social-icons mt-3">
-                            <a href={footerInfo.instagram_url} aria-label="Instagram" target="_blank" rel="noopener noreferrer"><FaInstagram size={22} /></a>
-                            <a href={footerInfo.facebook_url} aria-label="Facebook" target="_blank" rel="noopener noreferrer"><FaFacebook size={22} /></a>
-                            <a href={`https://wa.me/${footerInfo.whatsapp_number.replace(/[^0-9]/g, '')}`} aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><FaWhatsapp size={22} /></a>
+                            <a href={footerInfo.instagram_url} aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                                <FaInstagram size={22} />
+                            </a>
+                            <a href={`https://wa.me/31${footerInfo.whatsapp_number.replace(/[^0-9]/g, '').slice(1)}`} aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><FaWhatsapp size={22} /></a>
                         </div>
                     </Col>
                     
