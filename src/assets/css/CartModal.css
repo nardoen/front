@@ -424,7 +424,6 @@
 }
 
 .cart-extra-item img {
-  width: 50px; /* Reduced image size */
   height: 50px;
   object-fit: cover;
   border-radius: 6px;
@@ -456,7 +455,6 @@
   }
 
   .cart-extra-item img {
-    width: 40px; /* Smaller image for small screens */
     height: 40px;
   }
 
