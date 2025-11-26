@@ -10,9 +10,9 @@ import zereshkPolo from '../assets/images/zereshk-polo.png'; // The Zereshk Polo
 function ServicesSection() {
     // --- Data for the first block (Weddings) ---
     const weddingData = {
-        title: "Weddings",
+        title: "bruiloften",
         iconName: "weddings",
-        text: "We couldn't be happier that you're considering us to cater your wedding. Our chefs understand the importance of your wedding day and will work closely with you to ensure every detail is considered and every expectation exceeded.",
+        text: "Voor uw bruiloft kunt u volledig op ons rekenen. Wij verzorgen een verfijnde Perzische catering die perfect past bij deze bijzondere dag. Met authentieke smaken, vers bereide gerechten en een presentatie die stijl en gastvrijheid uitstraalt, maken wij uw huwelijksfeest extra onvergetelijk. Laat ons de culinaire beleving creëren, zodat u zorgeloos kunt genieten van elke magische moment.",
         buttonText: "Wedding Menus",
         buttonLink: "#menus",
         imageUrl: simplePersianEvent, // Using the new simple Persian event image
@@ -21,9 +21,9 @@ function ServicesSection() {
 
     // --- Data for the second block (Fresh & Inspired) ---
     const socialData = {
-        title: "Fresh & Inspired",
+        title: "Eventementen",
         iconName: "social",
-        text: "Culinary innovation and impeccable service is the cornerstone of Nardoen's Catering. We are committed to building long-term relationships based on personal service and exceptional quality. Choose from one of our menu options or let us tailor a menu specifically for you.",
+        text: "Ook voor al uw evenementen kunt u bij ons terecht. Of het nu gaat om een verjaardag, bruiloft, bedrijfsfeest of een intiem samenzijn, wij verzorgen met plezier een Perzische catering die volledig aansluit bij uw wensen.\n\nOnze gerechten worden vers bereid met authentieke kruiden en traditionele recepten, zodat u en uw gasten kunnen genieten van onvergetelijke smaken. Laat ons de culinaire zorg uit handen nemen, zodat u onbezorgd kunt genieten van uw evenement.",
         buttonText: "Social Events",
         buttonLink: "#events",
         imageUrl: zereshkPolo, // Using the new Zereshk Polo image

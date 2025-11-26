@@ -20,9 +20,9 @@ function HowItWorks() {
                         <div className="step-icon-wrapper">
                             <FaCalendarAlt size={45} className="step-icon" />
                         </div>
-                        <h4 className="step-title">1. Choose & Schedule</h4>
+                        <h4 className="step-title">1. Kiezen</h4>
                         <p className="step-description">
-                            Browse our daily dinner menu and select your dish. Choose your preferred pick-up date for a day in advance.
+                            Bekijk ons dagelijkse dinermenu en kies uw gerecht. Selecteer uw gewenste afhaaldatum.
                         </p>
                     </Col>
 
@@ -31,9 +31,12 @@ function HowItWorks() {
                         <div className="step-icon-wrapper">
                             <FaClock size={45} className="step-icon" />
                         </div>
-                        <h4 className="step-title">2. Order By Noon</h4>
+                        <h4 className="step-title">2. Bestellen</h4>
                         <p className="step-description">
-                            Place your order and complete payment before **12:00 PM** (noon) the day before your selected pick-up date.
+                            Let op! <br />
+                            Ma/di/wo besteld vóór 24:00 uur: afhalen 18:00 uur de dag erna. <br />
+                            Vr/za/zo besteld vóór 12:00 uur: afhalen 18:00 uur op dezelfde dag
+
                         </p>
                     </Col>
 
@@ -42,9 +45,9 @@ function HowItWorks() {
                         <div className="step-icon-wrapper">
                             <FaStore size={45} className="step-icon" />
                         </div>
-                        <h4 className="step-title">3. Enjoy Your Pick-Up</h4>
+                        <h4 className="step-title">3. Afhalen</h4>
                         <p className="step-description">
-                            Your fresh, delicious meal will be ready for you to collect at our designated address on your chosen day.
+                            Uw verse, heerlijke maaltijd staat op de door u gekozen dag voor u klaar om af te halen.
                         </p>
                     </Col>
                 </Row>

@@ -19,10 +19,13 @@ function AboutUs() {
               <h2 className="about-us-title">A Tradition of Authentic Persian Cuisine</h2>
               <div className="about-us-underline"></div>
               <p>
-                Welcome to Nardoen, where culinary heritage meets modern elegance. Our journey began with a simple passion: to share the rich, authentic flavors of Persian cuisine with our community. Each dish is a celebration of centuries-old recipes passed down through generations, crafted with the freshest ingredients and a touch of love.
-              </p>
-              <p>
-                From the aromatic saffron-infused rice to the slow-cooked, savory stews, our menu is a testament to the vibrant and diverse culture of Iran. We believe that food is more than just sustenance—it's an experience that brings people together.
+                Welkom bij Nardoen, waar culinaire traditie samenkomt met moderne elegantie. <br />
+                Ons verhaal begon met een eenvoudige passie: de rijke, authentieke smaken van de Perzische keuken delen met onze gemeenschap. <br />
+                Elk gerecht is een viering van eeuwenoude recepten die van generatie op generatie zijn doorgegeven, bereid met de verste ingrediënten en een vleugje liefde. <br />
+                Van het aromatische, met saffraan geurende rijst tot de langzaam gegaarde,
+                smaakvolle stoofschotels, ons menu is een eerbetoon aan de levendige en diverse cultuur van Iran. <br />
+                Wij geloven dat eten meer is dan voeding alleen; het is een ervaring die mensen samenbrengt.
+
               </p>
             </div>
           </Col>

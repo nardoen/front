@@ -28,7 +28,10 @@ function ChefSection() {
                         <div className="title-underline mb-3"></div>
                         <p className="chef-intro-text mt-4">
                             <span className="chef-quote">“</span>
-                            Welcome to Nardoen! I'm <b>Marjan</b>, and it's my passion to bring you the authentic and comforting flavors of Persian cuisine. Every dish is crafted with love, using traditional recipes and the freshest ingredients, just like my grandmother taught me. I believe food is a celebration, and I'm thrilled to share a piece of my heritage with you through our kitchen.
+                            Ik ben Marjaneh, een gepassioneerde Iraanse vrouw die al 18 jaar in Nederland woont. <br /> 
+                            Koken is mijn passie en met mijn cateringservice breng ik de authentieke smaken van de Perzische keuken tot leven. <br /> 
+                            Met liefde en zorg bereid ik elke maaltijd, zodat u en uw gasten kunnen genieten van een onvergetelijke culinaire ervaring.  
+
                             <span className="chef-quote">”</span>
                         </p>
                         <Link to="/about"><Button className="chef-story-button">

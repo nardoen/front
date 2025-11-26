@@ -15,7 +15,7 @@ function MainContent() {
       <Container className="content-container d-flex flex-column justify-content-center align-items-center text-center text-white">
         <Row>
           <Col md={10} lg={8} className="mx-auto">
-            <h1 className="welcome-text mb-3">Welcome to</h1>
+            <h1 className="welcome-text mb-3">Welkom bij Nardoen Afhaalservice.</h1>
             
             <h2 className="company-name mb-4">
               <Typewriter
@@ -30,9 +30,11 @@ function MainContent() {
             </h2>
             
             <p className="description-text mb-5">
-              From hand-picking our own produce directly from Eastern Market, to making our own salad
-              dressing, Nardoen does everything the old world way. At Nardoen, we guarantee you will love our
-              excellent food, total service, and compact, we promise.
+              Ontdek de rijke smaken van de Perzische keuken!<br />
+              Vers bereid met authentieke kruiden en traditionele recepten.<br />
+              Bestel onze take-out voor een snelle, smaakvolle maaltijd of kies onze cateringservice voor onvergetelijke feesten en evenementen.<br />
+              Perzische gastvrijheid, rechtstreeks bij jou aan tafel.
+
             </p>
             
             <Link to="/contact"><Button variant="warning" size="lg" className="contact-us-button">
