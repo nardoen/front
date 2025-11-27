@@ -8,10 +8,13 @@ Create a `.env` file in the root directory:
 VITE_API_URL=http://localhost:8000
 ```
 
-For production, create a `.env.production` file:
+for test on server
 
-```env
-VITE_API_URL=https://your-production-domain.com
+VITE_API_URL=https://test.nardoen.nl
+
+
+for production  
+VITE_API_URL=https://nardoen.nl
 ```
 
 ### 2. Start Development Server
