@@ -38,7 +38,7 @@ function MainContent() {
             </p>
             
             <Link to="/contact"><Button variant="warning" size="lg" className="contact-us-button">
-              Contact Us
+              Neem Contact Op
             </Button></Link>
           </Col>
         </Row>

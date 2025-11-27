@@ -13,7 +13,7 @@ function ServicesSection() {
         title: "bruiloften",
         iconName: "weddings",
         text: "Voor uw bruiloft kunt u volledig op ons rekenen. Wij verzorgen een verfijnde Perzische catering die perfect past bij deze bijzondere dag. Met authentieke smaken, vers bereide gerechten en een presentatie die stijl en gastvrijheid uitstraalt, maken wij uw huwelijksfeest extra onvergetelijk. Laat ons de culinaire beleving creëren, zodat u zorgeloos kunt genieten van elke magische moment.",
-        buttonText: "Wedding Menus",
+        buttonText: "Bruilofts Menu's",
         buttonLink: "#menus",
         imageUrl: simplePersianEvent, // Using the new simple Persian event image
         alignRight: true, // Text card on Left, Image to the right
@@ -24,7 +24,7 @@ function ServicesSection() {
         title: "Eventementen",
         iconName: "social",
         text: "Ook voor al uw evenementen kunt u bij ons terecht. Of het nu gaat om een verjaardag, bruiloft, bedrijfsfeest of een intiem samenzijn, wij verzorgen met plezier een Perzische catering die volledig aansluit bij uw wensen.\n\nOnze gerechten worden vers bereid met authentieke kruiden en traditionele recepten, zodat u en uw gasten kunnen genieten van onvergetelijke smaken. Laat ons de culinaire zorg uit handen nemen, zodat u onbezorgd kunt genieten van uw evenement.",
-        buttonText: "Social Events",
+        buttonText: "Evenementen",
         buttonLink: "#events",
         imageUrl: zereshkPolo, // Using the new Zereshk Polo image
         alignRight: false, // Text card on Right, Image to the left

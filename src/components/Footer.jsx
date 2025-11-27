@@ -8,7 +8,7 @@ import '../assets/css/Footer.css';
 function Footer() {
     const [footerInfo, setFooterInfo] = useState({
         email: 'info@nardoen.nl',
-        order_deadline: '24 hours before delivery',
+        order_deadline: '24 uur voor bezorging',
         address: 'Kastanjelaan 275, 3316GZ Dordrecht',
         phone_number: '0639222222',
         pickup_hours: '2-6',
