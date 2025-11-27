@@ -15,7 +15,7 @@ function MainContent() {
       <Container className="content-container d-flex flex-column justify-content-center align-items-center text-center text-white">
         <Row>
           <Col md={10} lg={8} className="mx-auto">
-            <h1 className="welcome-text mb-3">Welkom bij Nardoen Afhaalservice.</h1>
+            <h1 className="welcome-text mb-3">Welkom bij Nardoen Afhaalservice</h1>
             
             <h2 className="company-name mb-4">
               <Typewriter

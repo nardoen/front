@@ -14,8 +14,7 @@ function MenuPage() {
             <Container>
                 <Row className="text-center mb-5">
                     <Col>
-                        <h1 className="menu-main-title">Dinerkaart van vandaag</h1>
-                        <p className="menu-subtitle">Bestel vóór 12:00 uur voor afhalen de volgende dag.</p>
+                        <h1 className="menu-main-title">Menu van vandaag</h1>
                         <div className="title-underline mx-auto"></div>
                     </Col>
                 </Row>

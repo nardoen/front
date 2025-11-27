@@ -20,7 +20,7 @@ function ServiceBlock({ title, text, buttonText, buttonLink, imageUrl, alignRigh
                         <h3 className="card-title">{title}</h3>
                         <p className="card-text">{text}</p>
                         <Link to="/menu"><Button variant="outline-primary" className="service-button">
-                            {buttonText}
+                            ONS MENU
                         </Button></Link>
                     </div>
                     <div 
@@ -41,7 +41,7 @@ function ServiceBlock({ title, text, buttonText, buttonLink, imageUrl, alignRigh
                         <h3 className="card-title">{title}</h3>
                         <p className="card-text">{text}</p>
                         <Link to="/menu"><Button variant="outline-primary" className="service-button">
-                            {buttonText}
+                            ONS MENU
                         </Button></Link>
                     </div>
                 </>

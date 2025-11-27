@@ -9,7 +9,7 @@ function HowItWorks() {
             <Container>
                 <Row>
                     <Col xs={12} className="text-center mb-5">
-                        <h2 className="how-it-works-title">Hoe onze pre-order werkt</h2>
+                        <h2 className="how-it-works-title">Zo kunt u bij ons bestellen</h2>
                         <div className="title-underline"></div>
                     </Col>
                 </Row>

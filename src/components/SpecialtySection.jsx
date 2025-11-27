@@ -10,8 +10,7 @@ function SpecialtySection() {
           <Col md={10} className="text-center">
             {/* The main heading text */}
             <h2 className="specialty-heading">
-              Wij Zijn Gespecialiseerd in Intiem <br />
-              Catering
+             Gespecialiseerd in culinaire belevingen van topniveau
             </h2>
             {/* The small divider/graphic */}
             <div className="specialty-divider"></div>

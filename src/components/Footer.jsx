@@ -87,7 +87,7 @@ function Footer() {
 
                     {/* Column 3: Map & Address */}
                     <Col xs={12} md={4} className="footer-col footer-map mt-4 mt-md-0">
-                        <h5 className="footer-heading">Vind Ons</h5>
+                        <h5 className="footer-heading">Ons adres</h5>
                         <p className="address-text">
                             <FaMapMarkerAlt className="contact-icon map-icon me-2" />
                             {footerInfo.address}

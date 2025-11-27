@@ -246,7 +246,7 @@ const CartModal = () => {
                             })
                           }
                         >
-                          In mandje
+                          Bestellen
                         </button>
                       </div>
                     ))}
@@ -268,8 +268,8 @@ const CartModal = () => {
                     display: 'block',
                   }}
                 >
-                  Bezorgdatum:
-                </label>
+                  Afhaaldatum (om 18:00 uur)
+                </label>cx
                 <DatePicker
                   key={isCartOpen}
                   selected={deliveryDate || getMinDate()}

@@ -14,8 +14,8 @@ function MenuPage() {
       <Header />
       <section className="menu-page-hero">
         <img src={halalLogo} alt="Halal Logo" className="menu-page-halal-logo" />
-        <h1 className="menu-page-title">Ontdek Ons Perzisch Menu</h1>
-        <p className="menu-page-subtitle">Authentieke smaken, verse ingrediënten en dagelijkse chef-specials. Bestel vóór 12:00 uur voor afhaling de volgende dag!</p>
+        <h1 className="menu-page-title">Ontdek ons perzisch menu</h1>
+        <p className="menu-page-subtitle">Authentieke smaken, verse ingrediënten en dagelijkse chef-specials.</p>
         <div className="menu-page-underline"></div>
       </section>
       <div className="menu-page-content">

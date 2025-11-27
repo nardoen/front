@@ -92,14 +92,13 @@ function ContactUs() {
     <section className="contact-us-section">
       <Container>
         <div className="text-center mb-5">
-          <h5 className="contact-us-subtitle">Neem Contact Op</h5>
-          <h2 className="contact-us-title">Contacteer Ons</h2>
+          <h2 className="contact-us-title">Contacteer ons</h2>
           <div className="contact-us-underline"></div>
         </div>
         <Row>
           <Col lg={6} className="mb-5 mb-lg-0">
             <div className="contact-form-wrapper">
-              <h3 className="form-title">Stuur Ons Een Bericht</h3>
+              <h3 className="form-title">Stuur Ons een bericht</h3>
               
               {success && <Alert variant="success" className="mb-4">{success}</Alert>}
               {error && <Alert variant="danger" className="mb-4">{error}</Alert>}
@@ -159,7 +158,7 @@ function ContactUs() {
           </Col>
           <Col lg={6}>
             <div className="contact-info-wrapper">
-              <h3 className="info-title">Onze Contactgegevens</h3>
+              <h3 className="info-title">Onze contactgegevens</h3>
               <p className="info-text">
                 Heeft u een vraag of wilt u vooraf bestellen? Neem gerust contact met ons op. We helpen u graag!
               </p>
