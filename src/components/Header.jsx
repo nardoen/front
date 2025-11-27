@@ -32,7 +32,6 @@ function Header() {
             style={{ borderRadius: '0', border: 'none' }}
           >
             <div className="flex-grow-1">
-              <strong>We zijn tijdelijk gesloten</strong>
               {offDayInfo.offDays.map((offDay, index) => (
                 <div key={index} className="mt-2">
                   <div>Vanwege drukte accepteren we helaas geen nieuwe bestellingen van {formatDate(offDay.start_date)} t/m {formatDate(offDay.end_date)}.</div>

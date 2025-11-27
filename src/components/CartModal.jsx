@@ -149,6 +149,7 @@ const CartModal = () => {
       // Now start Mollie payment for guest
       try {
         const response = await startPayment({
+          name: name,
           email: email,
           cart: cartItems,
           total: cartTotal,

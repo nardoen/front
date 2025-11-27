@@ -20,7 +20,7 @@ function PaymentReturn() {
         const data = response.data;
 
         setPaymentDetails({
-          id: data.payment_id,
+          id: data.order_id,
           status: data.status,
           amount: data.amount,
           message: data.message,
@@ -100,7 +100,7 @@ function PaymentReturn() {
                 <div className="payment-details">
                   {paymentDetails.id && (
                     <Row className="mb-3">
-                      <Col xs={6} className="detail-label">Betalings-ID:</Col>
+                      <Col xs={6} className="detail-label">Bestelling Nummer:</Col>
                       <Col xs={6} className="detail-value">
                         <code>{paymentDetails.id}</code>
                       </Col>
