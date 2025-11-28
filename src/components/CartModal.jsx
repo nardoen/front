@@ -18,11 +18,7 @@ const CartModal = () => {
   const { menuItems, loading: itemsLoading, error: itemsError } = useItems();
   
   // Set default delivery date to tomorrow if not already set when cart opens
-  React.useEffect(() => {
-    if (isCartOpen && !deliveryDate) {
-      updateOrderDeliveryDate(getMinDate());
-    }
-  }, [isCartOpen, deliveryDate, updateOrderDeliveryDate, getMinDate]);
+  // Removed auto-setting to let user choose manually
   
   // Add useEffect to dynamically update off-day dates when the modal is toggled
   React.useEffect(() => {
@@ -271,7 +267,7 @@ const CartModal = () => {
                 </label>
                 <DatePicker
                   key={isCartOpen}
-                  selected={deliveryDate || getMinDate()}
+                  selected={deliveryDate}
                   onChange={updateOrderDeliveryDate}
                   minDate={getMinDate()}
                   excludeDates={getOffDayDates()}
