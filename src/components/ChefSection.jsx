@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import chefImage from '../assets/images/chef.avif'; // 🛑 Make sure you have a chef.jpg image in src/assets/images
+import chefImage from '../assets/images/chef-section.jpg'; // 🛑 Make sure you have a chef.jpg image in src/assets/images
 import '../assets/css/ChefSection.css'; 
 import { Link } from 'react-router-dom';
 
