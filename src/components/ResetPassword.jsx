@@ -17,12 +17,31 @@ function ResetPassword() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
+
+  const validateFields = (fields) => {
+    const errors = {};
+    if (!fields.newPassword) {
+      errors.newPassword = 'Nieuw wachtwoord is verplicht.';
+    } else if (fields.newPassword.length < 6) {
+      errors.newPassword = 'Wachtwoord moet minimaal 6 tekens lang zijn.';
+    }
+    if (!fields.confirmPassword) {
+      errors.confirmPassword = 'Bevestiging wachtwoord is verplicht.';
+    } else if (fields.newPassword !== fields.confirmPassword) {
+      errors.confirmPassword = 'Wachtwoorden komen niet overeen.';
+    }
+    return errors;
+  };
 
   const handleChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+    const { name, value } = e.target;
+    setFormData(prev => {
+      const updated = { ...prev, [name]: value };
+      setFieldErrors(validateFields(updated));
+      return updated;
+    });
+    setError('');
   };
 
   const handleSubmit = async (e) => {
@@ -30,14 +49,8 @@ function ResetPassword() {
     setError('');
     setSuccess('');
 
-    // Validation
-    if (formData.newPassword !== formData.confirmPassword) {
-      setError('Wachtwoorden komen niet overeen.');
-      return;
-    }
-
-    if (formData.newPassword.length < 8) {
-      setError('Wachtwoord moet minimaal 8 tekens lang zijn.');
+    if (Object.keys(fieldErrors).length > 0) {
+      setError('Corrigeer de fouten in het formulier.');
       return;
     }
 
@@ -92,35 +105,44 @@ function ResetPassword() {
         Voer hieronder uw nieuwe wachtwoord in.
       </p>
       
-      {error && <Alert variant="danger">{error}</Alert>}
+      {error && (
+        <div style={{ background: '#ffe6e6', color: '#b30000', border: '1px solid #ffb3b3', borderRadius: '8px', padding: '0.75rem', marginBottom: '1rem', textAlign: 'left', fontWeight: '600', whiteSpace: 'pre-line' }}>
+          {error.split('\n').map((err, idx) => (
+            <div key={idx}>• {err}</div>
+          ))}
+        </div>
+      )}
       
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="newPassword">
-          <Form.Label>Nieuw wachtwoord</Form.Label>
+          <Form.Label>Nieuw wachtwoord <span style={{ color: '#ff5722', fontWeight: '400', fontSize: '0.95em' }}>*</span></Form.Label>
           <Form.Control
             type="password"
             name="newPassword"
             placeholder="Voer nieuw wachtwoord in"
             value={formData.newPassword}
             onChange={handleChange}
-            required
-            minLength="8"
+            isInvalid={!!fieldErrors.newPassword}
+            minLength="6"
           />
-          <Form.Text className="text-muted">
-            Wachtwoord moet minimaal 8 tekens lang zijn.
-          </Form.Text>
+          <Form.Control.Feedback type="invalid">
+            {fieldErrors.newPassword}
+          </Form.Control.Feedback>
         </Form.Group>
         
         <Form.Group className="mb-3" controlId="confirmPassword">
-          <Form.Label>Bevestig nieuw wachtwoord</Form.Label>
+          <Form.Label>Bevestig nieuw wachtwoord <span style={{ color: '#ff5722', fontWeight: '400', fontSize: '0.95em' }}>*</span></Form.Label>
           <Form.Control
             type="password"
             name="confirmPassword"
             placeholder="Bevestig nieuw wachtwoord"
             value={formData.confirmPassword}
             onChange={handleChange}
-            required
+            isInvalid={!!fieldErrors.confirmPassword}
           />
+          <Form.Control.Feedback type="invalid">
+            {fieldErrors.confirmPassword}
+          </Form.Control.Feedback>
         </Form.Group>
         
         <Button 

@@ -115,7 +115,7 @@ function Header() {
             {isLoggedIn ? (
               <>
                 <Navbar.Text className="text-white me-3">
-                  Hallo, {user?.first_name || 'Gebruiker'}
+                  Hallo, {user?.first_name || user?.last_name || 'Gebruiker'}
                 </Navbar.Text>
                 <Button variant="outline-light" className="ms-lg-3 me-2 nav-button" onClick={logout}>
                   Uitloggen

@@ -5,7 +5,7 @@ import authAxios from '../api/authAxios';
 import '../assets/css/Loginregistration.css';
 
 // Removed duplicate function definition
-function Login({ onAuthSuccess, onSwitchToRegister, loginLoading, onLoginStart, onLoginEnd }) {
+function Login({ onAuthSuccess, onSwitchToRegister, loginLoading, onLoginStart, onLoginEnd, onForgotPassword }) {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -81,7 +81,7 @@ function Login({ onAuthSuccess, onSwitchToRegister, loginLoading, onLoginStart, 
           <Button 
             variant="link" 
             className="p-0 forgot-password-link" 
-            onClick={() => navigate('/forgot-password')}
+            onClick={onForgotPassword || (() => navigate('/forgot-password'))}
           >
             Wachtwoord vergeten?
           </Button>

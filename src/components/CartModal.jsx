@@ -11,12 +11,14 @@ import { FaTrashAlt } from 'react-icons/fa';
 import Login from './Login';
 import authAxios from '../api/authAxios';
 import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
 const CartModal = () => {
   const { isCartOpen, toggleCart, cartItems, updateQuantity, removeFromCart, deliveryDate, updateOrderDeliveryDate, getMinDate, cartTotal, addToCart } = useCart();
   const { isLoggedIn, login } = useAuth();
   const { isOffDay, getOffDayDates } = useOffDay();
   const { menuItems, loading: itemsLoading, error: itemsError } = useItems();
+  const navigate = useNavigate();
   
   // Set default delivery date to tomorrow if not already set when cart opens
   // Removed auto-setting to let user choose manually
@@ -334,6 +336,7 @@ const CartModal = () => {
                   loginLoading={loginLoading}
                   onLoginStart={() => setLoginLoading(true)}
                   onLoginEnd={() => setLoginLoading(false)}
+                  onForgotPassword={() => { setShowAuthModal(false); toggleCart(); navigate('/forgot-password'); }}
                 />
                 <div style={{ textAlign: 'center', marginTop: '1rem' }}>
                   <span style={{ color: '#888' }}>of</span>
