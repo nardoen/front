@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Login from '../components/Login';
 import Registration from '../components/Registration';
@@ -13,6 +13,9 @@ function LoginPage() {
     login(user); // Update the global state
     navigate('/'); // Redirect to home page
   };
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
   return (
     <div>
