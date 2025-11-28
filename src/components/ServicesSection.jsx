@@ -4,8 +4,8 @@ import ServiceBlock from './ServiceBlock.jsx';
 import '../assets/css/ServicesSection.css';
 
 // Import images (ensure these paths match your file structure)
-import simplePersianEvent from '../assets/images/event-nardoen.png'; // The simpler event image
-import zereshkPolo from '../assets/images/zereshk-polo.png'; // The Zereshk Polo image
+import simplePersianEvent from '../assets/images/event-nardoen.avif'; // The simpler event image
+import zereshkPolo from '../assets/images/zereshk-polo.avif'; // The Zereshk Polo image
 
 function ServicesSection() {
     // --- Data for the first block (Weddings) ---

@@ -42,8 +42,6 @@ export const ItemProvider = ({ children }) => {
     }
     fetchMenu();
   }, []);
-  console.log(menuItems)
-
   const value = {
     menuItems,
     loading,

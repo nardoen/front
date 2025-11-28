@@ -4,6 +4,7 @@ import { FaShoppingCart, FaTimes } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useOffDay } from '../context/OffDayContext';
+import { useState, useEffect } from 'react';
 import '../assets/css/Header.css';
 
 function Header() {
@@ -11,10 +12,21 @@ function Header() {
   const { isLoggedIn, logout, user } = useAuth();
   const { offDayInfo, showOffDayNotification, handleCloseOffDayNotification, formatDate } = useOffDay();
 
+  const [hasShownNotification, setHasShownNotification] = useState(() => sessionStorage.getItem('offDayNotificationShown') === 'true');
+  const [shouldShow, setShouldShow] = useState(false);
+
+  useEffect(() => {
+    if (showOffDayNotification && !hasShownNotification) {
+      setShouldShow(true);
+      setHasShownNotification(true);
+      sessionStorage.setItem('offDayNotificationShown', 'true');
+    }
+  }, [showOffDayNotification, hasShownNotification]);
+
   return (
     <>
       {/* Off-day notification dropdown */}
-      {showOffDayNotification && offDayInfo && (
+      {shouldShow && offDayInfo && (
         <div style={{
           position: 'fixed',
           top: '76px', // Just below the navbar
@@ -42,7 +54,7 @@ function Header() {
             <Button
               variant="link"
               className="p-0 text-danger"
-              onClick={handleCloseOffDayNotification}
+              onClick={() => { setShouldShow(false); handleCloseOffDayNotification(); }}
               style={{ fontSize: '1.2rem', textDecoration: 'none' }}
             >
               <FaTimes />

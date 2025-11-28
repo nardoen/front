@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import '../assets/css/MainContent.css'; 
-import backgroundImage from '../assets/images/background-image.jpg';
+import backgroundImage from '../assets/images/background-image.avif';
 import { Typewriter } from 'react-simple-typewriter';
 import { Link } from 'react-router-dom';
 

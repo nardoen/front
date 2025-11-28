@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import Login from '../components/Login';
 import Registration from '../components/Registration';
 import { useAuth } from '../context/AuthContext';
@@ -18,7 +16,6 @@ function LoginPage() {
 
   return (
     <div>
-      <Header />
       <div className="login-page-bg">
         {showLogin ? (
           <Login onAuthSuccess={handleAuthSuccess} onSwitchToRegister={() => setShowLogin(false)} />
@@ -26,7 +23,6 @@ function LoginPage() {
           <Registration onSwitchToLogin={() => setShowLogin(true)} onAuthSuccess={handleAuthSuccess} />
         )}
       </div>
-      <Footer />
     </div>
   );
 }

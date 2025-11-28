@@ -28,7 +28,6 @@ const CartModal = () => {
   React.useEffect(() => {
     if (isCartOpen) {
       getOffDayDates(); 
-      console.log(getOffDayDates())// Ensure the latest off-day dates are fetched
     }
   }, [isCartOpen, getOffDayDates]);
 

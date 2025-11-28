@@ -8,12 +8,15 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import CartModal from './components/CartModal';
 import CookieConsent from './components/CookieConsent';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import './App.css';
 import PaymentReturn from './pages/PaymentReturn';
 
 function App() {
   return (
     <>
+      <Header />
       <CartModal />
       <CookieConsent />
       <Routes>
@@ -26,6 +29,7 @@ function App() {
         <Route path="/reset-password/:uid/:token" element={<ResetPasswordPage />} />
         <Route path="/payment/return/" element={<PaymentReturn />} />
       </Routes>
+      <Footer />
     </>
   );
 }
