@@ -18,7 +18,7 @@ const MenuItemCard = React.memo(({ dish }) => {
                     <div className="d-flex justify-content-between align-items-center">
                         <span className="menu-item-price">€{!isNaN(priceNum) ? priceNum.toFixed(2) : dish.price}</span>
                         <Button className="add-to-basket-btn" onClick={() => addToCart(dish)}>
-                            In mandje
+                            Bestellen
                         </Button>
                     </div>
                 </div>

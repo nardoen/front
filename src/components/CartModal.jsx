@@ -220,7 +220,7 @@ const CartModal = () => {
             {/* Extras Section */}
             {cartItems.length > 0 && (
               <div className="cart-extras-section">
-                <h4>Een drankje of extra toevoegen?</h4>
+                <h4>Een drankje toevoegen?</h4>
                 {itemsLoading ? (
                   <div>Extra's laden...</div>
                 ) : itemsError ? (
@@ -274,9 +274,9 @@ const CartModal = () => {
                   onChange={updateOrderDeliveryDate}
                   minDate={getMinDate()}
                   excludeDates={getOffDayDates()}
-                  dateFormat="MMMM d, yyyy"
+                  dateFormat="d MMMM yyyy"
                   className="form-control beautiful-datepicker"
-                  placeholderText="Selecteer een bezorgdatum (verplicht)"
+                  placeholderText="Selecteer een afhaaldatum (verplicht)"
                   openToDate={getMinDate()}
                   filterDate={(date) => !isOffDay(date)}
                   required
