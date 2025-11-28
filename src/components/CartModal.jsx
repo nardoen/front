@@ -268,7 +268,7 @@ const CartModal = () => {
                   }}
                 >
                   Afhaaldatum (om 18:00 uur)
-                </label>cx
+                </label>
                 <DatePicker
                   key={isCartOpen}
                   selected={deliveryDate || getMinDate()}
