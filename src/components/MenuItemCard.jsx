@@ -3,14 +3,14 @@ import { Card, Button } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
 import '../assets/css/Menu.css';
 
-function MenuItemCard({ dish }) {
+const MenuItemCard = React.memo(({ dish }) => {
     const { addToCart } = useCart();
 
     // Ensure price is a number for formatting
     const priceNum = Number(dish.price);
     return (
         <Card className="menu-item-card h-100">
-            <Card.Img variant="top" src={dish.imageUrl} alt={dish.name} className="menu-item-image" />
+            <Card.Img variant="top" src={dish.imageUrl} alt={dish.name} className="menu-item-image" loading="lazy" />
             <Card.Body className="d-flex flex-column">
                 <Card.Title className="menu-item-title">{dish.name}</Card.Title>
                 <div className="menu-item-ingredients" dangerouslySetInnerHTML={{ __html: dish.description }} />
@@ -25,6 +25,6 @@ function MenuItemCard({ dish }) {
             </Card.Body>
         </Card>
     );
-}
+});
 
 export default MenuItemCard;
