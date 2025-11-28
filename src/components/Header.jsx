@@ -18,8 +18,6 @@ function Header() {
   useEffect(() => {
     if (showOffDayNotification && !hasShownNotification) {
       setShouldShow(true);
-      setHasShownNotification(true);
-      sessionStorage.setItem('offDayNotificationShown', 'true');
     }
   }, [showOffDayNotification, hasShownNotification]);
 
@@ -54,7 +52,7 @@ function Header() {
             <Button
               variant="link"
               className="p-0 text-danger"
-              onClick={() => { setShouldShow(false); handleCloseOffDayNotification(); }}
+              onClick={() => { setShouldShow(false); setHasShownNotification(true); sessionStorage.setItem('offDayNotificationShown', 'true'); handleCloseOffDayNotification(); }}
               style={{ fontSize: '1.2rem', textDecoration: 'none' }}
             >
               <FaTimes />
