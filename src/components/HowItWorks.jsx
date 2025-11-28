@@ -5,7 +5,7 @@ import '../assets/css/HowItWorks.css';
 
 function HowItWorks() {
     return (
-        <section className="how-it-works-section">
+        <section id="howitworks" className="how-it-works-section">
             <Container>
                 <Row>
                     <Col xs={12} className="text-center mb-5">

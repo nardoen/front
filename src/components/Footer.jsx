@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import authAxios from '../api/authAxios';
@@ -17,6 +17,7 @@ function Footer() {
         mapEmbedUrl: '' // Added mapEmbedUrl to the default state
     });
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchFooterInfo = async () => {
@@ -48,9 +49,25 @@ function Footer() {
                     <Col xs={12} md={4} className="footer-col footer-nav">
                         <h5 className="footer-heading">Nardoen</h5>
                         <ul className="footer-links">
-                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Home</Link></li>
                             <li><Link to="/menu">Volledige Menu</Link></li>
-                            <li><Link to="/#howitworks">Hoe Het Werkt</Link></li>
+                            <li><Link to="/#howitworks" onClick={(e) => {
+                                e.preventDefault();
+                                if (window.location.pathname === '/') {
+                                    const element = document.getElementById('howitworks');
+                                    if (element) {
+                                        element.scrollIntoView({ behavior: 'smooth' });
+                                    }
+                                } else {
+                                    navigate('/');
+                                    setTimeout(() => {
+                                        const element = document.getElementById('howitworks');
+                                        if (element) {
+                                            element.scrollIntoView({ behavior: 'smooth' });
+                                        }
+                                    }, 100);
+                                }
+                            }}>Hoe Het Werkt</Link></li>
                             <li><Link to="/about">Over Ons</Link></li>
                             <li><Link to="/contact">Contact</Link></li>
                         </ul>
