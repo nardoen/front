@@ -10,6 +10,7 @@ import '../assets/css/DatePicker.css';
 import { FaTrashAlt } from 'react-icons/fa';
 import Login from './Login';
 import authAxios from '../api/authAxios';
+import { format } from 'date-fns';
 
 const CartModal = () => {
   const { isCartOpen, toggleCart, cartItems, updateQuantity, removeFromCart, deliveryDate, updateOrderDeliveryDate, getMinDate, cartTotal, addToCart } = useCart();
@@ -44,8 +45,8 @@ const CartModal = () => {
 
   // Helper function to handle payment start requests
   const startPayment = async (data) => {
-    const deliveryDateISO = deliveryDate.toISOString();
-    const payload = { ...data, deliveryDate: deliveryDateISO };
+    const deliveryDateString = format(deliveryDate, 'yyyy-MM-dd');
+    const payload = { ...data, deliveryDate: deliveryDateString };
     try {
       return await authAxios.post('/api/payment/start/', payload);
     } catch (error) {

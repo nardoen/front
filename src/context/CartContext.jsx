@@ -28,8 +28,7 @@ export const CartProvider = ({ children }) => {
     try {
       const localData = localStorage.getItem('deliveryDate');
       if (localData && localData !== 'null') {
-        const parsed = JSON.parse(localData);
-        const date = new Date(parsed);
+        const date = new Date(localData);
         if (!isNaN(date.getTime())) {
           return date;
         }
@@ -48,7 +47,7 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   useEffect(() => {
-    localStorage.setItem('deliveryDate', JSON.stringify(deliveryDate));
+    localStorage.setItem('deliveryDate', deliveryDate ? deliveryDate.toISOString().split('T')[0] : 'null');
   }, [deliveryDate]);
 
   const addToCart = (item) => {
