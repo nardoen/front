@@ -7,7 +7,7 @@ import { useOffDay } from '../context/OffDayContext';
 import { useItems } from '../context/ItemContext';
 import '../assets/css/CartModal.css';
 import '../assets/css/DatePicker.css'; 
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaTrashAlt, FaTimes } from 'react-icons/fa';
 import Login from './Login';
 import authAxios from '../api/authAxios';
 import { format } from 'date-fns';
@@ -184,7 +184,7 @@ const CartModal = () => {
         <div className="cart-modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="cart-modal-header">
           <h2>Uw Winkelwagen</h2>
-          <button className="cart-close-button" onClick={toggleCart}>&times;</button>
+          <button className="cart-close-button" onClick={toggleCart}><FaTimes /></button>
         </div>
         
         {cartItems.length === 0 ? (
@@ -309,7 +309,7 @@ const CartModal = () => {
                 setCheckoutError('');
               }}
             >
-              &times;
+              <FaTimes />
             </button>
             {/* Display checkoutError prominently in a styled box at the top of the modal */}
             {checkoutError && (
