@@ -165,7 +165,9 @@
     flex-direction: column;
     margin-bottom: 0.75rem;
 }
-
+.card-text{
+    text-align: left;
+}
 .card-dish-text {
     font-family: 'Open Sans', 'Segoe UI', Arial, sans-serif;
     font-size: 0.88rem;
