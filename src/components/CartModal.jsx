@@ -300,9 +300,15 @@ const CartModal = () => {
       {/* Auth Modal */}
       {showAuthModal && (
         <div className="cart-auth-modal-overlay">
-          <div className="cart-auth-modal-content">
+          <div className="cart-auth-modal-content" style={{ position: 'relative' }}>
             <button
               className="cart-close-button"
+              style={{
+                position: 'absolute',
+                top: '10px',
+                right: '10px',
+                zIndex: 10,
+              }}
               onClick={() => {
                 setShowAuthModal(false);
                 setShowGuestForm(false);
