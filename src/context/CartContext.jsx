@@ -10,8 +10,23 @@ export const useCart = () => {
 };
 
 const getMinDate = () => {
-  // Always allow tomorrow as the earliest delivery date
-  return addDays(new Date(), 1);
+  const now = new Date();
+  const amsterdamTime = new Date(now.toLocaleString("en-US", {timeZone: "Europe/Amsterdam"}));
+  const day = amsterdamTime.getDay(); // 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+  const hour = amsterdamTime.getHours();
+  let minDate = new Date(amsterdamTime);
+
+  if (day >= 1 && day <= 4) { // Mon-Thu: always next day
+    minDate = addDays(minDate, 1);
+  } else { // Fri-Sun: if before 12:00, same day; else next day
+    if (hour >= 12) {
+      minDate = addDays(minDate, 1);
+    }
+  }
+
+  // Set to start of day
+  minDate.setHours(0, 0, 0, 0);
+  return minDate;
 };
 
 export const CartProvider = ({ children }) => {
