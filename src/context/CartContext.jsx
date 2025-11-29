@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { addDays } from 'date-fns';
 import authAxios from '../api/authAxios';
+import { toast } from 'react-toastify';
 
 const CartContext = createContext();
 
@@ -60,6 +61,7 @@ export const CartProvider = ({ children }) => {
       }
       return [...prevItems, { ...item, quantity: 1 }];
     });
+      toast.success(`${item.name} is toegevoegd aan de winkelwagen!`);
   };
 
   const removeFromCart = (itemId) => {

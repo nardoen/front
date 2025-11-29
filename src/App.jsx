@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import LandingPage from './pages/LandingPage';
 import MenuPage from './pages/MenuPage';
 import AboutUsPage from './pages/AboutUsPage';
@@ -30,6 +32,17 @@ function App() {
         <Route path="/payment/return/" element={<PaymentReturn />} />
       </Routes>
       <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 }
