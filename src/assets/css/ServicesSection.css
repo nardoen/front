@@ -164,4 +164,7 @@
         z-index: 3; 
         border: 1px solid #e0e0e0; /* Added back border for mobile */
     }
+    .service-block-wrapper.align-left {
+      margin-top: 80px;
+    }
 }
