@@ -21,7 +21,7 @@ function getCookie(name) {
 
 // Create an axios instance
 const authAxios = axios.create({
-  baseURL: API_URL,
+  baseURL: "",
   withCredentials: true, // To send cookies with cross-origin requests
 });
 
