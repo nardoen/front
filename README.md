@@ -2,55 +2,38 @@
 
 ### 1. Environment Setup
 
-Create a `.env` file in the root directory:
-
-```env
-VITE_API_URL=http://localhost:8000
-```
-
-for test on server
-
-VITE_API_URL=https://test.nardoen.nl
-
-
-for production  
-VITE_API_URL=https://nardoen.nl
+Ensure your development environment is properly configured. Install all dependencies using:
+```bash
+npm install
 ```
 
 ### 2. Start Development Server
 
+To start the development server, run:
 ```bash
 npm run dev
 ```
+The application will be available on the Vite development server.
 
-The application will be available at `http://localhost:5173`
+You can define a proxy in `vite.config.js` to point to your local Django server endpoint.
 
-
-## 🚀 Deployment
-
-### 3-Development
-
-1. Ensure Django backend is running on `http://localhost:8000`
-2. Run `npm run dev`
-3. Access the app at `http://localhost:5173`
-
-### 4-Production
+### 3. Production
 
 1. Build the application:
    ```bash
    npm run build
    ```
 
-2. The `dist/` folder contains the production build
+2. The `dist/` folder will contain the production build.
 
-3. Serve the `dist/` folder through your Django backend or web server
+3. Serve the `dist/` folder through your Django backend or any web server.
 
 ### Django Integration
 
-For Django integration, the build can be served as static files:
+To integrate with Django, serve the build as static files:
 
-1. Copy the `dist/` contents to your Django static folder
-2. Configure Django to serve the React app for non-API routes
-3. Set `VITE_API_URL` to your production domain or leave empty for relative URLs
+1. Copy the contents of the `dist/` folder to your Django static folder.
+2. Ensure Django is configured to serve static files correctly.
+
 
 
