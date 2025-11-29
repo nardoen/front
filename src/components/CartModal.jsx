@@ -199,7 +199,7 @@ const CartModal = () => {
                     <img src={item.imageUrl} alt={item.name} className="cart-item-image" />
                     <div className="cart-item-details">
                       <h4>{item.name}</h4>
-                      <p>${!isNaN(priceNum) ? priceNum.toFixed(2) : item.price}</p>
+                      <p>€{!isNaN(priceNum) ? priceNum.toFixed(2) : item.price}</p>
                     </div>
                     <div className="cart-item-actions">
                       <input
