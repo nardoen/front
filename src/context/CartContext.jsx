@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
-import { addDays } from 'date-fns';
+import { addDays, format, parse } from 'date-fns';
 import authAxios from '../api/authAxios';
 import { toast } from 'react-toastify';
 
@@ -12,7 +12,7 @@ export const useCart = () => {
 const getMinDate = () => {
   const now = new Date();
   const amsterdamTime = new Date(now.toLocaleString("en-US", {timeZone: "Europe/Amsterdam"}));
-  const day = amsterdamTime.getDay(); // 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+  const day = amsterdamTime.getDay()
   const hour = amsterdamTime.getHours();
   let minDate = new Date(amsterdamTime);
 
@@ -44,7 +44,7 @@ export const CartProvider = ({ children }) => {
     try {
       const localData = localStorage.getItem('deliveryDate');
       if (localData && localData !== 'null') {
-        const date = new Date(localData);
+        const date = parse(localData, 'yyyy-MM-dd', new Date());
         if (!isNaN(date.getTime())) {
           return date;
         }
@@ -63,7 +63,7 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   useEffect(() => {
-    localStorage.setItem('deliveryDate', deliveryDate ? deliveryDate.toISOString().split('T')[0] : 'null');
+    localStorage.setItem('deliveryDate', deliveryDate ? format(deliveryDate, 'yyyy-MM-dd') : 'null');
   }, [deliveryDate]);
 
   const addToCart = (item) => {
