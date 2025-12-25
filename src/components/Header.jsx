@@ -11,7 +11,7 @@ function Header() {
   const { toggleCart, cartCount } = useCart();
   const { isLoggedIn, logout, user } = useAuth();
   const { offDayInfo, showOffDayNotification, handleCloseOffDayNotification, formatDate } = useOffDay();
-
+  const [expanded, setExpanded] = useState(false);
   const [hasShownNotification, setHasShownNotification] = useState(() => sessionStorage.getItem('offDayNotificationShown') === 'true');
   const [shouldShow, setShouldShow] = useState(false);
 
@@ -21,6 +21,7 @@ function Header() {
     }
   }, [showOffDayNotification, hasShownNotification]);
 
+  const handleLinkClick = () => setExpanded(false);
   return (
     <>
       {/* Off-day notification dropdown */}
@@ -44,7 +45,7 @@ function Header() {
             <div className="flex-grow-1">
               {offDayInfo.offDays.map((offDay, index) => (
                 <div key={index} className="mt-2">
-                  <div>Vanwege drukte accepteren we helaas geen nieuwe bestellingen van {formatDate(offDay.start_date)} t/m {formatDate(offDay.end_date)}.</div>
+                  <div>{offDay.description}</div>                  
                   {index < offDayInfo.offDays.length - 1 && <hr className="my-2" />}
                 </div>
               ))}
@@ -61,10 +62,10 @@ function Header() {
         </div>
       )}
       
-      <Navbar expand="lg" className="nardoen-navbar" variant="dark" fixed="top">
+      <Navbar expanded={expanded} onToggle={(navExpanded) => setExpanded(navExpanded)} expand="lg" className="nardoen-navbar" variant="dark" fixed="top">
       {/* ... existing code ... */}
       <Container className="header-container">
-        <Navbar.Brand as={Link} to="/" className="nardoen-logo">
+        <Navbar.Brand as={Link} to="/" className="nardoen-logo" onClick={handleLinkClick}>
           <span
             style={{
               fontFamily: 'Playfair Display, serif',
@@ -95,16 +96,15 @@ function Header() {
 
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
           <Nav className="nardoen-nav-links nav-left">
-            <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/menu">Menu</Nav.Link>
-            <Nav.Link as={Link} to="/about">Over ons</Nav.Link>
+            <Nav.Link as={Link} to="/" onClick={handleLinkClick}>Home</Nav.Link>
+            <Nav.Link as={Link} to="/menu" onClick={handleLinkClick}>Menu</Nav.Link>
+            <Nav.Link as={Link} to="/about" onClick={handleLinkClick}>Over ons</Nav.Link>
+            <Nav.Link as={Link} to="/contact" onClick={handleLinkClick}>Contact</Nav.Link>            
           </Nav>
 
           <Nav className="nardoen-nav-links nav-right">
-            <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
-
             {/* Shopping cart for desktop - hidden on mobile */}
-            <Nav.Link onClick={toggleCart} className="shopping-cart-icon d-none d-lg-block">
+            <Nav.Link onClick={() => { toggleCart(); handleLinkClick(); }} className="shopping-cart-icon d-none d-lg-block">
               <FaShoppingCart size={20} />
               {cartCount > 0 && (
                 <Badge pill bg="danger" className="cart-badge">
@@ -117,12 +117,12 @@ function Header() {
                 <Navbar.Text className="text-white me-3">
                   Hallo, {user?.first_name || user?.last_name || 'Gebruiker'}
                 </Navbar.Text>
-                <Button variant="outline-light" className="ms-lg-3 me-2 nav-button" onClick={logout}>
+                <Button variant="outline-light" className="ms-lg-3 me-2 nav-button" onClick={() => { logout(); handleLinkClick(); }}>
                   Uitloggen
                 </Button>
               </>
             ) : (
-              <Button as={Link} to="/login" variant="outline-light" className="ms-lg-3 me-2 nav-button">
+              <Button as={Link} to="/login" variant="outline-light" className="ms-lg-3 me-2 nav-button" onClick={handleLinkClick}>
                 Inloggen / Registreren
               </Button>
             )}
