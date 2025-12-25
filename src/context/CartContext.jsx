@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
-import { addDays } from 'date-fns';
+import { addDays, format, parse } from 'date-fns';
 import authAxios from '../api/authAxios';
+import { toast } from 'react-toastify';
 
 const CartContext = createContext();
 
@@ -9,8 +10,23 @@ export const useCart = () => {
 };
 
 const getMinDate = () => {
-  // Always allow tomorrow as the earliest delivery date
-  return addDays(new Date(), 1);
+  const now = new Date();
+  const amsterdamTime = new Date(now.toLocaleString("en-US", {timeZone: "Europe/Amsterdam"}));
+  const day = amsterdamTime.getDay()
+  const hour = amsterdamTime.getHours();
+  let minDate = new Date(amsterdamTime);
+
+  if (day >= 1 && day <= 4) { // Mon-Thu: always next day
+    minDate = addDays(minDate, 1);
+  } else { // Fri-Sun: if before 12:00, same day; else next day
+    if (hour >= 12) {
+      minDate = addDays(minDate, 1);
+    }
+  }
+
+  // Set to start of day
+  minDate.setHours(0, 0, 0, 0);
+  return minDate;
 };
 
 export const CartProvider = ({ children }) => {
@@ -28,7 +44,7 @@ export const CartProvider = ({ children }) => {
     try {
       const localData = localStorage.getItem('deliveryDate');
       if (localData && localData !== 'null') {
-        const date = new Date(localData);
+        const date = parse(localData, 'yyyy-MM-dd', new Date());
         if (!isNaN(date.getTime())) {
           return date;
         }
@@ -47,7 +63,7 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   useEffect(() => {
-    localStorage.setItem('deliveryDate', deliveryDate ? deliveryDate.toISOString().split('T')[0] : 'null');
+    localStorage.setItem('deliveryDate', deliveryDate ? format(deliveryDate, 'yyyy-MM-dd') : 'null');
   }, [deliveryDate]);
 
   const addToCart = (item) => {
@@ -60,6 +76,7 @@ export const CartProvider = ({ children }) => {
       }
       return [...prevItems, { ...item, quantity: 1 }];
     });
+      toast.success(`${item.name} is toegevoegd aan de winkelwagen!`);
   };
 
   const removeFromCart = (itemId) => {

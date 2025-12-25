@@ -7,7 +7,7 @@ import { useOffDay } from '../context/OffDayContext';
 import { useItems } from '../context/ItemContext';
 import '../assets/css/CartModal.css';
 import '../assets/css/DatePicker.css'; 
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaTrashAlt, FaTimes } from 'react-icons/fa';
 import Login from './Login';
 import authAxios from '../api/authAxios';
 import { format } from 'date-fns';
@@ -184,7 +184,7 @@ const CartModal = () => {
         <div className="cart-modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="cart-modal-header">
           <h2>Uw Winkelwagen</h2>
-          <button className="cart-close-button" onClick={toggleCart}>&times;</button>
+          <button className="cart-close-button" onClick={toggleCart}><FaTimes /></button>
         </div>
         
         {cartItems.length === 0 ? (
@@ -199,7 +199,7 @@ const CartModal = () => {
                     <img src={item.imageUrl} alt={item.name} className="cart-item-image" />
                     <div className="cart-item-details">
                       <h4>{item.name}</h4>
-                      <p>${!isNaN(priceNum) ? priceNum.toFixed(2) : item.price}</p>
+                      <p>€{!isNaN(priceNum) ? priceNum.toFixed(2) : item.price}</p>
                     </div>
                     <div className="cart-item-actions">
                       <input
@@ -300,16 +300,22 @@ const CartModal = () => {
       {/* Auth Modal */}
       {showAuthModal && (
         <div className="cart-auth-modal-overlay">
-          <div className="cart-auth-modal-content">
+          <div className="cart-auth-modal-content" style={{ position: 'relative' }}>
             <button
               className="cart-close-button"
+              style={{
+                position: 'absolute',
+                top: '10px',
+                right: '10px',
+                zIndex: 10,
+              }}
               onClick={() => {
                 setShowAuthModal(false);
                 setShowGuestForm(false);
                 setCheckoutError('');
               }}
             >
-              &times;
+              <FaTimes />
             </button>
             {/* Display checkoutError prominently in a styled box at the top of the modal */}
             {checkoutError && (

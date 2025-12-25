@@ -34,8 +34,8 @@ function HowItWorks() {
                         <h4 className="step-title">2. Bestellen</h4>
                         <p className="step-description">
                             Let op! <br />
-                            Ma/di/wo besteld vóór 24:00 uur: afhalen 18:00 uur de dag erna. <br />
-                            Vr/za/zo besteld vóór 12:00 uur: afhalen 18:00 uur op dezelfde dag
+                            Ma-do besteld vóór 24:00 uur: afhalen 18:00 uur de dag erna. <br />
+                            Vr-zo besteld vóór 12:00 uur: afhalen 18:00 uur op dezelfde dag
 
                         </p>
                     </Col>

@@ -1,13 +1,11 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import authAxios from '../api/authAxios';
 
 const ItemContext = createContext();
 
 export const useItems = () => {
   return useContext(ItemContext);
 };
-
-const API_URL = import.meta.env.VITE_API_URL || '';
 
 export const ItemProvider = ({ children }) => {
   const [menuItems, setMenuItems] = useState({});
@@ -17,7 +15,7 @@ export const ItemProvider = ({ children }) => {
   useEffect(() => {
     async function fetchMenu() {
       try {
-        const res = await axios.get(`${API_URL}/api/items/`);
+        const res = await authAxios.get('/api/items/');
         const filteredItems = res.data.reduce((acc, item) => {
           if (!acc[item.type]) {
             acc[item.type] = [];
